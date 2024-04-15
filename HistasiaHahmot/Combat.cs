@@ -18,6 +18,7 @@ namespace QuestGame
     {
         static Random Rnd = new Random();
 
+        // ongelmana tarvii tuoda Characterin player olio mainistä.
         public static void Battle(Character player)
         {
             Console.Clear();
