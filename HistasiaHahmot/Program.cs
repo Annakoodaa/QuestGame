@@ -14,10 +14,29 @@ namespace QuestGame
         public string BadTrait { get; set; }
 
         // Combat Related
-        public int Health = 100;
+        int health = 100;
         public int Defense { get; set; }
         public int AttackBonus { get; set; }
         public int GatheringSkill { get; set; }
+
+        public int Health
+        {
+            get
+            {
+                return health;
+            }
+            set
+            {
+                if(value > 100)
+                {
+                    health = 100;
+                }
+                else
+                {
+                    health = value;
+                }
+            }
+        }
 
         public Character(string name, string goodTrait, string badTrait)
         {
@@ -77,8 +96,9 @@ namespace QuestGame
             var Quest = new Quest();
 
             
-            Console.WriteLine("paina nappia päästäksesi taisteluun." + player.Name);
+            Console.WriteLine("paina nappia päästäksesi taisteluun.");
             Console.ReadKey();
+
             Combat.Battle(player);
 
             Combat.Battle(player);
