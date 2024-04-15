@@ -47,7 +47,7 @@ namespace QuestGame
             {
                 Console.WriteLine("\nSitten valitaan tappamisen kohde!");
 
-                var kohdeVihollinen = new List<string> { "rottia", "mörköjä", "zombeja" };
+                var kohdeVihollinen = new List<string> { "rottia", "mörköjä", "zombeja", "rosvoja" };
                 var random2 = new Random();
                 int index2 = random2.Next(kohdeVihollinen.Count);
                 Console.WriteLine(kohdeVihollinen[index2]);
