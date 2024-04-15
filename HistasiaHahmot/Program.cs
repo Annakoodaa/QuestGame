@@ -14,6 +14,12 @@ namespace QuestGame
         public string GoodTrait { get; set; }
         public string BadTrait { get; set; }
 
+        // Combat Related
+        public int Health = 100;
+        public int Defense;
+        public int AttackBonus;
+        public int GatheringSkill;
+
         public Character(string name, string goodTrait, string badTrait)
         {
             Name = name;          
