@@ -8,6 +8,5 @@ namespace QuestGame
 {
     internal class TheGame
     {
-
     }
 }

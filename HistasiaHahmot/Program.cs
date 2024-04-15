@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace QuestGame
-{
-   
-    class Character
+{   
+    public class Character
     {
         public string Name { get; set; }
         public string GameCharacter { get; set; }
@@ -16,9 +15,9 @@ namespace QuestGame
 
         // Combat Related
         public int Health = 100;
-        public int Defense;
-        public int AttackBonus;
-        public int GatheringSkill;
+        public int Defense { get; set; }
+        public int AttackBonus { get; set; }
+        public int GatheringSkill { get; set; }
 
         public Character(string name, string goodTrait, string badTrait)
         {
@@ -48,7 +47,7 @@ namespace QuestGame
             return badTraits[random.Next(badTraits.Length)];
         }
 
-        static Character GenerateCharacter()
+        public static Character GenerateCharacter()
         {
             string[] names = {"Heimopäällikkö", "Sotilas", "Kyläläinen",  };
             string name = names[random.Next(names.Length)];
@@ -76,6 +75,13 @@ namespace QuestGame
             Console.WriteLine("***********************************\n");
 
             var Quest = new Quest();
+
+            
+            Console.WriteLine("paina nappia päästäksesi taisteluun." + player.Name);
+            Console.ReadKey();
+            Combat.Battle(player);
+
+            Combat.Battle(player);
 
             Console.ReadKey();
         }
