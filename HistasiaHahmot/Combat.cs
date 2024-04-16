@@ -9,11 +9,14 @@ namespace QuestGame
 {
     class Enemy
     {
+        // Fields.
         protected string _name;
         protected int _health;
         protected int _defense;
         protected int _attackBonus;
 
+
+        // Properties.
         public string Name
         {
             get { return _name; }
@@ -32,6 +35,7 @@ namespace QuestGame
             get { return _attackBonus; } 
         }
 
+        // Constructors.
         public Enemy(string name, int health, int defense, int attackbonus)
         {
             _name = name;
@@ -43,13 +47,21 @@ namespace QuestGame
 
     public class Combat
     {
+        // Enemy Types
+        static List<Enemy> enemies = new List<Enemy>() {
+                new Enemy("zombie",25,2,-1),
+                new Enemy("mörkö",50,0,2),
+                new Enemy("rotta",10,-2,0),
+                new Enemy("rosvo",40,2,2) };
+
+        // Random
         static Random Rnd = new Random();
 
         // ongelmana tarvii tuoda Characterin player olio mainistä.
         public static void Battle(Character player)
         {
             Console.Clear();
-            Enemy enemy = new Enemy("zombie",25,2,-1);
+            var enemy = enemies[1];
 
             // Combat
             while (true)
@@ -65,7 +77,8 @@ namespace QuestGame
                 int.TryParse(Console.ReadLine(), out int input);
 
                 Console.WriteLine("==========");
-                // Action Choice.
+                // Action Choices.
+                // Attack
                 if (input == 1)
                 {
                     int playerDamage = Rnd.Next(5, 10);
@@ -89,8 +102,13 @@ namespace QuestGame
                         break;
                     }
                 }
+                // Flee
                 else if (input == 2)
                 {
+                    Console.Clear();
+                    Console.WriteLine("Juoksit pakoon taistelusta.");
+                    Console.WriteLine("Paina nappia jatkaaksesi");
+                    Console.ReadKey();
                     break;
                 }
 
@@ -111,18 +129,6 @@ namespace QuestGame
                     break;
                 }
             }
-        }
-
-        public void InitializeEnemies()
-        {
-            List<Enemy> enemies = new List<Enemy>();
-            enemies.AddRange(new List<Enemy>
-                {
-                new Enemy("zombie",25,2,-1),
-                new Enemy("mörkö",50,0,2),
-                new Enemy("rotta",10,-2,0),
-                new Enemy("rosvo",40,2,2)
-            });
-        }
+        }        
     }
 }
