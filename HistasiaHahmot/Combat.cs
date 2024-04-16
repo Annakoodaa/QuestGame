@@ -99,7 +99,7 @@ namespace QuestGame
                 // Attack
                 if (pressedKey.KeyChar == '1')
                 {
-                    int playerDamage = Rnd.Next(5, 10);
+                    int playerDamage = Rnd.Next(2, 12);
                     playerDamage += player.AttackBonus;
                     playerDamage -= enemy.Defense;
                     enemy.Health -= playerDamage;
@@ -132,7 +132,7 @@ namespace QuestGame
 
                 // Enemy turn.
                 Console.WriteLine("Vihollinen hyökkää");
-                int enemyDamage = Rnd.Next(5, 10);
+                int enemyDamage = Rnd.Next(2, 12);
                 enemyDamage += enemy.AttackBonus;
                 enemyDamage -= player.Defense;
                 player.Health -= enemyDamage;

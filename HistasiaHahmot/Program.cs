@@ -57,11 +57,6 @@ namespace QuestGame
     {
         static Random random = new Random();
 
-        static void StartCharGen()
-        {
-
-        }
-
         static string GenerateGoodTrait()
         {
             string[] goodTraits = { "Vahva", "Notkea", "Viisas", "Nopea", "Ei mitään"};
