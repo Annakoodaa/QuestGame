@@ -15,7 +15,6 @@ namespace QuestGame
         protected int _defense;
         protected int _attackBonus;
 
-
         // Properties.
         public string Name
         {
@@ -74,12 +73,31 @@ namespace QuestGame
                 Console.WriteLine("Toimi:");
                 Console.WriteLine("1. Hyökkää");
                 Console.WriteLine("2. Pakene");
-                int.TryParse(Console.ReadLine(), out int input);
+
+                //input check
+                bool validInput = false;
+                ConsoleKeyInfo pressedKey = new ConsoleKeyInfo();
+                while (!validInput) 
+                { 
+                pressedKey = Console.ReadKey(true);
+                switch (pressedKey.KeyChar)
+                    {
+                        case '1':
+                            validInput = true; 
+                            break;
+                        case '2':
+                            validInput = true;
+                            break;
+                        default:
+                            break;
+                    }
+                }
 
                 Console.WriteLine("==========");
+
                 // Action Choices.
                 // Attack
-                if (input == 1)
+                if (pressedKey.KeyChar == '1')
                 {
                     int playerDamage = Rnd.Next(5, 10);
                     playerDamage += player.AttackBonus;
@@ -98,17 +116,17 @@ namespace QuestGame
                         Console.WriteLine($"{enemy.Name} kuoli.");
                         Console.WriteLine($"saat {HPrestore} hpta takaisin");
                         Console.WriteLine("Paina nappia jatkaaksesi");
-                        Console.ReadKey();
+                        Console.ReadKey(true);
                         break;
                     }
                 }
                 // Flee
-                else if (input == 2)
+                else if (pressedKey.KeyChar == '2')
                 {
                     Console.Clear();
                     Console.WriteLine("Juoksit pakoon taistelusta.");
                     Console.WriteLine("Paina nappia jatkaaksesi");
-                    Console.ReadKey();
+                    Console.ReadKey(true);
                     break;
                 }
 
@@ -125,7 +143,7 @@ namespace QuestGame
                 if (player.Health <= 0)
                 {
                     Console.WriteLine($"Sinä kuolit. Paina nappia jatkaaksesi.");
-                    Console.ReadKey();
+                    Console.ReadKey(true);
                     break;
                 }
             }

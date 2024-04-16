@@ -96,13 +96,13 @@ namespace QuestGame
             var Quest = new Quest();
             
             Console.WriteLine("paina nappia päästäksesi taisteluun.");
-            Console.ReadKey();
+            Console.ReadKey(true);
 
             Combat.Battle(player);
 
             Combat.Battle(player);
 
-            Console.ReadKey();
+            Console.ReadKey(true);
         }
     }
 
