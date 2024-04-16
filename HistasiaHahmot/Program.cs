@@ -102,8 +102,6 @@ namespace QuestGame
 
             Combat.Battle(player);
 
-            Combat.Battle(player);
-
             Console.ReadKey(true);
         }
     }
