@@ -94,7 +94,6 @@ namespace QuestGame
             Console.WriteLine("***********************************\n");
 
             var Quest = new Quest();
-
             
             Console.WriteLine("paina nappia päästäksesi taisteluun.");
             Console.ReadKey();
