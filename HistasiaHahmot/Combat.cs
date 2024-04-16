@@ -69,8 +69,9 @@ namespace QuestGame
             Console.Clear();
 
             // Simple system just repeating for the enemy amount, if enemies drop something might have to be redone.
-            // choose EnemyType
+            // or just make a seperate drop function after battle to collect loot.
 
+            // choose EnemyType
             int enemyType = 1;
             int enemyAmount = 3;
             int enemyCount = enemyAmount;
@@ -119,7 +120,7 @@ namespace QuestGame
                     // Attack
                     if (pressedKey.KeyChar == '1')
                     {
-                        int playerDamage = Rnd.Next(2, 12);
+                        int playerDamage = Rnd.Next(4, 24);
                         playerDamage += player.AttackBonus;
                         playerDamage -= enemy.Defense;
                         enemy.Health -= playerDamage;
@@ -130,7 +131,7 @@ namespace QuestGame
                         if (enemy.Health <= 0)
                         {
                             // HP restore after kill
-                            int HPrestore = Rnd.Next(5, 15);
+                            int HPrestore = Rnd.Next(10, 20);
                             player.Health += HPrestore;
                             // Enemy death notification.
                             Console.WriteLine($"{enemy.Name} kuoli.");
