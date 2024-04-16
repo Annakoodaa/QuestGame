@@ -47,13 +47,21 @@ namespace QuestGame
 
         public void PrintInfo()
         {
+            Console.WriteLine("Pelaajahahmosi:");
             Console.WriteLine($"Hahmo: {Name} \nHyvä ominaisuus: {GoodTrait} \nHuono ominaisuus: {BadTrait}");
+            Console.WriteLine("***********************************\n");
         }
     }
 
     class Program
     {
         static Random random = new Random();
+
+        static void StartCharGen()
+        {
+
+        }
+
         static string GenerateGoodTrait()
         {
             string[] goodTraits = { "Vahva", "Notkea", "Viisas", "Nopea", "Ei mitään"};
@@ -66,7 +74,7 @@ namespace QuestGame
             return badTraits[random.Next(badTraits.Length)];
         }
 
-        public static Character GenerateCharacter()
+        static Character GenerateCharacter()
         {
             string[] names = {"Heimopäällikkö", "Sotilas", "Kyläläinen",  };
             string name = names[random.Next(names.Length)];
@@ -78,7 +86,7 @@ namespace QuestGame
             return new Character(name, goodTrait, badTrait);
         }
 
-            static void Main(string[] args)
+        static void Main(string[] args)
         {
             Console.WriteLine("Hei! Generoidaan sinulle hahmo!");
             Console.WriteLine("\nAnna hahmollesi nimi: ");           
@@ -87,11 +95,10 @@ namespace QuestGame
             Console.WriteLine($"Tervetuloa {playerName}!\n\nSeuraavaksi saat tiedot hahmostasi.");
             Console.WriteLine("***********************************"); 
             Character player = GenerateCharacter();
-          
 
-            Console.WriteLine("Pelaajahahmosi:");
+            // Char info printing
             player.PrintInfo();
-            Console.WriteLine("***********************************\n");
+
 
             var Quest = new Quest();
             
