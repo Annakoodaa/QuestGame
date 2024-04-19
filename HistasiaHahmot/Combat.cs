@@ -18,16 +18,14 @@ namespace QuestGame
                 new Enemy("rosvo",40,2,2) };
 
         // Random
-        static Random Rnd = new Random();
+        static Random s_rnd = new Random();
         // Text character writing speed.
-        static int textSpeed = 30;
+        static int s_textSpeed = 30;
 
         // Needs player object from main.
         internal static void Battle(Character player)
         {
             Console.Clear();
-            // Simple system just repeating for the enemy amount, if enemies drop something might have to be redone.
-            // or just make a seperate drop function after battle to collect loot.
 
             // Balance
             // Player
@@ -69,7 +67,7 @@ namespace QuestGame
                     foreach (char c in plActionsText)
                     {
                         Console.Write(c);
-                        Thread.Sleep(textSpeed);
+                        Thread.Sleep(s_textSpeed);
                     }
                     //Console.WriteLine("\nToimi:");
                     //Console.WriteLine("1. Hyökkää");
@@ -100,7 +98,7 @@ namespace QuestGame
                     // Attack
                     if (pressedKey.KeyChar == '1')
                     {
-                        int playerDamage = Rnd.Next(plMinDmg, plMaxDmg+1);
+                        int playerDamage = s_rnd.Next(plMinDmg, plMaxDmg + 1);
                         playerDamage += player.AttackBonus;
                         playerDamage -= enemy.Defense;
                         enemy.Health -= playerDamage;
@@ -109,7 +107,7 @@ namespace QuestGame
                         foreach (char c in plAtkText)
                         {
                             Console.Write(c);
-                            Thread.Sleep(textSpeed);
+                            Thread.Sleep(s_textSpeed);
                         }
                         //Console.WriteLine($"Teit {playerDamage} vauriota.");
                         //Console.WriteLine("\n---------");
@@ -118,14 +116,14 @@ namespace QuestGame
                         if (enemy.Health <= 0)
                         {
                             // HP restore after kill
-                            int HPrestore = Rnd.Next(plHpRestMin, plHpRestMax+1);
+                            int HPrestore = s_rnd.Next(plHpRestMin, plHpRestMax + 1);
                             player.Health += HPrestore;
                             // Enemy death notification text.
                             string enemyDeathText = $"{enemy.Name} kuoli.\nSaat {HPrestore} hpta takaisin\n";
                             foreach (char c in enemyDeathText)
                             {
                                 Console.Write(c);
-                                Thread.Sleep(textSpeed);
+                                Thread.Sleep(s_textSpeed);
                             }
                             //Thread.Sleep(100);
                             //Console.WriteLine($"{enemy.Name} kuoli.");
@@ -149,7 +147,7 @@ namespace QuestGame
                         foreach (char c in plFleeText)
                         {
                             Console.Write(c);
-                            Thread.Sleep(textSpeed);
+                            Thread.Sleep(s_textSpeed);
                         }
                         //Console.WriteLine("Juoksit pakoon taistelusta.");
                         Thread.Sleep(50);
@@ -161,7 +159,7 @@ namespace QuestGame
                     Thread.Sleep(100);
 
                     // Enemy turn.
-                    int enemyDamage = Rnd.Next(enMinDmg, enMaxDmg+1);
+                    int enemyDamage = s_rnd.Next(enMinDmg, enMaxDmg + 1);
                     enemyDamage += enemy.AttackBonus;
                     enemyDamage -= player.Defense;
                     player.Health -= enemyDamage;
@@ -171,15 +169,15 @@ namespace QuestGame
                     foreach (char c in enemyAtkText)
                     {
                         Console.Write(c);
-                        Thread.Sleep(textSpeed);
+                        Thread.Sleep(s_textSpeed);
                     }
                     Thread.Sleep(500);
                     // Text for enemy attack damage
-                    string enemyDmgText = $"Vihollinen teki {enemyDamage} vauriota.\n==========";
+                    string enemyDmgText = $"Vihollinen teki {enemyDamage} vauriota.";
                     foreach (char c in enemyDmgText)
                     {
                         Console.Write(c);
-                        Thread.Sleep(textSpeed);
+                        Thread.Sleep(s_textSpeed);
                     }
                     //Console.WriteLine("Vihollinen hyökkää");
                     //Console.WriteLine($"Vihollinen teki {enemyDamage} vauriota.");
@@ -209,7 +207,7 @@ namespace QuestGame
             foreach (char c in plDeathText)
             {
                 Console.Write(c);
-                Thread.Sleep(textSpeed);
+                Thread.Sleep(s_textSpeed);
             }
             //Console.WriteLine($"Sinä kuolit. Paina nappia jatkaaksesi.");
             Console.ReadKey(true);

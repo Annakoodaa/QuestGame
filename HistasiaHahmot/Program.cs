@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace QuestGame
@@ -97,6 +98,10 @@ namespace QuestGame
 
             var Quest = new Quest();
 
+            player.GatheringSkill = 2;
+            player.AttackBonus = 5;
+
+            Gathering.Gather(player, "sieniä");
             Combat.Battle(player);
 
             Console.ReadKey(true);
