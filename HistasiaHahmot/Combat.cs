@@ -23,21 +23,35 @@ namespace QuestGame
         static int textSpeed = 30;
 
         // Needs player object from main.
-        public static void Battle(Character player)
+        internal static void Battle(Character player)
         {
             Console.Clear();
             // Simple system just repeating for the enemy amount, if enemies drop something might have to be redone.
             // or just make a seperate drop function after battle to collect loot.
 
-            // choose EnemyType
+            // Balance
+            // Player
+            int plMaxDmg = 24;
+            int plMinDmg = 4;
+            // Player Health Restore
+            int plHpRestMax = 20;
+            int plHpRestMin = 10;
+            // Enemy
+            int enMaxDmg = 12;
+            int enMinDmg = 2;
+
+            // TEST: choose EnemyType
             int enemyType = 1;
             int enemyAmount = 3;
             int enemyCount = enemyAmount;
+            // TEST END
+
+            bool fleeing = false;
 
             // loop for amount of enemies.
             for (int i = 0; i < enemyAmount; i++)
             {
-                if (player.Health <= 0)
+                if (player.Health <= 0 || fleeing == true)
                     break;
                 Enemy enemy = new Enemy(EnemyTypes[enemyType]);
                 // Combat
@@ -86,7 +100,7 @@ namespace QuestGame
                     // Attack
                     if (pressedKey.KeyChar == '1')
                     {
-                        int playerDamage = Rnd.Next(4, 24);
+                        int playerDamage = Rnd.Next(plMinDmg, plMaxDmg+1);
                         playerDamage += player.AttackBonus;
                         playerDamage -= enemy.Defense;
                         enemy.Health -= playerDamage;
@@ -104,7 +118,7 @@ namespace QuestGame
                         if (enemy.Health <= 0)
                         {
                             // HP restore after kill
-                            int HPrestore = Rnd.Next(10, 20);
+                            int HPrestore = Rnd.Next(plHpRestMin, plHpRestMax+1);
                             player.Health += HPrestore;
                             // Enemy death notification text.
                             string enemyDeathText = $"{enemy.Name} kuoli.\nSaat {HPrestore} hpta takaisin\n";
@@ -129,6 +143,7 @@ namespace QuestGame
                     else if (pressedKey.KeyChar == '2')
                     {
                         Console.Clear();
+                        fleeing = true;
                         // Player fleeing text.
                         string plFleeText = "Juoksit pakoon taistelusta.";
                         foreach (char c in plFleeText)
@@ -146,7 +161,7 @@ namespace QuestGame
                     Thread.Sleep(100);
 
                     // Enemy turn.
-                    int enemyDamage = Rnd.Next(2, 12);
+                    int enemyDamage = Rnd.Next(enMinDmg, enMaxDmg+1);
                     enemyDamage += enemy.AttackBonus;
                     enemyDamage -= player.Defense;
                     player.Health -= enemyDamage;
@@ -179,6 +194,7 @@ namespace QuestGame
                     Thread.Sleep(1500);
                     Console.Clear();
                 }
+                Console.Clear();
             }
         }
 
@@ -186,9 +202,10 @@ namespace QuestGame
         {
 
         }
+
         public static void PlayerDeath()
         {
-            string plDeathText = $"Sinä kuolit.\nPaina nappia jatkaaksesi.";
+            string plDeathText = $"\nSinä kuolit.\nPaina nappia jatkaaksesi.";
             foreach (char c in plDeathText)
             {
                 Console.Write(c);

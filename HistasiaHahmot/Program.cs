@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuestGame
 {
-    public class Character
+    class Character
     {
         public string Name { get; set; }
         public string GameCharacter { get; set; }
@@ -14,6 +14,7 @@ namespace QuestGame
         public string BadTrait { get; set; }
 
         // Combat Related
+        protected readonly int maxHealth = 100;
         int health = 100;
         public int Defense { get; set; }
         public int AttackBonus { get; set; }
@@ -27,9 +28,9 @@ namespace QuestGame
             }
             set
             {
-                if (value > 100)
+                if (value > maxHealth)
                 {
-                    health = 100;
+                    health = maxHealth;
                 }
                 else
                 {
@@ -95,11 +96,6 @@ namespace QuestGame
             player.PrintInfo();
 
             var Quest = new Quest();
-
-            Console.WriteLine("paina nappia päästäksesi taisteluun.");
-            Console.ReadKey(true);
-
-
 
             Combat.Battle(player);
 
