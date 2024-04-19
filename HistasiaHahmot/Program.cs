@@ -15,12 +15,13 @@ namespace QuestGame
         public string BadTrait { get; set; }
 
         // Combat Related
-        protected readonly int maxHealth = 100;
+        readonly int maxHealth = 100;
         int health = 100;
         public int Defense { get; set; }
         public int AttackBonus { get; set; }
         public int GatheringSkill { get; set; }
 
+        // Properties
         public int Health
         {
             get
@@ -40,6 +41,7 @@ namespace QuestGame
             }
         }
 
+        // Constructors
         public Character(string name, string goodTrait, string badTrait)
         {
             Name = name;

@@ -18,6 +18,9 @@ namespace QuestGame
             int maxAmount = 10;
             int minAmount = 1;
 
+            // Area modifier?
+            
+
             // Gathering skills effects
             // Currently it only increase the minimun gathering
             // amount by the value of gathering skill
