@@ -55,7 +55,7 @@ namespace QuestGame
                 Console.WriteLine($"\nSeuraavaksi määritellään monia {kohdeVihollinen[index2]} sinun pitää tappaa:");
                 //Random maara = new Random(); dfgdfg
                 //int maara1 = maara.Next(10, 50);
-                Console.WriteLine(maara1); 
+                Console.WriteLine(maara1);
 
                 Console.WriteLine("\nPaikka mistä nämä löytyy on:");
                 var random3 = new Random();

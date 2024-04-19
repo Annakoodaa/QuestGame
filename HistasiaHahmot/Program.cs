@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace QuestGame
-{   
+{
     public class Character
     {
         public string Name { get; set; }
@@ -27,7 +27,7 @@ namespace QuestGame
             }
             set
             {
-                if(value > 100)
+                if (value > 100)
                 {
                     health = 100;
                 }
@@ -40,7 +40,7 @@ namespace QuestGame
 
         public Character(string name, string goodTrait, string badTrait)
         {
-            Name = name;          
+            Name = name;
             GoodTrait = goodTrait;
             BadTrait = badTrait;
         }
@@ -59,7 +59,7 @@ namespace QuestGame
 
         static string GenerateGoodTrait()
         {
-            string[] goodTraits = { "Vahva", "Notkea", "Viisas", "Nopea", "Ei mitään"};
+            string[] goodTraits = { "Vahva", "Notkea", "Viisas", "Nopea", "Ei mitään" };
             return goodTraits[random.Next(goodTraits.Length)];
         }
 
@@ -71,7 +71,7 @@ namespace QuestGame
 
         static Character GenerateCharacter()
         {
-            string[] names = {"Heimopäällikkö", "Sotilas", "Kyläläinen",  };
+            string[] names = { "Heimopäällikkö", "Sotilas", "Kyläläinen", };
             string name = names[random.Next(names.Length)];
 
 
@@ -84,19 +84,18 @@ namespace QuestGame
         static void Main(string[] args)
         {
             Console.WriteLine("Hei! Generoidaan sinulle hahmo!");
-            Console.WriteLine("\nAnna hahmollesi nimi: ");           
+            Console.WriteLine("\nAnna hahmollesi nimi: ");
             string playerName = Console.ReadLine();
             Console.WriteLine("");
             Console.WriteLine($"Tervetuloa {playerName}!\n\nSeuraavaksi saat tiedot hahmostasi.");
-            Console.WriteLine("***********************************"); 
+            Console.WriteLine("***********************************");
             Character player = GenerateCharacter();
 
             // Char info printing
             player.PrintInfo();
 
-
             var Quest = new Quest();
-            
+
             Console.WriteLine("paina nappia päästäksesi taisteluun.");
             Console.ReadKey(true);
 

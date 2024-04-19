@@ -63,12 +63,13 @@ namespace QuestGame
 
         // Random
         static Random Rnd = new Random();
+        // Text character writing speed.
         static int textSpeed = 30;
 
         // Needs player object from main.
         public static void Battle(Character player)
         {
-            Console.Clear();        
+            Console.Clear();
             // Simple system just repeating for the enemy amount, if enemies drop something might have to be redone.
             // or just make a seperate drop function after battle to collect loot.
 
@@ -93,7 +94,7 @@ namespace QuestGame
                     Console.WriteLine($"Vihollinen: {enemy.Name} | Elämä: {enemy.Health} | Puolustus: {enemy.Defense} | Hyökkäys: {enemy.AttackBonus}\n");
                     Console.WriteLine($"Pelaaja: {player.Name} | Elämä {player.Health} | Puolustus: {player.Defense} | Hyökkäys: {player.AttackBonus}");
                     Console.WriteLine("---------");
-
+                    // Player actions text
                     string plActionsText = "\nToimi:\n1. Hyökkää\n2. Pakene\n";
                     foreach (char c in plActionsText)
                     {
@@ -133,9 +134,9 @@ namespace QuestGame
                         playerDamage += player.AttackBonus;
                         playerDamage -= enemy.Defense;
                         enemy.Health -= playerDamage;
-
+                        // player attack damage text.
                         string plAtkText = $"Teit {playerDamage} vauriota.\n---------\n";
-                        foreach(char c in plAtkText)
+                        foreach (char c in plAtkText)
                         {
                             Console.Write(c);
                             Thread.Sleep(textSpeed);
@@ -149,9 +150,9 @@ namespace QuestGame
                             // HP restore after kill
                             int HPrestore = Rnd.Next(10, 20);
                             player.Health += HPrestore;
-                            // Enemy death notification.
+                            // Enemy death notification text.
                             string enemyDeathText = $"{enemy.Name} kuoli.\nSaat {HPrestore} hpta takaisin\n";
-                            foreach(char c in enemyDeathText)
+                            foreach (char c in enemyDeathText)
                             {
                                 Console.Write(c);
                                 Thread.Sleep(textSpeed);
@@ -172,8 +173,9 @@ namespace QuestGame
                     else if (pressedKey.KeyChar == '2')
                     {
                         Console.Clear();
+                        // Player fleeing text.
                         string plFleeText = "Juoksit pakoon taistelusta.";
-                        foreach(char c in plFleeText)
+                        foreach (char c in plFleeText)
                         {
                             Console.Write(c);
                             Thread.Sleep(textSpeed);
@@ -201,9 +203,10 @@ namespace QuestGame
                         Thread.Sleep(textSpeed);
                     }
                     Thread.Sleep(500);
-                    string enemyDmgText = $"Vihollinen teki { enemyDamage } vauriota.\n==========";
-                    foreach(char c in enemyDmgText) 
-                    { 
+                    // Text for enemy attack damage
+                    string enemyDmgText = $"Vihollinen teki {enemyDamage} vauriota.\n==========";
+                    foreach (char c in enemyDmgText)
+                    {
                         Console.Write(c);
                         Thread.Sleep(textSpeed);
                     }
@@ -230,7 +233,7 @@ namespace QuestGame
         public static void PlayerDeath()
         {
             string plDeathText = $"Sinä kuolit.\nPaina nappia jatkaaksesi.";
-            foreach(char c in plDeathText)
+            foreach (char c in plDeathText)
             {
                 Console.Write(c);
                 Thread.Sleep(textSpeed);
