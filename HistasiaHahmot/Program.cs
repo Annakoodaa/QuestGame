@@ -99,6 +99,8 @@ namespace QuestGame
             Console.WriteLine("paina nappia päästäksesi taisteluun.");
             Console.ReadKey(true);
 
+
+
             Combat.Battle(player);
 
             Console.ReadKey(true);

@@ -8,5 +8,9 @@ namespace QuestGame
 {
     internal class TheGame
     {
+        public void StartAdventure()
+        {
+
+        }
     }
 }
