@@ -65,15 +65,6 @@ namespace QuestGame
 
                 Console.WriteLine($"\nTehtäväsi on: \n*{toiminta[index]} {kohdeVihollinen[index2]} {maara1}kpl paikassa {paikka[index3]}.*");
             }
-
-            //Random randomNoppa = new Random();
-            //int noppa = 0;
-            //Console.WriteLine("\nHeittetään noppaa.");
-            //for (int i = 0; i <= maara1; i++)           
-            //{                
-            //    noppa = randomNoppa.Next(1, 6);             
-            //    Console.WriteLine(noppa);
-            //}
         }
     }
 }
