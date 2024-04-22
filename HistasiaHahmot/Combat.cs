@@ -69,9 +69,6 @@ namespace QuestGame
                         Console.Write(c);
                         Thread.Sleep(s_textSpeed);
                     }
-                    //Console.WriteLine("\nToimi:");
-                    //Console.WriteLine("1. Hyökkää");
-                    //Console.WriteLine("2. Pakene");
 
                     //input check
                     bool validInput = false;
@@ -109,8 +106,6 @@ namespace QuestGame
                             Console.Write(c);
                             Thread.Sleep(s_textSpeed);
                         }
-                        //Console.WriteLine($"Teit {playerDamage} vauriota.");
-                        //Console.WriteLine("\n---------");
 
                         // Enemy Death.
                         if (enemy.Health <= 0)
@@ -125,11 +120,6 @@ namespace QuestGame
                                 Console.Write(c);
                                 Thread.Sleep(s_textSpeed);
                             }
-                            //Thread.Sleep(100);
-                            //Console.WriteLine($"{enemy.Name} kuoli.");
-                            //Thread.Sleep(100);
-                            //Console.WriteLine($"saat {HPrestore} hpta takaisin");
-                            // 
                             enemyCount -= 1;
                             Thread.Sleep(50);
                             Console.WriteLine("Paina nappia jatkaaksesi");
@@ -179,9 +169,6 @@ namespace QuestGame
                         Console.Write(c);
                         Thread.Sleep(s_textSpeed);
                     }
-                    //Console.WriteLine("Vihollinen hyökkää");
-                    //Console.WriteLine($"Vihollinen teki {enemyDamage} vauriota.");
-                    //Console.WriteLine("\n==========\n\n");
 
                     // Player Death.
                     if (player.Health <= 0)
