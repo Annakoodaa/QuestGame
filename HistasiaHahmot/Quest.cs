@@ -1,67 +1,101 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace QuestGame
 {
-    internal class Quest
+    public class Quest
     {
-        static Quest()
+        // Fields
+        string _action;
+        string _target;
+        int _amount;
+
+        // Properties
+        public int Amount
         {
-            var paikka = new List<string> { "Mustametsä", "Kyläpahanen", "Peikonkaupunki", "Kuolemanjärven kunta" };
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                _amount = value;
+            }
+        }
+
+        // Constructors
+        public Quest(string action, string target, int amount)
+        {
+            _action = action;
+            _target = target;
+            _amount = amount;
+        }
+
+        public void QuestDescription()
+        {
+            string questDescriptionText = $"Minun tehtäväni on {_action} {_target} {_amount}.\n" +
+                "Voin mennä Mustametsään, Kyläpahaseen, Peikonkaupunkiin, tai Kuolemanjärven kunnalle.\n" +
+                "Mustametsä on tunnettu huonosta näkyvyydestään, joka jättää seikkailijat heikoiksi hirviöiden yllätyshyökkäyksille,\n" +
+                "mutta sen varjoisasta ja kosteasta ympäristöstä voi helposti löytyä kaikenlaisia sieniä.\n" +
+                "Kyläpahanen on pieni kylä keskellä suurin piirtein turvallista maakuntaa. Siellä voi rosvojen uhriksi joutua,\n" +
+                "tai jyrsijät saattavat alkaa maistella kantapäitä, mutta ei mitään sen vaarallisempaa—sitä paitsi, rosvojen\n" +
+                "kätköistä voi helposti löytyä kolikoita oman taskun painottamiseksi.\n" +
+                "Peikonkaupunki on melko ilmiselvä konsepti. Se on kaupunki täynnä peikkoja. Peikot useimmiten koristavat asusteitaan\n" +
+                "höyhenillä.\n" +
+                "Kuolemanjärven kunta on nykyään pelkkä kasa romua asuntojen muodossa. Zombeja liikkuu ympäri ämpäri läpi vuorokauden.\n" +
+                "Mutta huhut kertovat siellä olleen suuri aarrekammio. Kaikenlaisia jalokiviä varmasti löytyisi kammion sisimmistä\n" +
+                "Jos se on olemassa.\n";
+
+            foreach (char c in questDescriptionText)
+            {
+                Console.Write(c);
+                Thread.Sleep(10);
+            }
+        }
+    }
+
+    public class QuestFactory
+    {
+        // Random
+        static Random s_rnd = new Random();
+
+        public static Quest QuestGenerator()
+        {
+            //var paikka = new List<string> { "Mustametsä", "Kyläpahanen", "Peikonkaupunki", "Kuolemanjärven kunta" };
             Console.WriteLine("\nLuodaan sinulle tehtävä.");
-            Console.WriteLine("\nEnsimmäiseksi valitaan sinulle toiminta!");
             var random = new Random();
-            var toiminta = new List<string> { "Kerää", "Tapa" };
-            int index = random.Next(toiminta.Count);
-            Console.WriteLine(toiminta[index]);
+            var action = new List<string> { "Kerää", "Tapa" };
+            int actionIndex = random.Next(action.Count);
             Random maara = new Random();
-            int maara1 = maara.Next(10, 50);
+            int amount = maara.Next(10, 50);
 
             // Gathering quest
-            if (index == 0)
+            if (actionIndex == 0)
             {
-                Console.WriteLine("\nSitten valitaan keräämisen kohde!");
-                var random1 = new Random();
-                var kohdeTavara = new List<string> { "sieniä", "timantteja", "höyheniä", "kolikoita" };
-                int index1 = random1.Next(kohdeTavara.Count);
-                Console.WriteLine(kohdeTavara[index1]);
+                var targetObject = new List<string> { "sieniä", "timantteja", "höyheniä", "kolikoita" };
+                int targetIndex = s_rnd.Next(targetObject.Count);
 
-                Console.WriteLine($"\nSeuraavaksi määritellään monia {kohdeTavara[index1]} sinun pitää kerätä.");
-             
-                Console.WriteLine(maara1);
-
-                Console.WriteLine("\nPaikka mistä nämä löytyy on:");       
-                var random3 = new Random();
-                int index3 = random3.Next(paikka.Count);
-                Console.WriteLine(paikka[index3]);
-
-                Console.WriteLine($"\nTehtäväsi on: \n*{toiminta[index]} {kohdeTavara[index1]} {maara1}kpl paikassa {paikka[index3]}.*");
-
+                return new Quest(action[actionIndex], targetObject[targetIndex], amount);
             }
             // Kill quest
-            if (index == 1)
+            else if (actionIndex == 1)
             {
-                Console.WriteLine("\nSitten valitaan tappamisen kohde!");
+                var targetEnemy = new List<string> { "rottia", "mörköjä", "zombeja", "rosvoja" };
+                int targetIndex = s_rnd.Next(targetEnemy.Count);
 
-                var kohdeVihollinen = new List<string> { "rottia", "mörköjä", "zombeja", "rosvoja" };
-                var random2 = new Random();
-                int index2 = random2.Next(kohdeVihollinen.Count);
-                Console.WriteLine(kohdeVihollinen[index2]);
-
-                Console.WriteLine($"\nSeuraavaksi määritellään monia {kohdeVihollinen[index2]} sinun pitää tappaa:");
-                Console.WriteLine(maara1);
-
-                Console.WriteLine("\nPaikka mistä nämä löytyy on:");
-                var random3 = new Random();
-                int index3 = random3.Next(paikka.Count);
-                Console.WriteLine(paikka[index3]);
-
-                Console.WriteLine($"\nTehtäväsi on: \n*{toiminta[index]} {kohdeVihollinen[index2]} {maara1}kpl paikassa {paikka[index3]}.*");
+                return new Quest(action[actionIndex], targetEnemy[targetIndex], amount);
             }
+            else
+            {
+                throw new Exception("Quest Index out of range");
+            }
+
         }
     }
 }

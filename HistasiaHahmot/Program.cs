@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -84,17 +85,6 @@ namespace QuestGame
 
             return new Character(name, goodTrait, badTrait);
         }
-        //static Character GenerateEnemy()
-        //{
-        //    string[] names = { "Kuningas", "Trollit", "Monsterit" };
-        //    string name = names[random.Next(names.Length)];
-        //    int health = random.Next(50, 101);
-        
-        //    string goodTrait = GenerateGoodTrait();
-        //    string badTrait = GenerateBadTrait();
-
-        //    return new Character(name, goodTrait, badTrait);
-        //}
 
             static void Main(string[] args)
         {
@@ -109,11 +99,12 @@ namespace QuestGame
             // Char info printing
             player.PrintInfo();
 
-            var Quest = new Quest();
+            TheGame.StartAdventure(player);
 
             player.GatheringSkill = 2;
             player.AttackBonus = 5;
 
+            Console.ReadKey(true);
             Gathering.Gather(player, "sieniä");
             Combat.Battle(player);
 
