@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,12 +17,22 @@ namespace QuestGame
             // Printing Quest
             Quest.QuestDescription();
 
-            // Area choice
+            // Invoking ChooseArea() with the player object as parameter
+            ChooseArea(player);
+        }
+
+        // Area choice
+        static void ChooseArea(Character player)
+        {
             Console.WriteLine("Valitse minne haluat mennä:");
-            Console.Write("1. Mustametsä\n" +
+            Console.Write
+                (
+                "1. Mustametsä\n" +
                 "2. Kyläpahanen\n" +
                 "3. Peikonkaupunki\n" +
-                "4. Kuolemanjärven kunta\n");
+                "4. Kuolemanjärven kunta\n"
+                );
+
             // Input
             bool validInput = false;
             ConsoleKeyInfo pressedKey = new ConsoleKeyInfo();
@@ -30,7 +41,7 @@ namespace QuestGame
                 pressedKey = Console.ReadKey(true);
                 switch (pressedKey.KeyChar)
                 {
-                    case char c when (c == '1' ||c == '2' || c == '3' || c == '4'):
+                    case char c when (c == '1' || c == '2' || c == '3' || c == '4'):
                         validInput = true;
                         break;
                     default:
@@ -38,42 +49,26 @@ namespace QuestGame
                 }
             }
 
+            // Area Selection based on input
             switch (pressedKey.KeyChar)
             {
                 case '1':
-                    MustaMetsa();
+                    MustaMetsa.Start();
                     break;
                 case '2':
-                    KylaPahanen();
+                    KylaPahanen.Start();
                     break;
                 case '3':
-                    PeikonKaupunki();
+                    PeikonKaupunki.Start();
                     break;
                 case '4':
-                    KuolemanjarvenKunta();
+                    KuolemanjarvenKunta.Start();
                     break;
             }
-            Console.WriteLine("to be continued.");
         }
 
-        static void MustaMetsa()
-        {
-            Console.WriteLine("Mustametsä");
-        }
 
-        static void KylaPahanen()
-        {
-            Console.WriteLine("Kyläpahanen");
-        }
 
-        static void PeikonKaupunki()
-        {
-            Console.WriteLine("Peikonkaupunki");
-        }
 
-        static void KuolemanjarvenKunta()
-        {
-            Console.WriteLine("Kuolemanjärven kunta");
-        }
     }
 }
