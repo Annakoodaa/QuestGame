@@ -47,7 +47,7 @@ namespace QuestGame
             string[] names = {"Heimopäällikkö", "Sotilas", "Kyläläinen",  };
             string name = names[random.Next(names.Length)];
             //int health = random.Next(50, 101);
-
+           
 
             string goodTrait = GenerateGoodTrait();
             string badTrait = GenerateBadTrait();
@@ -65,7 +65,7 @@ namespace QuestGame
 
         //    return new Character(name, goodTrait, badTrait);
         //}
-
+   
             static void Main(string[] args)
         {
             Console.WriteLine("Hei! Generoidaan sinulle hahmo!");
