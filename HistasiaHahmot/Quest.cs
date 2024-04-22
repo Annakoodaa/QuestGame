@@ -27,11 +27,11 @@ namespace QuestGame
             // Gathering quest
             if (actionIndex == 0)
             {
-                var kohdeTavara = new List<string> { "sieniä", "timantteja", "höyheniä", "kolikoita" };
-                int targetIndex = s_rnd.Next(kohdeTavara.Count);
-                Console.WriteLine(kohdeTavara[targetIndex]);
+                var targetObject = new List<string> { "sieniä", "timantteja", "höyheniä", "kolikoita" };
+                int targetIndex = s_rnd.Next(targetObject.Count);
+                Console.WriteLine(targetObject[targetIndex]);
 
-                QuestDescription(action[actionIndex], kohdeTavara[targetIndex], amount);
+                QuestDescription(action[actionIndex], targetObject[targetIndex], amount);
             }
             // Kill quest
             if (actionIndex == 1)
