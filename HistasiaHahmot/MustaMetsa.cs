@@ -8,15 +8,28 @@ namespace QuestGame
 {
     internal class MustaMetsa
     {
+        static bool firstEntry = true;
         public static void MMEntrance(Character player)
         {
-            Console.WriteLine("Mustametsä:");
-            Console.Write("Kun astuin mustametsään, tunsin kengänpohjani uppoavan sammaleen. Ilma oli kostea, eikä auringonvalo pilkistänyt tiheän neulaskaton läpi. " +
-                "En nähnyt muutamaa metriä pidemmälle metsän syvyyksiin. Olin valmistautunut tähän. Irrotin lyhtyni vyötäröltäni, ja avasin sen luukun. " +
-                "Luukun ruosteinen ratina avautuessaan kaikui hiljaisuudessa. Se otti muutaman yrityksen, mutta lopulta onnistuin sytyttämään liekin lyhdyn" +
-                " sisällä—nyt toivotaan, ettei se sammu. \r\n\r\nNyt kun minulla on valoa, hahmotan ympäristöni enemmässä tarkkuudessa. Vasemmalle johtaa " +
-                "lähes täysin tukkoon kasvanut multapolku. Oikealla, näen pelkkää pusikkoa niin pitkälle kuin silmä kantaa. Edessä päin näen jonkinlaisen " +
-                "mätänevän puurakennuksen. Voin tietenkin myös lähteä takaisin mistä tulin, mutta ilman tarvitsemiani tavaroita, se tarkoittaisi tehtävän hylkäystä.\n");
+            Console.Clear();
+            if (firstEntry)
+            {
+                Console.WriteLine("Mustametsä:");
+                Console.Write("Kun astuin mustametsään, tunsin kengänpohjani uppoavan sammaleen. Ilma oli kostea, eikä auringonvalo pilkistänyt tiheän neulaskaton läpi. " +
+                    "En nähnyt muutamaa metriä pidemmälle metsän syvyyksiin. Olin valmistautunut tähän. Irrotin lyhtyni vyötäröltäni, ja avasin sen luukun. " +
+                    "Luukun ruosteinen ratina avautuessaan kaikui hiljaisuudessa. Se otti muutaman yrityksen, mutta lopulta onnistuin sytyttämään liekin lyhdyn" +
+                    " sisällä—nyt toivotaan, ettei se sammu. \r\n\r\nNyt kun minulla on valoa, hahmotan ympäristöni enemmässä tarkkuudessa. Vasemmalle johtaa " +
+                    "lähes täysin tukkoon kasvanut multapolku. Oikealla, näen pelkkää pusikkoa niin pitkälle kuin silmä kantaa. Edessä päin näen jonkinlaisen " +
+                    "mätänevän puurakennuksen. Voin tietenkin myös lähteä takaisin mistä tulin, mutta ilman tarvitsemiani tavaroita, se tarkoittaisi tehtävän hylkäystä.\n");
+
+                firstEntry = false;
+            }
+            else
+            {
+                Console.Write("Astuin jälleen mustametsän alkuun. Sammal edelleen uhkailee upottaa jalkani. " +
+                    "Voin mennä multapolkua pitkin vasemmalla, mennä metsän syövereihin oikealla, tai tutkia mätänevää puurakennusta. " +
+                    "Karkaus on myös vaihtoehto, mutten usko sitä tarpeelliseksi.\n");
+            }
 
             // 1 multapolku 2. Metsänsyvyydet 3. Rakennus
             Console.Write
@@ -43,7 +56,7 @@ namespace QuestGame
                 }
             }
 
-            switch(pressedKey.KeyChar)
+            switch (pressedKey.KeyChar)
             {
                 case '1':
                     MultaPolku();
