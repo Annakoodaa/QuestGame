@@ -11,7 +11,7 @@ namespace QuestGame
     {
         public void StartAdventure()
         {
-
+            // Testi
         }
     }
 }
