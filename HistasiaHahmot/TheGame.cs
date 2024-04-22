@@ -53,7 +53,7 @@ namespace QuestGame
             switch (pressedKey.KeyChar)
             {
                 case '1':
-                    MustaMetsa.Start();
+                    MustaMetsa.MMEntrance();
                     break;
                 case '2':
                     KylaPahanen.Start();
