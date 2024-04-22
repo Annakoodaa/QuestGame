@@ -69,11 +69,9 @@ namespace QuestGame
         {
             //var paikka = new List<string> { "Mustametsä", "Kyläpahanen", "Peikonkaupunki", "Kuolemanjärven kunta" };
             Console.WriteLine("\nLuodaan sinulle tehtävä.");
-            Console.WriteLine("\nEnsimmäiseksi valitaan sinulle action!");
             var random = new Random();
             var action = new List<string> { "Kerää", "Tapa" };
             int actionIndex = random.Next(action.Count);
-            Console.WriteLine(action[actionIndex]);
             Random maara = new Random();
             int amount = maara.Next(10, 50);
 
@@ -82,7 +80,6 @@ namespace QuestGame
             {
                 var targetObject = new List<string> { "sieniä", "timantteja", "höyheniä", "kolikoita" };
                 int targetIndex = s_rnd.Next(targetObject.Count);
-                Console.WriteLine(targetObject[targetIndex]);
 
                 return new Quest(action[actionIndex], targetObject[targetIndex], amount);
             }
@@ -91,7 +88,6 @@ namespace QuestGame
             {
                 var targetEnemy = new List<string> { "rottia", "mörköjä", "zombeja", "rosvoja" };
                 int targetIndex = s_rnd.Next(targetEnemy.Count);
-                Console.WriteLine(targetEnemy[targetIndex]);
 
                 return new Quest(action[actionIndex], targetEnemy[targetIndex], amount);
             }
