@@ -11,6 +11,7 @@ namespace QuestGame
     {
         static Quest()
         {
+            var paikka = new List<string> { "Mustametsä", "Kyläpahanen", "Peikonkaupunki", "Kuolemanjärven kunta" };
             Console.WriteLine("\nLuodaan sinulle tehtävä.");
             Console.WriteLine("\nEnsimmäiseksi valitaan sinulle toiminta!");
             var random = new Random();
@@ -20,6 +21,7 @@ namespace QuestGame
             Random maara = new Random();
             int maara1 = maara.Next(10, 50);
 
+            // Gathering quest
             if (index == 0)
             {
                 Console.WriteLine("\nSitten valitaan keräämisen kohde!");
@@ -29,14 +31,10 @@ namespace QuestGame
                 Console.WriteLine(kohdeTavara[index1]);
 
                 Console.WriteLine($"\nSeuraavaksi määritellään monia {kohdeTavara[index1]} sinun pitää kerätä.");
-                //maara = new Random();
-                //maara1 = maara.Next(10, 50);
-              
+             
                 Console.WriteLine(maara1);
 
-                Console.WriteLine("\nPaikka mistä nämä löytyy on:");
-
-                var paikka = new List<string> { "Mustametsä", "Kyläpahanen", "Peikonkaupunki", "Kuolemanjärven kunta" };
+                Console.WriteLine("\nPaikka mistä nämä löytyy on:");       
                 var random3 = new Random();
                 int index3 = random3.Next(paikka.Count);
                 Console.WriteLine(paikka[index3]);
@@ -44,6 +42,7 @@ namespace QuestGame
                 Console.WriteLine($"\nTehtäväsi on: \n*{toiminta[index]} {kohdeTavara[index1]} {maara1}kpl paikassa {paikka[index3]}.*");
 
             }
+            // Kill quest
             if (index == 1)
             {
                 Console.WriteLine("\nSitten valitaan tappamisen kohde!");
@@ -60,7 +59,6 @@ namespace QuestGame
 
                 Console.WriteLine("\nPaikka mistä nämä löytyy on:");
                 var random3 = new Random();
-                var paikka = new List<string> { "Valkeasuo", "Kyläpaikka", "Zombiekaupunki", "Elojärven kunta" };
                 int index3 = random3.Next(paikka.Count);
                 Console.WriteLine(paikka[index3]);
 

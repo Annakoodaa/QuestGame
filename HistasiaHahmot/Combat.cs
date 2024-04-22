@@ -143,7 +143,7 @@ namespace QuestGame
                         Console.Clear();
                         fleeing = true;
                         // Player fleeing text.
-                        string plFleeText = "Juoksit pakoon taistelusta.";
+                        string plFleeText = "Juoksit pakoon taistelusta.\n";
                         foreach (char c in plFleeText)
                         {
                             Console.Write(c);
