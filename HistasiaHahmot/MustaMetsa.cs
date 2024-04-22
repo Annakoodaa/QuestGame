@@ -8,7 +8,7 @@ namespace QuestGame
 {
     internal class MustaMetsa
     {
-        public static void MMEntrance()
+        public static void MMEntrance(Character player)
         {
             Console.WriteLine("Mustametsä:");
             Console.Write("Kun astuin mustametsään, tunsin kengänpohjani uppoavan sammaleen. Ilma oli kostea, eikä auringonvalo pilkistänyt tiheän neulaskaton läpi. " +
@@ -23,7 +23,8 @@ namespace QuestGame
                 (
                 "1. Multapolku\n" +
                 "2. Metsänsyvyys\n" +
-                "3. Puurakennus\n"
+                "3. Puurakennus\n" +
+                "4. Palaa aluevalintaan."
                 );
 
             // Input
@@ -34,12 +35,28 @@ namespace QuestGame
                 pressedKey = Console.ReadKey(true);
                 switch (pressedKey.KeyChar)
                 {
-                    case char c when (c == '1' || c == '2' || c == '3'):
+                    case char c when (c == '1' || c == '2' || c == '3' || c == '4'):
                         validInput = true;
                         break;
                     default:
                         break;
                 }
+            }
+
+            switch(pressedKey.KeyChar)
+            {
+                case '1':
+                    MultaPolku();
+                    break;
+                case '2':
+                    Console.WriteLine("Not implemented");
+                    break;
+                case '3':
+                    Console.WriteLine("Not implemented");
+                    break;
+                case '4':
+                    TheGame.ChooseArea(player);
+                    break;
             }
 
         }

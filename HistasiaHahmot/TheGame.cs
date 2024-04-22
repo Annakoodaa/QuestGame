@@ -22,7 +22,7 @@ namespace QuestGame
         }
 
         // Area choice
-        static void ChooseArea(Character player)
+        public static void ChooseArea(Character player)
         {
             Console.WriteLine("Valitse minne haluat mennä:");
             Console.Write
@@ -53,7 +53,7 @@ namespace QuestGame
             switch (pressedKey.KeyChar)
             {
                 case '1':
-                    MustaMetsa.MMEntrance();
+                    MustaMetsa.MMEntrance(player);
                     break;
                 case '2':
                     KylaPahanen.Start();

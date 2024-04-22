@@ -78,7 +78,7 @@ namespace QuestGame
             // Gathering quest
             if (actionIndex == 0)
             {
-                var targetObject = new List<string> { "sieniä", "timantteja", "höyheniä", "kolikoita" };
+                var targetObject = new List<string> { "sientä", "timanttea", "höyhentä", "kolikkoa" };
                 int targetIndex = s_rnd.Next(targetObject.Count);
 
                 return new Quest(action[actionIndex], targetObject[targetIndex], amount);
@@ -86,7 +86,7 @@ namespace QuestGame
             // Kill quest
             else if (actionIndex == 1)
             {
-                var targetEnemy = new List<string> { "rottia", "mörköjä", "zombeja", "rosvoja" };
+                var targetEnemy = new List<string> { "rottaa", "mörköä", "zombia", "rosvoa" };
                 int targetIndex = s_rnd.Next(targetEnemy.Count);
 
                 return new Quest(action[actionIndex], targetEnemy[targetIndex], amount);

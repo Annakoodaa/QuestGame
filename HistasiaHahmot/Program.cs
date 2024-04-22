@@ -99,14 +99,11 @@ namespace QuestGame
             // Char info printing
             player.PrintInfo();
 
-            TheGame.StartAdventure(player);
-
+            // Temp Stats
             player.GatheringSkill = 2;
             player.AttackBonus = 5;
 
-            Console.ReadKey(true);
-            Gathering.Gather(player, "sieniä");
-            Combat.Battle(player);
+            TheGame.StartAdventure(player);
 
             Console.ReadKey(true);
         }
