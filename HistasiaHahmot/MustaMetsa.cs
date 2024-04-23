@@ -424,7 +424,7 @@ namespace QuestGame
             Thread.Sleep(500);
             Console.Write(kellariEnd);
 
-            // Goto Puurakennus
+            // Goto Puurakennus kjfgnkldfgkdf
             PuuRakennus(player);
         }
         #endregion
