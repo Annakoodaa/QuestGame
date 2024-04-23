@@ -39,7 +39,7 @@ namespace QuestGame
 
         public void QuestDescription()
         {
-            string questDescriptionText = $"Minun tehtäväni on {_action} {_target} {_amount}.\n" +
+            string questDescriptionText = $"Minun tehtäväni on {_action} {_amount} {_target}.\n" +
                 "Voin mennä Mustametsään, Kyläpahaseen, Peikonkaupunkiin, tai Kuolemanjärven kunnalle.\n" +
                 "Mustametsä on tunnettu huonosta näkyvyydestään, joka jättää seikkailijat heikoiksi hirviöiden yllätyshyökkäyksille,\n" +
                 "mutta sen varjoisasta ja kosteasta ympäristöstä voi helposti löytyä kaikenlaisia sieniä.\n" +
@@ -70,7 +70,7 @@ namespace QuestGame
             //var paikka = new List<string> { "Mustametsä", "Kyläpahanen", "Peikonkaupunki", "Kuolemanjärven kunta" };
             Console.WriteLine("\nLuodaan sinulle tehtävä.");
             var random = new Random();
-            var action = new List<string> { "Kerää", "Tapa" };
+            var action = new List<string> { "kerää", "tapa" };
             int actionIndex = random.Next(action.Count);
             Random maara = new Random();
             int amount = maara.Next(10, 50);
@@ -78,7 +78,7 @@ namespace QuestGame
             // Gathering quest
             if (actionIndex == 0)
             {
-                var targetObject = new List<string> { "sientä", "timanttea", "höyhentä", "kolikkoa" };
+                var targetObject = new List<string> { "sientä", "timanttia", "höyhentä", "kolikkoa" };
                 int targetIndex = s_rnd.Next(targetObject.Count);
 
                 return new Quest(action[actionIndex], targetObject[targetIndex], amount);
