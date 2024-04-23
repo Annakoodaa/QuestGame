@@ -59,7 +59,7 @@ namespace QuestGame
             switch (pressedKey.KeyChar)
             {
                 case '1':
-                    MultaPolku();
+                    MultaPolku(player);
                     break;
                 case '2':
                     Console.WriteLine("Not implemented");
@@ -74,7 +74,7 @@ namespace QuestGame
 
         }
 
-        static void MultaPolku()
+        static void MultaPolku(Character player)
         {
             Console.Write("Kävelin multapolkua pitkin useita minuutteja, huitoen samalla puskia ynnä muita pensaita pois tieltäni miekallani. " +
                 "Lopulta, päädyin aukiolle. Aurinko säteili läpi neulaskaton vain tähän tiettyyn kohtaan. Aukio ei vaikuttanut olevan luonnollinen näky, " +
@@ -90,6 +90,25 @@ namespace QuestGame
                 "2. Avaa kellari\n" +
                 "3. Palaa alkuun\n"
                 );
+
+            var pressedKey = Console.ReadKey(true);
+            switch (pressedKey.KeyChar)
+            {
+                // Kerää sienet
+                case '1':
+                    // Getting random number for gathering amount
+                    int gatherAmount = Gathering.Gather(player);
+                    Console.Write($"Kumarruin sieniä keräämään. Yksi toisen perään, tungin sieniä reipasta tahtia nahkalaukkuuni. Sain {gatherAmount} sientä.");
+                    break;
+                case '2':
+                    Console.WriteLine("Not implemented");
+                    break;
+                case '3':
+                    Console.WriteLine("Not implemented");
+                    break;
+                case '4':                  
+                    break;
+            }
             /* ...
              * Jos pelaaja kerää sienet: Kumarruin sieniä keräämään. Yksi toisen perään, tungin sieniä reipasta tahtia nahkalaukkuuni. Sain {määrä} sientä. 
 

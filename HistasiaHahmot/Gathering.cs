@@ -12,7 +12,7 @@ namespace QuestGame
         // Random
         static Random s_rnd = new Random();
 
-        public static void Gather(Character player, string obj)
+        public static int Gather(Character player)
         {
             // Gathering Defaults
             int maxAmount = 10;
@@ -27,37 +27,39 @@ namespace QuestGame
             minAmount += player.GatheringSkill;
 
             // Chance for enemy encounter.
-            int ambush = s_rnd.Next(1,101);
-            if (ambush <= 3) 
-            {
-                // Text for ambush.
-                string ambushText = "Lähestyessäsi sieniä, huomaat vihollisia lähestymässä sinua\n";
-                foreach(char c in ambushText)
-                {
-                    Console.Write(c);
-                    Thread.Sleep(30);
-                }
-                Console.WriteLine("Paina näppäintä jatkaaksesi tappeluun.");
-                Console.ReadKey(true);
+            //int ambush = s_rnd.Next(1,101);
+            //if (ambush <= 3) 
+            //{
+            //    // Text for ambush.
+            //    string ambushText = "Lähestyessäsi sieniä, huomaat vihollisia lähestymässä sinua\n";
+            //    foreach(char c in ambushText)
+            //    {
+            //        Console.Write(c);
+            //        Thread.Sleep(30);
+            //    }
+            //    Console.WriteLine("Paina näppäintä jatkaaksesi tappeluun.");
+            //    Console.ReadKey(true);
                 
-                // Start Battle
-                Combat.Battle(player);
-            }
+            //    // Start Battle
+            //    Combat.Battle(player);
+            //}
 
 
             // Randomizing gathered amount.
             int gatheredAmount = s_rnd.Next(minAmount, maxAmount);
-            // Delay
-            Thread.Sleep(1000);
+
+            return gatheredAmount;
+            
+            
             // Gathering Text.
-            string gatherSuccessText = $"Kumarruin sieniä keräämään. Yksi toisen perään, tungin sieniä reipasta tahtia nahkalaukkuuni. Sain {gatheredAmount} sientä\n";
-            foreach (char c in gatherSuccessText)
-            {
-                Console.Write(c);
-                Thread.Sleep(30);
-            }
-            Console.WriteLine("Paina nappia jatkaaksesi.");
-            Console.ReadKey(true);
+            //string gatherSuccessText = $"Kumarruin sieniä keräämään. Yksi toisen perään, tungin sieniä reipasta tahtia nahkalaukkuuni. Sain {gatheredAmount} sientä\n";
+            //foreach (char c in gatherSuccessText)
+            //{
+            //    Console.Write(c);
+            //    Thread.Sleep(30);
+            //}
+            //Console.WriteLine("Paina nappia jatkaaksesi.");
+            //Console.ReadKey(true);
         }
     }
 }
