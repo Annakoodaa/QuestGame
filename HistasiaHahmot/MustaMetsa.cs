@@ -390,6 +390,8 @@ namespace QuestGame
         static bool _kellariReturn = false;
         static void Kellari(Character player)
         {
+            int gatheredAmount = Gathering.Gather(player);
+
             string kellariIntro = "Laitoin rakennukselta löytämäni avaimen kellariluukun avaimenreikään ja käänsin sitä. " +
                 "Kun vetäisin kellariluukun kahvasta, se avautui märisten. Luukun toisella puolella oli tikkaat, jotka johtivat maanalaisiin syvyyksiin. " +
                 "Aloin kiivetä tikkaita alas.\n\n";
@@ -399,7 +401,7 @@ namespace QuestGame
                 "Mutta sieniä muuten riitti. Aloin keräämään niitä hirveää vauhtia. Sieni sienen jälkeen löysi tien nahkalaukkuuni. " +
                 "En edes huomannut käveleväni yhä syvemmälle kellariin sienihurmassa. ";
 
-            string kellariText2 = "Lopulta päädyin kellarin loppuun, jolloin myös sienet loppuivat. Sain {määrä} sientä. " +
+            string kellariText2 = $"Lopulta päädyin kellarin loppuun, jolloin myös sienet loppuivat. Sain {gatheredAmount} sientä. " +
                 "Sienien loppu sai minut katsomaan ympärilleni ensimmäistä kertaa hetkeen. Kellari ei välttämättä ole edes oikea sana tälle paikalle. " +
                 "Se on vain tunneli. Edessäni olevat tikkaat johtavat ylöspäin, enkä näe aloituspistettäni enää taakse katsoessa. Päätän kiivetä tikkaat ylös. ";
 
@@ -407,7 +409,8 @@ namespace QuestGame
                 "Rakennus on pieni, eikä sieltä löydy paljoa. Kellariluukku maassa on varmaankin kaikista kiinnostavin asia siellä. Edessäni näen liukuvan " +
                 "peltioven, jonka kahvojen ympärillä on ruosteinen kettinki. Kettingissä on kiinni lukko. Kokeilen aikaisemmin löytämääni avainta lukkoon. " +
                 "Lukko aukesi vastustamatta. Revin kettingin pois kahvojen ympäriltä ja avaan liukuvan peltioven. ";
-            Console.WriteLine("Olet nyt kellarissa!");
+
+
         }
         #endregion
         static void ResetArea()
