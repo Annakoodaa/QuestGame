@@ -94,6 +94,7 @@ namespace QuestGame
 
         static void MultaPolku(Character player)
         {
+            bool cellarOpened = false;
             bool returnToStart = false;
             while (!returnToStart)
             {
@@ -160,7 +161,8 @@ namespace QuestGame
                         switch (_hasKey)
                         {
                             case true:
-                                Console.WriteLine();
+                                cellarOpened = true;
+                                returnToStart = true;
                                 break;
                             case false:
                                 // Description depending if cellar was attempted prior.
@@ -186,7 +188,16 @@ namespace QuestGame
                 Console.Write("Paina nappia jatkaaksesi");
                 Console.ReadKey(true);
             }
-            MMEntrance(player);
+
+            if (cellarOpened)
+            {
+                Kellari(player);
+            }
+            else
+            {
+                MMEntrance(player);
+            }
+
         }
         #endregion
 
@@ -379,7 +390,24 @@ namespace QuestGame
         static bool _kellariReturn = false;
         static void Kellari(Character player)
         {
+            string kellariIntro = "Laitoin rakennukselta löytämäni avaimen kellariluukun avaimenreikään ja käänsin sitä. " +
+                "Kun vetäisin kellariluukun kahvasta, se avautui märisten. Luukun toisella puolella oli tikkaat, jotka johtivat maanalaisiin syvyyksiin. " +
+                "Aloin kiivetä tikkaita alas.\n\n";
 
+            string kellariText1 = "Nyt olin kiitollisempi kuin koskaan lyhdystäni. Ilman sitä, en näkisi yhtikäs mitään kellarissa. " +
+                "Kellari oli viileä ja märkä, ja jatkui pidemmälle kuin lyhtyni valo kantoi. Kellarin sisällä ei ollut mitään muuta kuin sieniä. " +
+                "Mutta sieniä muuten riitti. Aloin keräämään niitä hirveää vauhtia. Sieni sienen jälkeen löysi tien nahkalaukkuuni. " +
+                "En edes huomannut käveleväni yhä syvemmälle kellariin sienihurmassa. ";
+
+            string kellariText2 = "Lopulta päädyin kellarin loppuun, jolloin myös sienet loppuivat. Sain {määrä} sientä. " +
+                "Sienien loppu sai minut katsomaan ympärilleni ensimmäistä kertaa hetkeen. Kellari ei välttämättä ole edes oikea sana tälle paikalle. " +
+                "Se on vain tunneli. Edessäni olevat tikkaat johtavat ylöspäin, enkä näe aloituspistettäni enää taakse katsoessa. Päätän kiivetä tikkaat ylös. ";
+
+            string kellariText3 = "Toinen kellariluukku löytyi tikkaiden päästä. Työnsin sen auki, ja huomasin olevani jonkinlaisen rakennuksen sisällä. " +
+                "Rakennus on pieni, eikä sieltä löydy paljoa. Kellariluukku maassa on varmaankin kaikista kiinnostavin asia siellä. Edessäni näen liukuvan " +
+                "peltioven, jonka kahvojen ympärillä on ruosteinen kettinki. Kettingissä on kiinni lukko. Kokeilen aikaisemmin löytämääni avainta lukkoon. " +
+                "Lukko aukesi vastustamatta. Revin kettingin pois kahvojen ympäriltä ja avaan liukuvan peltioven. ";
+            Console.WriteLine("Olet nyt kellarissa!");
         }
         #endregion
         static void ResetArea()
