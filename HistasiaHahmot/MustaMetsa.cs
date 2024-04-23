@@ -410,7 +410,9 @@ namespace QuestGame
                 "peltioven, jonka kahvojen ympärillä on ruosteinen kettinki. Kettingissä on kiinni lukko. Kokeilen aikaisemmin löytämääni avainta lukkoon. " +
                 "Lukko aukesi vastustamatta. Revin kettingin pois kahvojen ympäriltä ja avaan liukuvan peltioven. ";
 
+            string kellariEnd = "Olen löytänyt itseni puurakennuksen pihalta. No, tulipahan tutkittua varastorakennus samalla.";
 
+            PuuRakennus(player);
         }
         #endregion
         static void ResetArea()
