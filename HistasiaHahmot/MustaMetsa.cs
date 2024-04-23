@@ -392,6 +392,7 @@ namespace QuestGame
         {
             int gatheredAmount = Gathering.Gather(player);
 
+            // Kellari Text
             string kellariIntro = "Laitoin rakennukselta löytämäni avaimen kellariluukun avaimenreikään ja käänsin sitä. " +
                 "Kun vetäisin kellariluukun kahvasta, se avautui märisten. Luukun toisella puolella oli tikkaat, jotka johtivat maanalaisiin syvyyksiin. " +
                 "Aloin kiivetä tikkaita alas.\n\n";
@@ -410,7 +411,20 @@ namespace QuestGame
                 "peltioven, jonka kahvojen ympärillä on ruosteinen kettinki. Kettingissä on kiinni lukko. Kokeilen aikaisemmin löytämääni avainta lukkoon. " +
                 "Lukko aukesi vastustamatta. Revin kettingin pois kahvojen ympäriltä ja avaan liukuvan peltioven. ";
 
+            string kellariEnd = "Olen löytänyt itseni puurakennuksen pihalta. No, tulipahan tutkittua varastorakennus samalla.";
 
+            // Writing text 
+            Console.Write(kellariIntro);
+            Thread.Sleep(500);
+            Console.Write(kellariText1);
+            Thread.Sleep(500);
+            Console.Write(kellariText2);
+            Thread.Sleep(500);
+            Console.Write(kellariText3);
+            Thread.Sleep(500);
+            Console.Write(kellariEnd);
+
+            PuuRakennus(player);
         }
         #endregion
         static void ResetArea()
