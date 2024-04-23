@@ -15,7 +15,7 @@ namespace QuestGame
             // Generating a new Quest
             var Quest = QuestFactory.QuestGenerator();
             // Printing Quest
-            Quest.QuestDescription();
+            //Quest.QuestDescription();
 
             // Invoking ChooseArea() with the player object as parameter
             ChooseArea(player);
