@@ -49,7 +49,7 @@ namespace QuestGame
                 "1. Multapolku\n" +
                 "2. Metsänsyvyys\n" +
                 "3. Puurakennus\n" +
-                "4. Palaa aluevalintaan."
+                "4. Palaa aluevalintaan.\n"
                 );
 
             // Input
@@ -84,7 +84,6 @@ namespace QuestGame
                     TheGame.ChooseArea(player);
                     break;
             }
-
         }
         #endregion
 
@@ -95,7 +94,8 @@ namespace QuestGame
 
         static void MultaPolku(Character player)
         {
-            while (true)
+            bool returnToStart = false;
+            while (!returnToStart)
             {
                 Console.Clear();
 
@@ -180,44 +180,47 @@ namespace QuestGame
                         break;
                     // Return back to the entrance of the forest.
                     case '3':
-                        MMEntrance(player);
+                        returnToStart = true;
                         break;
                 }
-
-                Thread.Sleep(1500);
-
+                Console.Write("Paina nappia jatkaaksesi");
+                Console.ReadKey (true);
             }
+            MMEntrance(player);
         }
         #endregion
 
         #region Metsänsyvyydet
         // Field for entry check.
-        static bool metsanSyvReturn = false;
+        static bool _metsanSyvReturn = false;
         static void Metsansyvyydet(Character player)
         {
             Console.Clear();
-            switch (metsanSyvReturn)
+            switch (_metsanSyvReturn)
             {
                 // Trying to enter the second time.
                 case true:
-                    Console.Write("Katsoin syvyyksiin, harkiten paluuta. Sitten muistin viimeisen kokemukseni, ja totesin ottaneeni opiksi.");
+                    Console.Write("Katsoin syvyyksiin, harkiten paluuta. Sitten muistin viimeisen kokemukseni, ja totesin ottaneeni opiksi.\n");
                     break;
                 // Entering for the first time.
                 case false:
                     Console.Write("Keräsin rohkeuteni ja astuin mustametsän synkkiin syövereihin. " +
                             "Puskat ja pensaat olivat liian tiheästi kasvaneita katkaistakseen miekalla. " +
-                            "Syrjin oksia ja lehtiä, tuntien niiden lyövän heti takaisin. Kaduin päätöksiäni jo nyt.\n");
+                            "Syrjin oksia ja lehtiä, tuntien niiden lyövän heti takaisin. Kaduin päätöksiäni jo nyt.\n\n");
                     Thread.Sleep(1000);
                     int gatheredAmount = Gathering.Gather(player);
                     Console.Write("Lopulta pääsin vain parinkymmenen metrin matkan päähän alkupisteestäni. " +
                         $"Keräsin satunnaiset sienet matkalla, ja lopulta sain {gatheredAmount} sientä tästä vaivasta. " +
-                        "Ei tarpeeksi, jos minulta kysytään.");
+                        "Ei tarpeeksi, jos minulta kysytään.\n\n");
                     Thread.Sleep(1000);
                     Console.Write("Palattuani alkuun, vannoin pysyvän kaukana noista syvyyksistä tästä edespäin. " +
-                        "Mutta pitäisikö mennä kohti puu rakennusta, vaiko valita multapolun? ");
-                    metsanSyvReturn = true;
-                    break;       
+                        "Mutta pitäisikö mennä kohti puu rakennusta, vaiko valita multapolun?\n");
+                    _metsanSyvReturn = true;
+                    break;
             }
+            Console.Write("Paina nappia jatkaaksesi");
+            Console.ReadKey(true);
+
             // Return to forest entrance
             MMEntrance(player);
         }
@@ -226,27 +229,59 @@ namespace QuestGame
         #region Puurakennus
         static bool _puuRakennusReturn = false;
         static bool _prGathered = false;
+        static bool _buildingAttempted = false;
+        static bool _ruinsChecked = false;
         static void PuuRakennus(Character player)
         {
-            Console.Clear();
-            // Intro Text
-            string puuRakennusIntroP1 = "Kävelin läpi vyötärölle kurottavan ruohikon matkalla puurakennukselle. " +
-                "Yhtäkkiä, tunsin jalkani osuvan johonkin. En ehtinyt edes rekisteröimään mitä tapahtui, ennen kuin tapasin maan halauksen. " +
-                "Nousin kivuliaasti takaisin jaloilleni. Ruohikon alla oleva kostea sammal ei pehmentänyt laskeutumista, mutta kyllä se vaatteeni kasteli. " +
-                "Jatkoin matkaa, tuntien itseni märäksi koiraksi.";
-            string puuRakennusIntroP2 = "Kun saavuin rakennuksen edustalle, huomasin että rakennuksen katto oli romahtanut. " +
-                "Sen sisimmissä ei näkynyt mitään muuta kuin romua, ja sen romun syövereistä kasvoi valtava mänty. " +
-                "Piha-alueella ei ollut mitään muita puita, mutta neulaskatto oli silti ihan yhtä tiheä—täysin sen yhden männyn johdosta. " +
-                "Oliko katto romahtanut männyn kasvusta, vai kasvoiko mänty katon romahduksesta? Ei kai sillä mitään väliä ole. ";
-            string puuRakennusIntroP3 = "Piha-alueella näkyi useita kiinnostuksen kohteita. Rakennuksen ympärillä kasvoi sieniä, jotka voisin kerätä. " +
-                "Pihan vasemmassa osassa näkyy olevan jonkinlainen varastorakennus. Voisin tietysti myös mennä penkomaan rakennuksen raunioita, jos sieltä vielä löytyisi jotain. ";
+            bool returnToStart = false;
 
-            // Writing intro text.
-            Console.Write(puuRakennusIntroP1);
-            Thread.Sleep(500);
-            Console.Write(puuRakennusIntroP2);
-            Thread.Sleep(500);
-            Console.Write(puuRakennusIntroP3);
+            if (!_puuRakennusReturn)
+            {
+                // Intro Text
+                string puuRakennusIntroP1 = "Kävelin läpi vyötärölle kurottavan ruohikon matkalla puurakennukselle. " +
+                     "Yhtäkkiä, tunsin jalkani osuvan johonkin. En ehtinyt edes rekisteröimään mitä tapahtui, ennen kuin tapasin maan halauksen. " +
+                     "Nousin kivuliaasti takaisin jaloilleni. Ruohikon alla oleva kostea sammal ei pehmentänyt laskeutumista, mutta kyllä se vaatteeni kasteli. " +
+                     "Jatkoin matkaa, tuntien itseni märäksi koiraksi.\n\n";
+                string puuRakennusIntroP2 = "Kun saavuin rakennuksen edustalle, huomasin että rakennuksen katto oli romahtanut. " +
+                    "Sen sisimmissä ei näkynyt mitään muuta kuin romua, ja sen romun syövereistä kasvoi valtava mänty. " +
+                    "Piha-alueella ei ollut mitään muita puita, mutta neulaskatto oli silti ihan yhtä tiheä—täysin sen yhden männyn johdosta. " +
+                    "Oliko katto romahtanut männyn kasvusta, vai kasvoiko mänty katon romahduksesta? Ei kai sillä mitään väliä ole.\n\n";
+                string puuRakennusIntroP3 = "Piha-alueella näkyi useita kiinnostuksen kohteita. Rakennuksen ympärillä kasvoi sieniä, jotka voisin kerätä. " +
+                    "Pihan vasemmassa osassa näkyy olevan jonkinlainen varastorakennus. Voisin tietysti myös mennä penkomaan rakennuksen raunioita, jos sieltä vielä löytyisi jotain.\n\n";
+                // Writing intro text.
+                Console.Write(puuRakennusIntroP1);
+                Thread.Sleep(500);
+                Console.Write(puuRakennusIntroP2);
+                Thread.Sleep(500);
+                Console.Write(puuRakennusIntroP3);
+            }
+            else
+            {
+                string returnText = "";
+                if (_prGathered && _ruinsChecked)
+                {
+                    returnText = "Kävelin rakennusta kohti, varoen etten kompastu sammaleen alla piileskeleviin kiviin tai juuriin. " +
+                        "Saavuin rakennuksen pihalle. En tiedä mitä minun täällä pitäisi tehdä, muuta kuin ehkä yrittää tutkia varastorakennusta.\n";
+                }
+                if (_prGathered && !_ruinsChecked)
+                {
+                    returnText = "Kävelin rakennusta kohti, varoen etten kompastu sammaleen alla piileskeleviin kiviin tai juuriin. " +
+                        "Saavuin rakennuksen pihalle. Voisin yrittää penkoa rakennuksen raunioita, vaikka sieltä ei välttämättä mitään löydykään. " +
+                        "Voin myös kokeilla päästä varastorakennukseen sisään.\n";
+                }
+                if (!_prGathered && _ruinsChecked)
+                {
+                    returnText = "Kävelin rakennusta kohti, varoen etten kompastu sammaleen alla piileskeleviin kiviin tai juuriin. " +
+                        "Saavuin rakennuksen pihalle. Sienet, jotka kasvavat rakennuksen pielessä, vetivät katseeni puoleensa. Voisin tutkia varastorakennusta.\n";
+                }
+                if (!_prGathered && !_ruinsChecked)
+                {
+                    returnText = "Kävelin rakennusta kohti, varoen etten kompastu sammaleen alla piileskeleviin kiviin tai juuriin. " +
+                        "Saavuin rakennuksen pihalle. Sienet, jotka kasvavat rakennuksen pielessä, vetivät katseeni puoleensa. " +
+                        "Voin kokeilla penkoa rakennuksen raunioiden syövereistä aarteita—jos sellaisia sieltä löytyy. Voisin tutkia varastorakennusta.\n";
+                }
+                Console.Write(returnText);
+            }
 
             // Player input
             Console.Write
@@ -267,20 +302,47 @@ namespace QuestGame
                     // if mushrooms are already gathered, inform player.
                     if (_prGathered == true)
                     {
-                        Console.Write("Keräsit jo sienet, eikä täältä löydy mitään muuta kerättävää\n");
+                        string failedGathering = "Keräsit jo sienet, eikä täältä löydy mitään muuta kerättävää\n";
+                        Console.Write(failedGathering);
                         break;
                     }
                     // Getting random number for gathering amount
                     int gatherAmount = Gathering.Gather(player);
-                    Console.Write($"Kiersin ympäri rakennuksen, keräten kaikki sienet, jotka huomasin. Sain {gatherAmount} sientä.\n");
+                    string gatheringText = $"Kiersin ympäri rakennuksen, keräten kaikki sienet, jotka huomasin. Sain {gatherAmount} sientä.\n";
+                    Console.Write(gatheringText);
                     _prGathered = true;
                     break;
-                // Varastorakennus
+                // Building
                 case '2':
-     
+                    string buildingText = "";
+                    // Check whether door has been attempted before or not.
+                    switch (_buildingAttempted)
+                    {
+
+                        case false:
+                            buildingText = "Koitin varastorakennuksen liukuvaa peltiovea, mutta se ei liikahtanutkaan. " +
+                                "Potkaisin ovea kaikin voimin, eikä se näyttänyt merkkiäkään romahduksesta. Turha toivo.\n";
+                            break;
+                        case true:
+                            buildingText = "Potkaisin peltiovea niin kovaa, että kaiku sai linnut pakenemaan. Ovi ei liikahtanutkaan. Turha toivo.\n";
+                            break;
+                    }
+                    // writing text.
+                    Console.Write(buildingText);
                     break;
                 // Rauniot
                 case '3':
+                    string ruinsText = "Kävelin raunioiden ääreen ja aloin penkoa. Puuta, puuta, lisää puuta, pari metalli pannua, " +
+                        "taas puuta, ja sitten vielä vähän lisää puuta.\n";
+                    string ruinsText2 = "Juuri kun olin menettämässä toivon, huomasin jotain pientä ja metallista romun syövereissä. " +
+                        "Aloitin kaivuu työn jälleen. Kun romu oli sivuutettu, sain käsiini pienen, ruosteisen avaimen. Tämä varmaan tulee hyödyksi.\n";
+
+                    _hasKey = true;
+                    _ruinsChecked = true;
+
+                    Console.Write(ruinsText);
+                    Thread.Sleep(500);
+                    Console.Write(ruinsText2);
 
                     break;
                 // Return back to the entrance of the forest.
@@ -300,11 +362,23 @@ namespace QuestGame
         #endregion
         static void ResetArea()
         {
-            _mmReturn = true;
+            // Class wide
             _hasKey = false;
+            // Mustametsä Entrane
+            _mmReturn = true;
+            // Multapolku
             _cellarAttempted = false;
             _mpGathered = false;
             _multaPolkuReturn = false;
+            // Metsänsyvyydet
+            _metsanSyvReturn = false;
+            // Puurakennus
+            _puuRakennusReturn = false;
+            _prGathered = false;
+            _buildingAttempted = false;
+            _ruinsChecked = false;
+            // Kellari
+            _kellariReturn = false;
         }
     }
 }
