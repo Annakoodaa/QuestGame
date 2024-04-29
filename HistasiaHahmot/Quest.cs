@@ -39,18 +39,16 @@ namespace QuestGame
 
         public void QuestDescription()
         {
-            string questDescriptionText = $"Minun tehtäväni on {_action} {_amount} {_target}.\n" +
-                "Voin mennä Mustametsään, Kyläpahaseen, Peikonkaupunkiin, tai Kuolemanjärven kunnalle.\n" +
+
+            string questDescriptionText = $"Minun tehtäväni on {_action} {_target} {_amount}.\n" +
+                "Voin mennä Mustametsään, Kyläpahaseen tai Peikonkaupunkiin.\n" +
                 "Mustametsä on tunnettu huonosta näkyvyydestään, joka jättää seikkailijat heikoiksi hirviöiden yllätyshyökkäyksille,\n" +
                 "mutta sen varjoisasta ja kosteasta ympäristöstä voi helposti löytyä kaikenlaisia sieniä.\n" +
                 "Kyläpahanen on pieni kylä keskellä suurin piirtein turvallista maakuntaa. Siellä voi rosvojen uhriksi joutua,\n" +
                 "tai jyrsijät saattavat alkaa maistella kantapäitä, mutta ei mitään sen vaarallisempaa—sitä paitsi, rosvojen\n" +
                 "kätköistä voi helposti löytyä kolikoita oman taskun painottamiseksi.\n" +
                 "Peikonkaupunki on melko ilmiselvä konsepti. Se on kaupunki täynnä peikkoja. Peikot useimmiten koristavat asusteitaan\n" +
-                "höyhenillä.\n" +
-                "Kuolemanjärven kunta on nykyään pelkkä kasa romua asuntojen muodossa. Zombeja liikkuu ympäri ämpäri läpi vuorokauden.\n" +
-                "Mutta huhut kertovat siellä olleen suuri aarrekammio. Kaikenlaisia jalokiviä varmasti löytyisi kammion sisimmistä\n" +
-                "Jos se on olemassa.\n";
+                "höyhenillä.\n";
 
             foreach (char c in questDescriptionText)
             {
@@ -67,7 +65,7 @@ namespace QuestGame
 
         public static Quest QuestGenerator()
         {
-            //var paikka = new List<string> { "Mustametsä", "Kyläpahanen", "Peikonkaupunki", "Kuolemanjärven kunta" };
+            //var paikka = new List<string> { "Mustametsä", "Kyläpahanen", "Peikonkaupunki" };
             Console.WriteLine("\nLuodaan sinulle tehtävä.");
             var random = new Random();
             var action = new List<string> { "kerää", "tapa" };
@@ -78,7 +76,8 @@ namespace QuestGame
             // Gathering quest
             if (actionIndex == 0)
             {
-                var targetObject = new List<string> { "sientä", "timanttia", "höyhentä", "kolikkoa" };
+                var targetObject = new List<string> { "sieniä", "höyheniä", "kolikoita" };
+
                 int targetIndex = s_rnd.Next(targetObject.Count);
 
                 return new Quest(action[actionIndex], targetObject[targetIndex], amount);
@@ -86,7 +85,8 @@ namespace QuestGame
             // Kill quest
             else if (actionIndex == 1)
             {
-                var targetEnemy = new List<string> { "rottaa", "mörköä", "zombia", "rosvoa" };
+                var targetEnemy = new List<string> { "rottia", "mörköjä", "rosvoja" };
+              
                 int targetIndex = s_rnd.Next(targetEnemy.Count);
 
                 return new Quest(action[actionIndex], targetEnemy[targetIndex], amount);

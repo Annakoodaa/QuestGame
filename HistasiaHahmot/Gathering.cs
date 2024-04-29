@@ -19,7 +19,7 @@ namespace QuestGame
             int minAmount = 1;
 
             // Area modifier?
-            
+
 
             // Gathering skills effects
             // Currently it only increase the minimun gathering
@@ -39,7 +39,7 @@ namespace QuestGame
             //    }
             //    Console.WriteLine("Paina näppäintä jatkaaksesi tappeluun.");
             //    Console.ReadKey(true);
-                
+
             //    // Start Battle
             //    Combat.Battle(player);
             //}
@@ -49,8 +49,7 @@ namespace QuestGame
             int gatheredAmount = s_rnd.Next(minAmount, maxAmount);
 
             return gatheredAmount;
-            
-            
+
             // Gathering Text.
             //string gatherSuccessText = $"Kumarruin sieniä keräämään. Yksi toisen perään, tungin sieniä reipasta tahtia nahkalaukkuuni. Sain {gatheredAmount} sientä\n";
             //foreach (char c in gatherSuccessText)

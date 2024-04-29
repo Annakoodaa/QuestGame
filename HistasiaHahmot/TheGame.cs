@@ -29,8 +29,7 @@ namespace QuestGame
                 (
                 "1. Mustametsä\n" +
                 "2. Kyläpahanen\n" +
-                "3. Peikonkaupunki\n" +
-                "4. Kuolemanjärven kunta\n"
+                "3. Peikonkaupunki\n"                
                 );
 
             // Input
@@ -41,7 +40,7 @@ namespace QuestGame
                 pressedKey = Console.ReadKey(true);
                 switch (pressedKey.KeyChar)
                 {
-                    case char c when (c == '1' || c == '2' || c == '3' || c == '4'):
+                    case char c when (c == '1' || c == '2' || c == '3' ):
                         validInput = true;
                         break;
                     default:
@@ -61,14 +60,8 @@ namespace QuestGame
                 case '3':
                     PeikonKaupunki.Start();
                     break;
-                case '4':
-                    KuolemanjarvenKunta.Start();
-                    break;
             }
         }
-
-
-
 
     }
 }
