@@ -9,9 +9,12 @@ namespace QuestGame
 {
     public class Utilities
     {
+        // Public utility fields.
+        public static int s_selectionDelay = 2000;
+        public static int s_TextChapterDelay = 1500;
 
+        // Text speed.
         static int s_textSpeed = 30;
-        static int s_selectionDelay = 2000;
 
         // Method for text writing
         public static void TextWriter(string text)
@@ -30,11 +33,5 @@ namespace QuestGame
             Console.Write("\nPaina nappia jatkaaksesi");
             Console.ReadKey(true);
         }
-    }
-
-    public static class Utility
-    {
-        public static int s_TextChapterDelay = 1500;
-
     }
 }

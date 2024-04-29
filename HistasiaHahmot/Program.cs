@@ -18,9 +18,9 @@ namespace QuestGame
         readonly int maxHealth = 100;
 
         int _health = 100;
-        int _defense;
-        int _attackBonus;
-        int _gatheringSkill;
+        int _defense = 0;
+        int _attackBonus = 0;
+        int _gatheringSkill = 0;
         int _strengthModifier = 0;
         int _intelligenceModifier = 0;
         int _dodgeHitModifier = 0;

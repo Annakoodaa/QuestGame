@@ -12,11 +12,7 @@ namespace QuestGame
 {
     internal class MustaMetsa
     {
-        #region Text Related
-        static int s_textSpeed = 5;
         static int s_textChapterDelay = 1500;
-        static int s_selectionDelay = 2000;
-        #endregion
 
         #region Mustametsä wide fields
         static bool s_hasKey = false;
@@ -85,7 +81,7 @@ namespace QuestGame
 
             }
             // Selection window delay
-            Thread.Sleep(s_selectionDelay);
+            Thread.Sleep(Utilities.s_selectionDelay);
             // 1 multapolku 2. Metsänsyvyydet 3. Rakennus
             Console.Write
                 (
@@ -200,7 +196,7 @@ namespace QuestGame
                     Utilities.TextWriter(mpReturnText);
                 }
 
-                Thread.Sleep(s_selectionDelay);
+                Thread.Sleep(Utilities.s_selectionDelay);
                 // Player input
                 Console.Write
                     (
@@ -498,7 +494,7 @@ namespace QuestGame
                     Utilities.TextWriter(returnText);
                 }
 
-                Thread.Sleep(s_selectionDelay);
+                Thread.Sleep(Utilities.s_selectionDelay);
                 // Player choice
                 if (s_killQuest)
                 {

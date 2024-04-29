@@ -39,7 +39,7 @@ namespace QuestGame
 
         public void QuestDescription()
         {
-
+            // Quest text
             string questDescriptionText = $"Minun tehtäväni on {_action} {_target} {_amount}.\n" +
                 "Voin mennä Mustametsään, Kyläpahaseen tai Peikonkaupunkiin.\n" +
                 "Mustametsä on tunnettu huonosta näkyvyydestään, joka jättää seikkailijat heikoiksi hirviöiden yllätyshyökkäyksille,\n" +
@@ -50,11 +50,8 @@ namespace QuestGame
                 "Peikonkaupunki on melko ilmiselvä konsepti. Se on kaupunki täynnä peikkoja. Peikot useimmiten koristavat asusteitaan\n" +
                 "höyhenillä.\n";
 
-            foreach (char c in questDescriptionText)
-            {
-                Console.Write(c);
-                Thread.Sleep(10);
-            }
+            // Text Writing
+            Utilities.TextWriter(questDescriptionText);
         }
     }
 
@@ -66,7 +63,7 @@ namespace QuestGame
         public static Quest QuestGenerator()
         {
             //var paikka = new List<string> { "Mustametsä", "Kyläpahanen", "Peikonkaupunki" };
-            Console.WriteLine("\nLuodaan sinulle tehtävä.");
+            //Console.WriteLine("\nLuodaan sinulle tehtävä.");
             var random = new Random();
             var action = new List<string> { "kerää", "tapa" };
             int actionIndex = random.Next(action.Count);
