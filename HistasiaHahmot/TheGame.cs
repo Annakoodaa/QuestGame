@@ -22,7 +22,7 @@ namespace QuestGame
         }
 
         // Area choice
-        static void ChooseArea(Character player)
+        public static void ChooseArea(Character player)
         {
             Console.WriteLine("Valitse minne haluat mennä:");
             Console.Write
@@ -59,7 +59,7 @@ namespace QuestGame
                     KylaPahanen.Start();
                     break;
                 case '3':
-                    PeikonKaupunki.Start();
+                    PeikonKaupunki.Start(player);
                     break;
                 case '4':
                     KuolemanjarvenKunta.Start();
