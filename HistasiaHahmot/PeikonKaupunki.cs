@@ -244,9 +244,173 @@ namespace QuestGame
             } while (validInput == false);
         }
 
+        static bool asutusalueActionComplete = false;
+        static bool asutusalueVisited = false;
+
         static void AsutusalueGather(Character player)
         {
-            Console.WriteLine("Asutusalue");
+            int amount = Gathering.Gather(player);
+            bool validInput = false;
+            string answerKey;
+            string asutusalueIntro1 = "Marketista eteen päin, löydän itseni asutusalueelta. Täältä ei paljoa ruuhkaa löydy," +
+                " sillä suurin osa peikoista on joko kaupungin keskustassa tai marketissa. Se ruuhka mitä löytyy, tosin, on lapsia. He leikkivät asutusalueen teillä," +
+                " piittaamatta muista ohikulkijoista. Ennen pitkään, yksi heistä tömähti minuun ja lensi maahan.";
+            string asutusalueIntro2 = "“Sori herra!”";
+            string asutusalueIntro3 = "Ennen kuin ehdin kysyä häneltä, että oliko hän kunnossa, hän juoksi jo pois. Kylläpä näillä tenavilla riittää energiaa." +
+                " Katsoin heidän leikkiä hetken aikaa, ja huomasin että he kilpailevat eräästä höyhenkruunusta." +
+                " Ehkä voisin liittyä kilpailuun yrittääkseni saada sen kruunun itselleni, tai voin myös jatkaa matkaa edessä päin näkyvälle portille ja vartioiden asemalle." +
+                " Voin tietysti myös mennä takaisin markettiin.\n";
+            string asutusalueAction1 = "Kävelin lapsien luokse ja kysyin mitä he tekivät.";
+            string asutusalueAction2 = "“Me kilpaillaan höyhenkruunusta!” yksi heistä vastasi innolla.";
+            string asutusalueAction3 = "“Voinko liittyä mukaan?”";
+            string asutusalueAction4 = "Lapset vaikuttivat epävarmoilta. “Osaatko sinä muka leikkiä hippaa?”";
+            string asutusalueAction5 = "“Osaan,” minä sanoin. Jos kyseessä on hippa, tämän pitäisi olla helppoa.";
+            string asutusalueAction6 = "Lapset hyväksyivät minut heidän kilpailuunsa ja minusta tehtiin jäänyt. Heti kun aloitus aika oli loppu," +
+                " ryntäsin lasten perään—mutta tein pienen lasku virheen tähän ryhtyessä. Nämä lapset ovat nopeita!" +
+                " Miten ihmeessä heidän pienet jalkansa pystyvät pinkomaan tämmöistä vauhtia!?";
+            string asutusalueAction7 = "En aio kuitenkaan hävitä. Heti kun pääsin kädenpituuteen yhdestä tenavasta, kurotin kaikin voimin ja juuri osuin hänen selkäänsä." +
+                " “Jäit kiinni,” minä sanoin. Tenavalla kesti hetki käsittää mitä tapahtui, jonka minä käytin hyödyksi hyppäämällä ylös." +
+                " Sain kiinni yläpuolellani olevasta parvekkeesta ja vedin itseni sen päälle.";
+            string asutusalueAction8 = "“Hei! Ei tuo ole reilua!” tenava huudahti.";
+            string asutusalueAction9 = "“Elämä harvemmin on”, minä väitin.";
+            string asutusalueAction10 = "Ja siinä oli minun toinen laskuvirhe.";
+            string asutusalueAction11 = "Lapset päättivät, että jos minä pelaan epäreilusti, heidän pitää pelata epäreilusti." +
+                " He asettivat eroavaisuutensa sivulle ja alkoivat yrittää saada minut kiinni. Yksi heistä jäi odottamaan parvekkeen alle," +
+                " samalla kun kaksi muuta ryntäsivät asuntoon. Ennen kun tiesin mitä ajatella, olin piiritetty.";
+            string asutusalueAction12 = "“Antaudu, herra!” yksi huusi.";
+            string asutusalueAction13 = "“Olet piiritetty!” toinen lisäsi.";
+            string asutusalueAction14 = "“Olenko tosiaan?” minä kysyin. “Ette sattuneet lähettämään jotakuta yläkertaan, vai mitä?”";
+            string asutusalueAction15 = "Lapset vaikuttivat yllättyneiltä.";
+            string asutusalueAction16 = "“Otan tuon ei:nä,” minä sanoin, ennen kuin kurotin seuraavan kerroksen parvekkeelle. Lapset syöksyivät minua kohti," +
+                " mutta ehdin vetää itseni ylös ennen kuin he pääsivät minuun kiinni. Päätin tehdä asioista vielä vähän vaikeampaa heille," +
+                " joten hyppäsin vastapäätä olevan lyhyemmän rakennuksen katolle parvekkeelta.";
+            string asutusalueAction17 = "Kun lapset viimein pääsivät parvekkeelle, he olivat ällikällä. “Mitä sinä siellä teet!?”";
+            string asutusalueAction18 = "“Olen karkuteillä. Mitä muutakaan?”";
+            string asutusalueAction19 = "Nauruni selvästi sai tenavat ärsyyntyneiksi. Kolmas laskuvirhe; yksi heistä on uhkarohkea." +
+                " Uhkarohkea tenava juoksi ja loikkasi minua kohti, jättäen tukevan maan taakseen—mutta hän on vasta lapsi. Se oli minullekin melko vaikea hyppy," +
+                " joten hänellä ei ollut mitään mahdollisuutta yltää toiselle puolelle.";
+            string asutusalueAction20 = "Juoksin katon reunalle ja kurotin lasta kohti. Sain hänen ranteestaan kiinni, mutta hän painoi enemmän kuin odotin." +
+                " Menetin tasapainoni ja tipahdin reunan yli—sain kuitenkin katon reunasta vielä toisella kädellä kiinni, kiitos hyvien refleksini.";
+            string asutusalueAction21 = "“Herra!” yksi peikkolapsi, joka oli vielä parvekkeen turvallisemmalla puolella, huusi.";
+            string asutusalueAction22 = "“Mene hakemaan vanhempasi!” minä huusin takaisin.";
+            string asutusalueAction23 = "“S-selvä!”";
+            string asutusalueAction24 = "Uhkarohkea tenava piteli minun kädestäni kiinni kaikin voimin. Nostin hänet katolle ensin, ja seurasin perässä." +
+                " Hän vaikutti erittäin pelästyneeltä, ihan syystäkin.";
+            string asutusalueAction25 = "“Älä tee noin enää”, minä sanoin.";
+            string asutusalueAction26 = "“En”, hän vannoi.";
+            string asutusalueAction27 = "“Hyvä.”";
+            string asutusalueAction28 = "Muutamassa minuutissa, kuulin meteliä alhaalta. Peikkojen vanhemmat oli hakenut vartijat auttamaan meitä." +
+                " Vartijat laittoivat tikkaat talon seinustalle ja hakivat uhkarohkean tenavan pois, ennen kuin jäivät tukemaan tikkaita alhaalta samalla kun tulin alas itse.";
+            string asutusalueAction29 = "Sain kuunnella moitteita peikkojen vanhemmilta jonkin aikaa. Ennen kuin jatkoin matkaa," +
+                $" uhkarohkea tenava toi höyhenkruunun minulle kiitoksena. Sain {amount} höyhentä.";
+            string asutusalueReturnActionIncomplete = "Palasin asutusalueelle, eikä lasten kilpailu ole vieläkään lakannut." +
+                " Voisin pyytää liittyä mukaan, tai mennä vartioiden asemalle, tai mennä markettiin.\n";
+            string asutusalueReturnActionComplete = "Palasin asutusalueelle. Lapset ovat turvassa omassa kotonaan, mutta se myös tarkoittaa," +
+                " ettei minulla ole mitään tekemistä täällä. Voin mennä markettiin tai vartioiden asemalle.\n";
+
+            Console.Clear();
+
+            if (asutusalueVisited == false)
+            {
+                TextWriter(asutusalueIntro1);
+                Continue();
+                TextWriter(asutusalueIntro2);
+                Continue();
+                TextWriter(asutusalueIntro3);
+                asutusalueVisited = true;
+            }
+            else if (asutusalueVisited == true && asutusalueActionComplete == true)
+            {
+                TextWriter(asutusalueReturnActionComplete);
+            }
+            else
+            {
+                TextWriter(asutusalueReturnActionIncomplete);
+            }
+
+            do
+            {
+                Console.WriteLine("\n1. Liity lasten leikkiin\n2. Asema\n3. Marketti");
+                answerKey = Console.ReadLine();
+
+                switch (answerKey)
+                {
+                    case "1":
+                        validInput = true;
+                        TextWriter(asutusalueAction1);
+                        Continue();
+                        TextWriter(asutusalueAction2);
+                        Continue();
+                        TextWriter(asutusalueAction3);
+                        Continue();
+                        TextWriter(asutusalueAction4);
+                        Continue();
+                        TextWriter(asutusalueAction5);
+                        Continue();
+                        TextWriter(asutusalueAction6);
+                        Continue();
+                        TextWriter(asutusalueAction7);
+                        Continue();
+                        TextWriter(asutusalueAction8);
+                        Continue();
+                        TextWriter(asutusalueAction9);
+                        Continue();
+                        TextWriter(asutusalueAction10);
+                        Continue();
+                        TextWriter(asutusalueAction11);
+                        Continue();
+                        TextWriter(asutusalueAction12);
+                        Continue();
+                        TextWriter(asutusalueAction13);
+                        Continue();
+                        TextWriter(asutusalueAction14);
+                        Continue();
+                        TextWriter(asutusalueAction15);
+                        Continue();
+                        TextWriter(asutusalueAction16);
+                        Continue();
+                        TextWriter(asutusalueAction17);
+                        Continue();
+                        TextWriter(asutusalueAction18);
+                        Continue();
+                        TextWriter(asutusalueAction19);
+                        Continue();
+                        TextWriter(asutusalueAction20);
+                        Continue();
+                        TextWriter(asutusalueAction21);
+                        Continue();
+                        TextWriter(asutusalueAction22);
+                        Continue();
+                        TextWriter(asutusalueAction23);
+                        Continue();
+                        TextWriter(asutusalueAction24);
+                        Continue();
+                        TextWriter(asutusalueAction25);
+                        Continue();
+                        TextWriter(asutusalueAction26);
+                        Continue();
+                        TextWriter(asutusalueAction27);
+                        Continue();
+                        TextWriter(asutusalueAction28);
+                        Continue();
+                        TextWriter(asutusalueAction29);
+                        Continue();
+                        asutusalueActionComplete = true;
+                        AsutusalueGather(player);
+                        break;
+                    case "2":
+                        validInput = true;
+                        AsemaGather(player);
+                        break;
+                    case "3":
+                        validInput = true;
+                        MarkettiGather(player);
+                        break;
+                    default:
+                        TextWriter("Sopimaton syöttö");
+                        break;
+                }
+            } while (validInput == false);
         }
 
         static void AsemaGather(Character player)
