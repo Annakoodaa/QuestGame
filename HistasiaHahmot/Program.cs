@@ -105,7 +105,7 @@ namespace QuestGame
             player.AttackBonus = 5;
 
             Console.ReadKey(true);
-            Gathering.Gather(player, "sieniä");
+            Gathering.Gather(player);
             Combat.Battle(player);
 
             Console.ReadKey(true);
