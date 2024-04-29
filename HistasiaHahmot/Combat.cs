@@ -60,7 +60,7 @@ namespace QuestGame
                     Console.WriteLine("---------");
                     Console.WriteLine("Vihollisia jäljellä: " + enemyCount);
                     Console.WriteLine($"Vihollinen: {enemy.Name} | Elämä: {enemy.Health} | Puolustus: {enemy.Defense} | Hyökkäys: {enemy.AttackBonus}\n");
-                    Console.WriteLine($"Pelaaja: {player.Name} | Elämä {player.Health} | Puolustus: {player.Defense} | Hyökkäys: {player.AttackBonus}");
+                    Console.WriteLine($"{player.Name}: {player.CharacterClass} | Elämä {player.Health} | Puolustus: {player.Defense} | Hyökkäys: {player.AttackBonus}");
                     Console.WriteLine("---------");
                     // Player actions text
                     string plActionsText = "\nToimi:\n1. Hyökkää\n2. Pakene\n";

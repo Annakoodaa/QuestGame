@@ -34,10 +34,10 @@ namespace QuestGame
         }
 
         // Constructors.
-        public Enemy(string name, int health, int defense, int attackbonus)
+        public Enemy(string name, int _health, int defense, int attackbonus)
         {
             _name = name;
-            _health = health;
+            _health = _health;
             _defense = defense;
             _attackBonus = attackbonus;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,35 +12,35 @@ namespace QuestGame
     class Character
     {
         public string Name { get; set; }
+        public string CharacterClass { get; set; }
         public string GameCharacter { get; set; }
 
-        // Combat Related
         readonly int maxHealth = 100;
-        int health = 100;
-        public int _defense { get; set; }
-        public int _attackBonus { get; set; }
-        public int _gatheringSkill { get; set; }
 
-        private int _strengthModifier = 0;
-        private int _intelligenceModifier = 0;
-        private int _dodgeHitModifier = 0;
+        int _health = 100;
+        int _defense;
+        int _attackBonus;
+        int _gatheringSkill;
+        int _strengthModifier = 0;
+        int _intelligenceModifier = 0;
+        int _dodgeHitModifier = 0;
 
         // Properties
         public int Health
         {
             get
             {
-                return health;
+                return _health;
             }
             set
             {
                 if (value > maxHealth)
                 {
-                    health = maxHealth;
+                    _health = maxHealth;
                 }
                 else
                 {
-                    health = value;
+                    _health = value;
                 }
             }
         }
@@ -55,7 +56,6 @@ namespace QuestGame
         {
             get { return _dodgeHitModifier; }
         }
-
         public int AttackBonus
         {
             get { return _attackBonus + StrengthModifier; }
@@ -70,9 +70,10 @@ namespace QuestGame
         }
 
         // Constructors
-        public Character(string name)
+        public Character(string name,string charClass)
         {
             Name = name;
+            CharacterClass = charClass;
         }
 
 
@@ -81,22 +82,22 @@ namespace QuestGame
             switch (trait)
             {
                 case "Vahva":
-                    _strengthModifier += 5; // Voimaa lisääntyy +X
+                    _strengthModifier += 2; // Voimaa lisääntyy +X
                     break;
                 case "Notkea":
-                    _dodgeHitModifier += 3; // Väistömahdollisuus lisääntyy +X
+                    _dodgeHitModifier += 2; // Väistömahdollisuus lisääntyy +X
                     break;
                 case "Viisas":
-                    _intelligenceModifier += 5; // Älykkyyttä lisääntyy +X
+                    _intelligenceModifier += 2; // Älykkyyttä lisääntyy +X
                     break;
                 case "Heikko":
-                    _strengthModifier -= 5; // Voimaa vähennetään +X
+                    _strengthModifier -= 2; // Voimaa vähennetään +X
                     break;
                 case "Hölmö":
-                    _intelligenceModifier -= 5; // Älykkyyttä vähennetään +X
+                    _intelligenceModifier -= 2; // Älykkyyttä vähennetään +X
                     break;
                 case "Ajattelematon":
-                    _dodgeHitModifier -= 3; // Väistömahdollisuus vähennetään +X
+                    _dodgeHitModifier -= 2; // Väistömahdollisuus vähennetään +X
                     break;
             }
         }
@@ -105,7 +106,7 @@ namespace QuestGame
         public void PrintInfo()
         {
             Console.WriteLine("Pelaajahahmosi:");
-            Console.WriteLine($"Hahmo: {Name} \nVoima ({_strengthModifier}): {GetStrengthTrait()} \n" +
+            Console.WriteLine($"Hahmo: {CharacterClass} \nVoima ({_strengthModifier}): {GetStrengthTrait()} \n" +
                 $"Älykkyyden ({_intelligenceModifier}): {GetIntelligenceTrait()} \nVäistö ({_dodgeHitModifier}): {GetDodgeTrait()}");
             Console.WriteLine("***********************************\n");
         }
@@ -152,12 +153,12 @@ namespace QuestGame
             return allTraits[random.Next(allTraits.Length)];
         }
 
-        static Character GenerateCharacter()
+        static Character GenerateCharacter(string name)
         {
-            string[] names = { "Heimopäällikkö", "Sotilas", "Kyläläinen" };
-            string name = names[random.Next(names.Length)];
+            string[] classes = { "Heimopäällikkö", "Sotilas", "Kyläläinen" };
+            string charClass = classes[random.Next(classes.Length)];
 
-            var character = new Character(name);
+            var character = new Character(name,charClass);
 
             character.SetTrait(GenerateTrait()); // Voima
             character.SetTrait(GenerateTrait()); // Älykkyys
@@ -175,7 +176,7 @@ namespace QuestGame
             Console.WriteLine("");
             Console.WriteLine($"Tervetuloa {playerName}!\n\nSeuraavaksi saat tiedot hahmostasi.");
             Console.WriteLine("***********************************");
-            Character player = GenerateCharacter();
+            Character player = GenerateCharacter(playerName);
 
             // Char info printing
             player.PrintInfo();
