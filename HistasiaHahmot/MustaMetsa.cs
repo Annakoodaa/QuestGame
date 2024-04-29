@@ -29,7 +29,7 @@ namespace QuestGame
         static bool s_mmReturn = false;
         static bool s_mmFirstReturn = true;
 
-        public static void MMEntrance(Character player)
+        public static void MMEntrance(Character player, Quest quest)
         {
             Console.Clear();
             if (!s_mmReturn)
@@ -76,7 +76,7 @@ namespace QuestGame
                     s_mmFirstReturn = false;
                     Utilities.PressToContinue();
                     Combat.Battle(player,s_enemyType,3);
-                    MMEntrance(player);
+                    MMEntrance(player, quest);
                 }
 
             }
@@ -110,17 +110,17 @@ namespace QuestGame
             switch (pressedKey.KeyChar)
             {
                 case '1':
-                    MultaPolku(player);
+                    MultaPolku(player, quest);
                     break;
                 case '2':
-                    Metsansyvyydet(player);
+                    Metsansyvyydet(player, quest);
                     break;
                 case '3':
-                    PuuRakennus(player);
+                    PuuRakennus(player, quest);
                     break;
                 case '4':
                     ResetArea();
-                    TheGame.ChooseArea(player);
+                    TheGame.ChooseArea(player, quest);
                     break;
             }
         }
@@ -131,7 +131,7 @@ namespace QuestGame
         static bool s_multaPolkuReturn = false;
         static bool s_mpGathered = false;
 
-        static void MultaPolku(Character player)
+        static void MultaPolku(Character player, Quest quest)
         {
             bool enterKellari = false;
             bool returnToStart = false;
@@ -173,7 +173,7 @@ namespace QuestGame
                         Combat.Battle(player, s_enemyType, 3);
 
                         // Return to start
-                        MultaPolku(player);
+                        MultaPolku(player, quest);
                     }
 
                     Utilities.TextWriter(mpText2);
@@ -225,6 +225,11 @@ namespace QuestGame
 
                         // Gathering text.
                         string gatheringText = $"Kumarruin sieniä keräämään. Yksi toisen perään, tungin sieniä reipasta tahtia nahkalaukkuuni. Sain {gatherAmount} sientä.\n\n";
+
+                        // Quest Counting
+
+
+                        // Text Writing
                         Utilities.TextWriter(gatheringText);
 
                         // set mushrooms to gathered.
@@ -301,15 +306,15 @@ namespace QuestGame
 
             if (prConnection)
             {
-                PuuRakennus(player);
+                PuuRakennus(player, quest);
             }
             else if (enterKellari)
             {
-                Kellari(player);
+                Kellari(player,quest);
             }
             else
             {
-                MMEntrance(player);
+                MMEntrance(player, quest);
             }
 
         }
@@ -318,7 +323,7 @@ namespace QuestGame
         #region Metsänsyvyydet
         // Field for entry check.
         static bool s_metsanSyvReturn = false;
-        static void Metsansyvyydet(Character player)
+        static void Metsansyvyydet(Character player,Quest quest)
         {
             Console.Clear();
             switch (s_metsanSyvReturn)
@@ -389,7 +394,7 @@ namespace QuestGame
             Utilities.PressToContinue();
 
             // Return to forest entrance
-            MMEntrance(player);
+            MMEntrance(player, quest);
         }
         #endregion
 
@@ -398,7 +403,7 @@ namespace QuestGame
         static bool s_prGathered = false;
         static bool s_buildingAttempted = false;
         static bool s_ruinsChecked = false;
-        static void PuuRakennus(Character player)
+        static void PuuRakennus(Character player, Quest quest)
         {
             bool returnToStart = false;
             bool mpConnection = false;
@@ -528,7 +533,7 @@ namespace QuestGame
                     switch (pressedKey.KeyChar)
                     {
                         case '1':
-                            Kellari(player);
+                            Kellari(player, quest);
                             break;
                         case '2':
                             returnToStart = true;
@@ -636,12 +641,12 @@ namespace QuestGame
             // if Kellari has been opened and entering warehouse go through to Multapolku.
             if (mpConnection)
             {
-                MultaPolku(player);
+                MultaPolku(player, quest);
             }
             // if not entering kellari go back to start.
             else
             {
-                MMEntrance(player);
+                MMEntrance(player, quest);
             }
 
         }
@@ -653,7 +658,7 @@ namespace QuestGame
         // Kill quest specific check if kellari has been cleared
         static bool s_kellariCleared = false;
 
-        static void Kellari(Character player)
+        static void Kellari(Character player, Quest quest)
         {
             Console.Clear();
 
@@ -744,10 +749,9 @@ namespace QuestGame
             Utilities.PressToContinue();
 
             // Go to Puurakennus
-            PuuRakennus(player);
+            PuuRakennus(player, quest);
         }
         #endregion
-
 
         // Reset the area after leaving.
         static void ResetArea()

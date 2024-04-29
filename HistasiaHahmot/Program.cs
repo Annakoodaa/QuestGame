@@ -140,8 +140,6 @@ namespace QuestGame
             else
                 return "Ei mitään";
         }
-
-
     }
 
     class Program

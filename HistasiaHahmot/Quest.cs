@@ -14,18 +14,19 @@ namespace QuestGame
         // Fields
         string _action;
         string _target;
-        int _amount;
+        protected int _assignedAmount;
+        int _amountLeft;
 
         // Properties
-        public int Amount
+        public int AmountLeft
         {
             get
             {
-                return _amount;
+                return _amountLeft;
             }
             set
             {
-                _amount = value;
+                _amountLeft = value;
             }
         }
 
@@ -34,7 +35,8 @@ namespace QuestGame
         {
             _action = action;
             _target = target;
-            _amount = amount;
+            _amountLeft = amount;
+            _assignedAmount = amount;
         }
 
         public void QuestDescription()
