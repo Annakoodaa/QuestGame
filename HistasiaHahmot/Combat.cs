@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -64,11 +65,7 @@ namespace QuestGame
                     Console.WriteLine("---------");
                     // Player actions text
                     string plActionsText = "\nToimi:\n1. Hyökkää\n2. Pakene\n";
-                    foreach (char c in plActionsText)
-                    {
-                        Console.Write(c);
-                        Thread.Sleep(ss_textSpeed);
-                    }
+                    Utilities.TextWriter(plActionsText);
 
                     //input check
                     bool validInput = false;
@@ -101,11 +98,7 @@ namespace QuestGame
                         enemy.Health -= playerDamage;
                         // player attack damage text.
                         string plAtkText = $"Teit {playerDamage} vauriota.\n---------\n";
-                        foreach (char c in plAtkText)
-                        {
-                            Console.Write(c);
-                            Thread.Sleep(ss_textSpeed);
-                        }
+                        Utilities.TextWriter(plAtkText);
 
                         // Enemy Death.
                         if (enemy.Health <= 0)
@@ -115,11 +108,7 @@ namespace QuestGame
                             player.Health += HPrestore;
                             // Enemy death notification text.
                             string enemyDeathText = $"{enemy.Name} kuoli.\nSaat {HPrestore} hpta takaisin\n";
-                            foreach (char c in enemyDeathText)
-                            {
-                                Console.Write(c);
-                                Thread.Sleep(ss_textSpeed);
-                            }
+                            Utilities.TextWriter(enemyDeathText);
                             enemyCount -= 1;
                             Thread.Sleep(50);
                             Console.WriteLine("Paina nappia jatkaaksesi");
@@ -134,11 +123,7 @@ namespace QuestGame
                         fleeing = true;
                         // Player fleeing text.
                         string plFleeText = "Juoksit pakoon taistelusta.\n";
-                        foreach (char c in plFleeText)
-                        {
-                            Console.Write(c);
-                            Thread.Sleep(ss_textSpeed);
-                        }
+                        Utilities.TextWriter(plFleeText);
                         //Console.WriteLine("Juoksit pakoon taistelusta.");
                         Thread.Sleep(50);
                         Console.WriteLine("Paina nappia jatkaaksesi");
@@ -156,20 +141,11 @@ namespace QuestGame
 
                     // Text for enemy attacks
                     string enemyAtkText = $"Vihollinen hyökkää!\n";
-                    foreach (char c in enemyAtkText)
-                    {
-                        Console.Write(c);
-                        Thread.Sleep(ss_textSpeed);
-                    }
+                    Utilities.TextWriter(enemyAtkText);
                     Thread.Sleep(500);
                     // Text for enemy attack damage
                     string enemyDmgText = $"Vihollinen teki {enemyDamage} vauriota.";
-                    foreach (char c in enemyDmgText)
-                    {
-                        Console.Write(c);
-                        Thread.Sleep(ss_textSpeed);
-                    }
-
+                    Utilities.TextWriter(enemyDmgText);
                     // Player Death.
                     if (player.Health <= 0)
                     {
@@ -191,11 +167,7 @@ namespace QuestGame
         public static void PlayerDeath()
         {
             string plDeathText = $"\nSinä kuolit.\nPaina nappia jatkaaksesi.";
-            foreach (char c in plDeathText)
-            {
-                Console.Write(c);
-                Thread.Sleep(ss_textSpeed);
-            }
+            Utilities.TextWriter(plDeathText);
             //Console.WriteLine($"Sinä kuolit. Paina nappia jatkaaksesi.");
             Console.ReadKey(true);
         }
