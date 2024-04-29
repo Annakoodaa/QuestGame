@@ -42,7 +42,7 @@ namespace QuestGame
         public void QuestDescription()
         {
             // Quest text
-            string questDescriptionText = $"Minun tehtäväni on {_action} {_target} {_amount}.\n" +
+            string questDescriptionText = $"Minun tehtäväni on {_action} {_target} {_assignedAmount}.\n" +
                 "Voin mennä Mustametsään, Kyläpahaseen tai Peikonkaupunkiin.\n" +
                 "Mustametsä on tunnettu huonosta näkyvyydestään, joka jättää seikkailijat heikoiksi hirviöiden yllätyshyökkäyksille,\n" +
                 "mutta sen varjoisasta ja kosteasta ympäristöstä voi helposti löytyä kaikenlaisia sieniä.\n" +
