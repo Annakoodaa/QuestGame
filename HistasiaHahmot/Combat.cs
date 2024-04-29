@@ -20,8 +20,6 @@ namespace QuestGame
 
         // Random
         static Random s_rnd = new Random();
-        // Text character writing speed.
-        static int ss_textSpeed = 30;
 
         // Needs player object from main.
         internal static void Battle(Character player, int enemyType, int enemyAmount)

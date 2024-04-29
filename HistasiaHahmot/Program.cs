@@ -147,6 +147,7 @@ namespace QuestGame
     class Program
     {
         static Random random = new Random();
+
         static string GenerateTrait()
         {
             string[] allTraits = { "Vahva", "Notkea", "Viisas", "Heikko", "Hölmö", "Ajattelematon" };
