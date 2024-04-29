@@ -50,7 +50,6 @@ namespace QuestGame
 
             return gatheredAmount;
 
-
             // Gathering Text.
             //string gatherSuccessText = $"Kumarruin sieniä keräämään. Yksi toisen perään, tungin sieniä reipasta tahtia nahkalaukkuuni. Sain {gatheredAmount} sientä\n";
             //foreach (char c in gatherSuccessText)

@@ -20,10 +20,10 @@ namespace QuestGame
         // Random
         static Random s_rnd = new Random();
         // Text character writing speed.
-        static int s_textSpeed = 30;
+        static int ss_textSpeed = 30;
 
         // Needs player object from main.
-        internal static void Battle(Character player)
+        internal static void Battle(Character player, int enemyType, int enemyAmount)
         {
             Console.Clear();
 
@@ -39,8 +39,8 @@ namespace QuestGame
             int enMinDmg = 2;
 
             // TEST: choose EnemyType
-            int enemyType = 1;
-            int enemyAmount = 3;
+            //int enemyType = 1;
+            //int enemyAmount = 1;
             int enemyCount = enemyAmount;
             // TEST END
 
@@ -67,7 +67,7 @@ namespace QuestGame
                     foreach (char c in plActionsText)
                     {
                         Console.Write(c);
-                        Thread.Sleep(s_textSpeed);
+                        Thread.Sleep(ss_textSpeed);
                     }
 
                     //input check
@@ -104,7 +104,7 @@ namespace QuestGame
                         foreach (char c in plAtkText)
                         {
                             Console.Write(c);
-                            Thread.Sleep(s_textSpeed);
+                            Thread.Sleep(ss_textSpeed);
                         }
 
                         // Enemy Death.
@@ -118,7 +118,7 @@ namespace QuestGame
                             foreach (char c in enemyDeathText)
                             {
                                 Console.Write(c);
-                                Thread.Sleep(s_textSpeed);
+                                Thread.Sleep(ss_textSpeed);
                             }
                             enemyCount -= 1;
                             Thread.Sleep(50);
@@ -137,7 +137,7 @@ namespace QuestGame
                         foreach (char c in plFleeText)
                         {
                             Console.Write(c);
-                            Thread.Sleep(s_textSpeed);
+                            Thread.Sleep(ss_textSpeed);
                         }
                         //Console.WriteLine("Juoksit pakoon taistelusta.");
                         Thread.Sleep(50);
@@ -159,7 +159,7 @@ namespace QuestGame
                     foreach (char c in enemyAtkText)
                     {
                         Console.Write(c);
-                        Thread.Sleep(s_textSpeed);
+                        Thread.Sleep(ss_textSpeed);
                     }
                     Thread.Sleep(500);
                     // Text for enemy attack damage
@@ -167,7 +167,7 @@ namespace QuestGame
                     foreach (char c in enemyDmgText)
                     {
                         Console.Write(c);
-                        Thread.Sleep(s_textSpeed);
+                        Thread.Sleep(ss_textSpeed);
                     }
 
                     // Player Death.
@@ -194,7 +194,7 @@ namespace QuestGame
             foreach (char c in plDeathText)
             {
                 Console.Write(c);
-                Thread.Sleep(s_textSpeed);
+                Thread.Sleep(ss_textSpeed);
             }
             //Console.WriteLine($"Sinä kuolit. Paina nappia jatkaaksesi.");
             Console.ReadKey(true);

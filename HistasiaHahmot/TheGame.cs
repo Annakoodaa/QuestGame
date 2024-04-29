@@ -15,14 +15,14 @@ namespace QuestGame
             // Generating a new Quest
             var Quest = QuestFactory.QuestGenerator();
             // Printing Quest
-            Quest.QuestDescription();
+            //Quest.QuestDescription();
 
             // Invoking ChooseArea() with the player object as parameter
             ChooseArea(player);
         }
 
         // Area choice
-        static void ChooseArea(Character player)
+        public static void ChooseArea(Character player)
         {
             Console.WriteLine("Valitse minne haluat mennä:");
             Console.Write
@@ -52,7 +52,7 @@ namespace QuestGame
             switch (pressedKey.KeyChar)
             {
                 case '1':
-                    MustaMetsa.Start();
+                    MustaMetsa.MMEntrance(player);
                     break;
                 case '2':
                     KylaPahanen.Start();
