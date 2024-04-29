@@ -502,9 +502,99 @@ namespace QuestGame
             } while (validInput == false);
         }
 
+        static bool yoelamaAlueActionComplete = false;
+        static bool yoelamaAlueVisited = false;
         static void YoelamaAlueGather(Character player)
         {
-            Console.WriteLine("Yöelämä alue");
+            int amount = Gathering.Gather(player);
+            bool validInput = false;
+            string answerKey;
+            string yoelamaAlueIntro1 = "Koko vasen puoli Peikonkaupungista vaikutti olevan yöelämää varten. Kasinoissa peikot joko voittivat kaiken tai menettivät sen." +
+                " Kapakoissa jotkin peikot ryyppäsivät jo nyt. Yökerhot olivat vielä kiinni.";
+            string yoelamaAlueIntro2 = "Kun kävelin läpi yöelämä alueen, huomasin tavaraa erään kapakan penkeillä. Juopot olivat vissiin unohtaneet joitain tavaroitaan." +
+                " Tavaroiden joukossa oli höyheniä.";
+            string yoelamaAlueIntro3 = "Voisin koittaa ottaa höyhenet itselleni, mennä vartioiden asemalle, tai mennä alkuun.\n";
+            string yoelamaAlueAction1 = "Astuin kapakkaan ja koitin ottaa höyhenet baarimikon huomaamatta. Epäonnistuin.";
+            string yoelamaAlueAction2 = "“Hei, mitäs koitat?” baarimikko kysyi.";
+            string yoelamaAlueAction3 = "“Minä vain... Tuota noin... Olin matkalla ulos.”";
+            string yoelamaAlueAction4 = "“Niinpä niin. Jos ne höyhenet sinua niin paljon kiinnostaa, ota vain.”";
+            string yoelamaAlueAction5 = "“Onko tässä jonkinlainen juju?”";
+            string yoelamaAlueAction6 = "“Ei mitään jujua! Se joka ne tänne jätti oli täysi mäntti, joten minua ei sen kummemmin kiinnosta," +
+                " jos hänen jättämänsä tavarat maagisesti katoavat.”";
+            string yoelamaAlueAction7 = "Päätin olla väittämättä vastaan. Otin höyhenet ja muut joukossa olevat tavarat, ennen kuin lähdin ripeästi kapakasta." +
+                $" Sain {amount} höyhentä.";
+            string yoelamaAlueReturnActionIncomplete = "Yöelämä alueella ei vieläkään ole paljoa ruuhkaa. Kapakan penkillä sijaitsevia höyheniä ei olla tultu hakemaan vielä." +
+                " Voin mennä vartioiden asemalle tai alkuun.\n";
+            string yoelamaAlueReturnActionComplete = "Yöelämä alueella ei vieläkään ole paljoa ruuhkaa. Voin mennä vartioiden asemalle tai alkuun.\n";
+
+            Console.Clear();
+
+            if (yoelamaAlueVisited == false)
+            {
+                TextWriter(yoelamaAlueIntro1);
+                Continue();
+                TextWriter(yoelamaAlueIntro2);
+                Continue();
+                TextWriter(yoelamaAlueIntro3);
+                yoelamaAlueVisited = true;
+            }
+            else if (yoelamaAlueVisited == true && yoelamaAlueActionComplete == true)
+            {
+                TextWriter(yoelamaAlueReturnActionComplete);
+            }
+            else
+            {
+                TextWriter(yoelamaAlueReturnActionIncomplete);
+            }
+
+            do
+            {
+                Console.WriteLine("\n1. “Lainaa” kapakasta höyheniä\n2. Asema\n3. Aloitus");
+                answerKey = Console.ReadLine();
+
+                switch (answerKey)
+                {
+                    case "1":
+                        validInput = true;
+                        if (yoelamaAlueActionComplete == false)
+                        {
+                            TextWriter(yoelamaAlueAction1);
+                            Continue();
+                            TextWriter(yoelamaAlueAction2);
+                            Continue();
+                            TextWriter(yoelamaAlueAction3);
+                            Continue();
+                            TextWriter(yoelamaAlueAction4);
+                            Continue();
+                            TextWriter(yoelamaAlueAction5);
+                            Continue();
+                            TextWriter(yoelamaAlueAction6);
+                            Continue();
+                            TextWriter(yoelamaAlueAction7);
+                            Continue();
+                            yoelamaAlueActionComplete = true;
+                            YoelamaAlueGather(player);
+                        }
+                        else
+                        {
+                            TextWriter("Minulla ei ole enään mitään asiaa siellä.");
+                            Continue();
+                            YoelamaAlueGather(player);
+                        }
+                        break;
+                    case "2":
+                        validInput = true;
+                        AsemaGather(player);
+                        break;
+                    case "3":
+                        validInput = true;
+                        Start(player);
+                        break;
+                    default:
+                        TextWriter("Sopimaton syöttö");
+                        break;
+                }
+            } while (validInput == false);
         }
 
         static void TextWriter(string text)
