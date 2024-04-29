@@ -337,66 +337,75 @@ namespace QuestGame
                 {
                     case "1":
                         validInput = true;
-                        TextWriter(asutusalueAction1);
-                        Continue();
-                        TextWriter(asutusalueAction2);
-                        Continue();
-                        TextWriter(asutusalueAction3);
-                        Continue();
-                        TextWriter(asutusalueAction4);
-                        Continue();
-                        TextWriter(asutusalueAction5);
-                        Continue();
-                        TextWriter(asutusalueAction6);
-                        Continue();
-                        TextWriter(asutusalueAction7);
-                        Continue();
-                        TextWriter(asutusalueAction8);
-                        Continue();
-                        TextWriter(asutusalueAction9);
-                        Continue();
-                        TextWriter(asutusalueAction10);
-                        Continue();
-                        TextWriter(asutusalueAction11);
-                        Continue();
-                        TextWriter(asutusalueAction12);
-                        Continue();
-                        TextWriter(asutusalueAction13);
-                        Continue();
-                        TextWriter(asutusalueAction14);
-                        Continue();
-                        TextWriter(asutusalueAction15);
-                        Continue();
-                        TextWriter(asutusalueAction16);
-                        Continue();
-                        TextWriter(asutusalueAction17);
-                        Continue();
-                        TextWriter(asutusalueAction18);
-                        Continue();
-                        TextWriter(asutusalueAction19);
-                        Continue();
-                        TextWriter(asutusalueAction20);
-                        Continue();
-                        TextWriter(asutusalueAction21);
-                        Continue();
-                        TextWriter(asutusalueAction22);
-                        Continue();
-                        TextWriter(asutusalueAction23);
-                        Continue();
-                        TextWriter(asutusalueAction24);
-                        Continue();
-                        TextWriter(asutusalueAction25);
-                        Continue();
-                        TextWriter(asutusalueAction26);
-                        Continue();
-                        TextWriter(asutusalueAction27);
-                        Continue();
-                        TextWriter(asutusalueAction28);
-                        Continue();
-                        TextWriter(asutusalueAction29);
-                        Continue();
-                        asutusalueActionComplete = true;
-                        AsutusalueGather(player);
+                        if (asutusalueActionComplete == false)
+                        {
+                            TextWriter(asutusalueAction1);
+                            Continue();
+                            TextWriter(asutusalueAction2);
+                            Continue();
+                            TextWriter(asutusalueAction3);
+                            Continue();
+                            TextWriter(asutusalueAction4);
+                            Continue();
+                            TextWriter(asutusalueAction5);
+                            Continue();
+                            TextWriter(asutusalueAction6);
+                            Continue();
+                            TextWriter(asutusalueAction7);
+                            Continue();
+                            TextWriter(asutusalueAction8);
+                            Continue();
+                            TextWriter(asutusalueAction9);
+                            Continue();
+                            TextWriter(asutusalueAction10);
+                            Continue();
+                            TextWriter(asutusalueAction11);
+                            Continue();
+                            TextWriter(asutusalueAction12);
+                            Continue();
+                            TextWriter(asutusalueAction13);
+                            Continue();
+                            TextWriter(asutusalueAction14);
+                            Continue();
+                            TextWriter(asutusalueAction15);
+                            Continue();
+                            TextWriter(asutusalueAction16);
+                            Continue();
+                            TextWriter(asutusalueAction17);
+                            Continue();
+                            TextWriter(asutusalueAction18);
+                            Continue();
+                            TextWriter(asutusalueAction19);
+                            Continue();
+                            TextWriter(asutusalueAction20);
+                            Continue();
+                            TextWriter(asutusalueAction21);
+                            Continue();
+                            TextWriter(asutusalueAction22);
+                            Continue();
+                            TextWriter(asutusalueAction23);
+                            Continue();
+                            TextWriter(asutusalueAction24);
+                            Continue();
+                            TextWriter(asutusalueAction25);
+                            Continue();
+                            TextWriter(asutusalueAction26);
+                            Continue();
+                            TextWriter(asutusalueAction27);
+                            Continue();
+                            TextWriter(asutusalueAction28);
+                            Continue();
+                            TextWriter(asutusalueAction29);
+                            Continue();
+                            asutusalueActionComplete = true;
+                            AsutusalueGather(player);
+                        }
+                        else
+                        {
+                            TextWriter("Lapset ovat sisällä lepäämässä. Ei ole ketään jonka kanssa leikkiä enään.");
+                            Continue();
+                            AsutusalueGather(player);
+                        }
                         break;
                     case "2":
                         validInput = true;
@@ -413,9 +422,84 @@ namespace QuestGame
             } while (validInput == false);
         }
 
+        static bool asemaActionComplete = false;
+        static bool asemaVisited = false;
         static void AsemaGather(Character player)
         {
-            Console.WriteLine("Asema");
+            int amount = Gathering.Gather(player);
+            bool validInput = false;
+            string answerKey;
+            string asemaIntro1 = "Saavuin Peikonkaupungin takaporteille. Niiden vieressä sijaitsee vartijoiden asema," +
+                " jonka ympärillä on runsaasti haarniskoihin pukeutuneita peikkoja. Osa heistä vaikuttavat vain laiskottelevan, kun taas toiset vartioivat.";
+            string asemaIntro2 = "Laiskottelijoiden joukossa on kolmikko, jotka pelaavat korttia tynnyrin päällä. Heillä on myös tavaroita tynnyrin päällä," +
+                " jotka ovat todennäköisesti heidän pottinsa. Huomasin höyheniä yhdessä potissa.";
+            string asemaIntro3 = "Voisin liittyä peliin ja yrittää voittaa koko potin. Voin myös mennä asutusalueelle tai yöelämä alueelle.\n";
+            string asemaAction1 = "Liityin vartijoiden joukkoon tynnyrin ympärillä. He katsoivat minua odottavasti, joten laitoin tynnyrille pottini; koristellun puukon." +
+                " Vartijat vaikuttivat tyytyväisiltä ja alkoivat sekoittamaan kortteja.";
+            string asemaAction2 = $"Viisitoista minuuttia myöhemmin, olen {amount} höyhentä rikkaampi. Onnetar oli korttieni puolella tänään.";
+            string asemaReturnActionIncomplete = "Asemalla on yhä yhtä monipuolista tekemistä kuin ennen. Kolmikko yhä pelaa kortteja." +
+                " Voin liittyä heidän seuraan, mennä asutusalueelle, tai mennä yöelämä alueelle.\n";
+            string asemaReturnActionComplete = "Asemalla on yhä yhtä monipuolista tekemistä kuin ennen, mutta en näe enää mitään syytä liittyä mukaan." +
+                " Voin mennä asutusalueelle tai yöelämä alueelle.\n";
+
+            Console.Clear();
+
+            if (asemaVisited == false)
+            {
+                TextWriter(asemaIntro1);
+                Continue();
+                TextWriter(asemaIntro2);
+                Continue();
+                TextWriter(asemaIntro3);
+                asemaVisited = true;
+            }
+            else if (asemaVisited == true && asemaActionComplete == true)
+            {
+                TextWriter(asemaReturnActionComplete);
+            }
+            else
+            {
+                TextWriter(asemaReturnActionIncomplete);
+            }
+
+            do
+            {
+                Console.WriteLine("\n1. Liity korttipeliin\n2. Asutusalue\n3. Yöelämä alue");
+                answerKey = Console.ReadLine();
+
+                switch (answerKey)
+                {
+                    case "1":
+                        validInput = true;
+                        if (asemaActionComplete == false)
+                        {
+                            TextWriter(asemaAction1);
+                            Continue();
+                            TextWriter(asemaAction2);
+                            Continue();
+                            asemaActionComplete = true;
+                            AsemaGather(player);
+                        }
+                        else
+                        {
+                            TextWriter("En näe mitään syytä liittyä seuraan toista kertaa.");
+                            Continue();
+                            AsemaGather(player);
+                        }
+                        break;
+                    case "2":
+                        validInput = true;
+                        AsutusalueGather(player);
+                        break;
+                    case "3":
+                        validInput = true;
+                        YoelamaAlueGather(player);
+                        break;
+                    default:
+                        TextWriter("Sopimaton syöttö");
+                        break;
+                }
+            } while (validInput == false);
         }
 
         static void YoelamaAlueGather(Character player)
