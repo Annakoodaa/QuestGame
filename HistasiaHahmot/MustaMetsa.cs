@@ -17,6 +17,7 @@ namespace QuestGame
         static bool s_hasKey = false;
         static bool s_cellarAttempted = false;
         static int s_enemyType = 1; // Enemy type 1 corresponding to mörkö
+        static string s_enemyName = "mörköä";
         static string s_gatherType = "sientä";
         #endregion
 
@@ -73,8 +74,15 @@ namespace QuestGame
                 if (s_mmFirstReturn && quest.KillQuest)
                 {
                     s_mmFirstReturn = false;
+
+                    // Combat, Return amount of killed enemies for use in QuestProgress() -method.
                     Utilities.PressToContinue();
-                    Combat.Battle(player,s_enemyType,3);
+                    int killedAmount = Combat.Battle(player,s_enemyType,3);
+
+                    // Quest Progress
+                    quest.QuestProgress(killedAmount, s_enemyName);
+
+                    // return to field
                     MMEntrance(player, quest);
                 }
 
@@ -168,8 +176,12 @@ namespace QuestGame
                     {
                         Utilities.TextWriter(mpBattleText);
 
+                        // Combat, Returns enemies killed for use in QuestProgress() -method
                         Utilities.PressToContinue();
-                        Combat.Battle(player, s_enemyType, 3);
+                        int killedAmount = Combat.Battle(player, s_enemyType, 3);
+
+                        // Quest Progress
+                        quest.QuestProgress(killedAmount, s_enemyName);
 
                         // Return to start
                         MultaPolku(player, quest);
@@ -379,8 +391,13 @@ namespace QuestGame
                     Utilities.TextWriter(metSyvText2);
                     if (quest.KillQuest)
                     {
+                        // Combat, returns enemies killed for use in QuestProgress() -method.
                         Utilities.PressToContinue();
-                        Combat.Battle(player, s_enemyType, 3);
+                        int killedAmount = Combat.Battle(player, s_enemyType, 3);
+
+                        // Quest Progress
+                        quest.QuestProgress(killedAmount, s_enemyName);
+
                     }
                     else
                     {
@@ -452,8 +469,12 @@ namespace QuestGame
                     // {taistelu mörköjä vastaan tähän}
                     if (quest.KillQuest)
                     {
+                        // Combat, returns enemies killed for use in QuestProgress() -method.
                         Utilities.PressToContinue();
-                        Combat.Battle(player, s_enemyType, 3);
+                        int killedAmount = Combat.Battle(player, s_enemyType, 3);
+
+                        // Quest progress
+                        quest.QuestProgress(killedAmount, s_enemyName);
                     }
                     else
                     {
@@ -744,8 +765,12 @@ namespace QuestGame
                 // {vaikeampi tappelu mörköjä vastaan tähän} 
                 if (quest.KillQuest)
                 {
+                    // Combat, returns enemies killed for use in QuestProgress() -method.
                     Utilities.PressToContinue();
-                    Combat.Battle(player, s_enemyType, 6);
+                    int killedAmount = Combat.Battle(player, s_enemyType, 6);
+
+                    // Quest progress.
+                    quest.QuestProgress(killedAmount, s_enemyName);
                 }
                 else
                 {
