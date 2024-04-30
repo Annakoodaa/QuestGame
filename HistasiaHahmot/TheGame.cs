@@ -58,7 +58,7 @@ namespace QuestGame
                     KylaPahanen.Start();
                     break;
                 case '3':
-                    PeikonKaupunki.Start(player);
+                    PeikonKaupunki.Start(player, quest);
                     break;
             }
         }
