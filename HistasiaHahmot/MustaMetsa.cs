@@ -17,6 +17,7 @@ namespace QuestGame
         static bool s_hasKey = false;
         static bool s_cellarAttempted = false;
         static int s_enemyType = 1; // Enemy type 1 corresponding to mörkö
+        static string s_gatherType = "sientä";
         #endregion
 
         // Add Quest quest Parameter for quest tracking I guess. Also for tracking kill/gather quest type.
@@ -225,9 +226,7 @@ namespace QuestGame
                         string gatheringText = $"Kumarruin sieniä keräämään. Yksi toisen perään, tungin sieniä reipasta tahtia nahkalaukkuuni. Sain {gatherAmount} sientä.\n\n";
 
                         // Quest Counting
-                        quest.AmountLeft -= gatherAmount;
-                        // Temp Message
-                        string tempQuestTxt = $"{quest.AmountLeft} kerättävää vielä jäljellä.";
+                        quest.QuestProgress(gatherAmount, s_gatherType);
 
                         // Text Writing
                         Utilities.TextWriter(gatheringText);
@@ -357,11 +356,14 @@ namespace QuestGame
                     else
                     {
                         // Randomizing Gathered amount
-                        int gatheredAmount = Gathering.Gather(player);
+                        int gatherAmount = Gathering.Gather(player);
 
                         metSyvText2 = "Lopulta pääsin vain parinkymmenen metrin matkan päähän alkupisteestäni. " +
-                            $"Keräsin satunnaiset sienet matkalla, ja lopulta sain {gatheredAmount} sientä tästä vaivasta. " +
+                            $"Keräsin satunnaiset sienet matkalla, ja lopulta sain {gatherAmount} sientä tästä vaivasta. " +
                             "Ei tarpeeksi, jos minulta kysytään.\n\n";
+
+                        // Quest Counting
+                        quest.QuestProgress(gatherAmount, s_gatherType);
 
                         metSyvText3 = "Palattuani alkuun, vannoin pysyvän kaukana noista syvyyksistä tästä edespäin. " +
                             "Mutta pitäisikö mennä kohti puu rakennusta, vaiko valita multapolun?\n";
@@ -563,6 +565,10 @@ namespace QuestGame
                             // Gathering text and Writing it.
                             string gatheringText = $"Kiersin ympäri rakennuksen, keräten kaikki sienet, jotka huomasin. Sain {gatherAmount} sientä.\n";
                             Utilities.TextWriter(gatheringText);
+
+                            // Quest Counting
+                            quest.QuestProgress(gatherAmount, s_gatherType);
+
                             // setting mushrooms to gathered
                             s_prGathered = true;
 
@@ -692,7 +698,7 @@ namespace QuestGame
                 // setting kellari to opened.
                 s_kellariOpened = true;
                 // Randomized gathered amount.
-                int gatheredAmount = Gathering.Gather(player);
+                int gatherAmount = Gathering.Gather(player);
 
                 // Kellari Text
                 kellariOpening = "Laitoin rakennukselta löytämäni avaimen kellariluukun avaimenreikään ja käänsin sitä. " +
@@ -704,9 +710,12 @@ namespace QuestGame
                     "Mutta sieniä muuten riitti. Aloin keräämään niitä hirveää vauhtia. Sieni sienen jälkeen löysi tien nahkalaukkuuni. " +
                     "En edes huomannut käveleväni yhä syvemmälle kellariin sienihurmassa.\n\n";
 
-                kellariText2 = $"Lopulta päädyin kellarin loppuun, jolloin myös sienet loppuivat. Sain {gatheredAmount} sientä. " +
+                kellariText2 = $"Lopulta päädyin kellarin loppuun, jolloin myös sienet loppuivat. Sain {gatherAmount} sientä. " +
                     "Sienien loppu sai minut katsomaan ympärilleni ensimmäistä kertaa hetkeen. Kellari ei välttämättä ole edes oikea sana tälle paikalle. " +
                     "Se on vain tunneli. Edessäni olevat tikkaat johtavat ylöspäin, enkä näe aloituspistettäni enää taakse katsoessa. Päätän kiivetä tikkaat ylös.\n\n";
+
+                // Quest Counting
+                quest.QuestProgress(gatherAmount, s_gatherType);
 
                 kellariText3 = "Toinen kellariluukku löytyi tikkaiden päästä. Työnsin sen auki, ja huomasin olevani jonkinlaisen rakennuksen sisällä. " +
                     "Rakennus on pieni, eikä sieltä löydy paljoa. Kellariluukku maassa on varmaankin kaikista kiinnostavin asia siellä. Edessäni näen liukuvan " +

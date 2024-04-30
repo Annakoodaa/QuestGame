@@ -12,11 +12,11 @@ namespace QuestGame
     public class Quest
     {
         // Fields
-        string _action;
-        string _target;
+        protected string _action;
+        protected string _target;
         protected int _assignedAmount;
-        int _amountLeft;
-        bool _killQuest;
+        protected int _amountLeft;
+        protected bool _killQuest;
 
         // Properties
         public int AmountLeft
@@ -61,7 +61,7 @@ namespace QuestGame
                     actionFormatted = "kerätä";
                     break;
                 default:
-                    break;
+                    throw new Exception("Unknown action!");
             }
 
             // Quest text
@@ -81,8 +81,29 @@ namespace QuestGame
 
         public void QuestUI()
         {
-            string questUI = $"Tehtävä: {_action} {_target}[{AssignedAmount - AmountLeft}/{AssignedAmount}]";
+            string actionFormatted = "";
+            switch (_action)
+            {
+                case "tapa":
+                    actionFormatted = "tapettu";
+                    break;
+                case "kerää":
+                    actionFormatted = "kerätty";
+                    break;
+                default:
+                    throw new Exception("Unknown action!");
+            }
+
+            string questUI = $"Tehtävä: [{AssignedAmount - AmountLeft}/{AssignedAmount}] {_target} {actionFormatted}.";
             Console.WriteLine(questUI);
+        }
+
+        public void QuestProgress(int amount, string target)
+        {
+            if(target == _target)
+            {
+                AmountLeft -= amount;
+            }
         }
     }
 
