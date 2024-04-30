@@ -131,7 +131,15 @@ namespace QuestGame
                     break;
                 case '4':
                     ResetArea();
-                    TheGame.ChooseArea(player, quest);
+                    if (quest.QuestCompleted)
+                    {
+                        string endText = "Palattuani alkupisteeseen, sammutin lyhtyni ja astuin pois märältä sammaleelta vankalle tielle. Aika mennä kotiin ja raportoida tehtävä valmiiksi.";
+                        Utilities.TextWriter(endText);
+                    }
+                    else
+                    {
+                        TheGame.ChooseArea(player, quest);
+                    }                
                     break;
             }
         }

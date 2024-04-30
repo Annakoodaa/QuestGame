@@ -18,6 +18,7 @@ namespace QuestGame
         protected int _assignedAmount;
         protected int _amountLeft;
         protected bool _killQuest;
+        protected bool _questCompleted;
 
         // Properties
         public int AmountLeft
@@ -34,6 +35,10 @@ namespace QuestGame
         public bool KillQuest
         {
             get { return _killQuest; }
+        }
+        public bool QuestCompleted
+        {
+            get { return  _questCompleted; }
         }
 
         // Constructors
@@ -104,6 +109,10 @@ namespace QuestGame
             if(target == _target)
             {
                 _amountLeft -= amount;
+            }
+            if(AmountLeft <= 0)
+            {
+                _questCompleted = true;
             }
         }
     }
