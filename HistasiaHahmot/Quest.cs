@@ -71,7 +71,7 @@ namespace QuestGame
             var action = new List<string> { "kerää", "tapa" };
             int actionIndex = random.Next(action.Count);
             Random maara = new Random();
-            int amount = maara.Next(10, 50);
+            int amount = maara.Next(10, 30);
 
             // Gathering quest
             if (actionIndex == 0)
