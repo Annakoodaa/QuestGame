@@ -12,28 +12,30 @@ namespace QuestGame
 {
     internal class MustaMetsa
     {
-        static int s_textChapterDelay = 1500;
 
         #region Mustametsä wide fields
         static bool s_hasKey = false;
         static bool s_cellarAttempted = false;
         static int s_enemyType = 1; // Enemy type 1 corresponding to mörkö
+        static string s_enemyName = "mörköä";
+        static string s_gatherType = "sientä";
         #endregion
 
         // Add Quest quest Parameter for quest tracking I guess. Also for tracking kill/gather quest type.
         // For now Kill/Gather Field:
-        static bool s_killQuest = true;
 
         #region Mustametsä entrance
         // Field for returning check
         static bool s_mmReturn = false;
         static bool s_mmFirstReturn = true;
 
-        public static void MMEntrance(Character player)
+        public static void MMEntrance(Character player, Quest quest)
         {
             Console.Clear();
             if (!s_mmReturn)
             {
+                quest.QuestUI();
+
                 // Mustametsä text
                 string mmText1 = "Kun astuin mustametsään, tunsin kengänpohjani uppoavan sammaleen. Ilma oli kostea, eikä auringonvalo pilkistänyt tiheän neulaskaton läpi. " +
                     "En nähnyt muutamaa metriä pidemmälle metsän syvyyksiin. Olin valmistautunut tähän. Irrotin lyhtyni vyötäröltäni, ja avasin sen luukun. " +
@@ -48,7 +50,7 @@ namespace QuestGame
                 // Writing text
                 Utilities.TextWriter(mmText1);
 
-                Thread.Sleep(s_textChapterDelay);
+                Thread.Sleep(Utilities.s_TextChapterDelay);
 
                 Utilities.TextWriter(mmText2);
 
@@ -56,8 +58,10 @@ namespace QuestGame
             }
             else
             {
+                quest.QuestUI();
+
                 string mmReturnText = "";
-                if (s_mmFirstReturn && s_killQuest)
+                if (s_mmFirstReturn && quest.KillQuest)
                 {
                     mmReturnText = "Astuin jälleen mustametsän alkuun—ja tapasin pienen ongelman. Tai ehkä olisi parempi sanoa “pieniä ongelmia.” Parvi mörköjä oli jäänyt odottamaan minua.";
                 }
@@ -71,12 +75,19 @@ namespace QuestGame
                 // Writing text
                 Utilities.TextWriter(mmReturnText);
                 // Combat Trigger  {tappelu mörköjä vastaan tähän}
-                if (s_mmFirstReturn && s_killQuest)
+                if (s_mmFirstReturn && quest.KillQuest)
                 {
                     s_mmFirstReturn = false;
+
+                    // Combat, Return amount of killed enemies for use in QuestProgress() -method.
                     Utilities.PressToContinue();
-                    Combat.Battle(player,s_enemyType,3);
-                    MMEntrance(player);
+                    int killedAmount = Combat.Battle(player,s_enemyType,3);
+
+                    // Quest Progress
+                    quest.QuestProgress(killedAmount, s_enemyName);
+
+                    // return to field
+                    MMEntrance(player, quest);
                 }
 
             }
@@ -110,17 +121,25 @@ namespace QuestGame
             switch (pressedKey.KeyChar)
             {
                 case '1':
-                    MultaPolku(player);
+                    MultaPolku(player, quest);
                     break;
                 case '2':
-                    Metsansyvyydet(player);
+                    Metsansyvyydet(player, quest);
                     break;
                 case '3':
-                    PuuRakennus(player);
+                    PuuRakennus(player, quest);
                     break;
                 case '4':
                     ResetArea();
-                    TheGame.ChooseArea(player);
+                    if (quest.QuestCompleted)
+                    {
+                        string endText = "Palattuani alkupisteeseen, sammutin lyhtyni ja astuin pois märältä sammaleelta vankalle tielle. Aika mennä kotiin ja raportoida tehtävä valmiiksi.";
+                        Utilities.TextWriter(endText);
+                    }
+                    else
+                    {
+                        TheGame.ChooseArea(player, quest);
+                    }                
                     break;
             }
         }
@@ -131,7 +150,7 @@ namespace QuestGame
         static bool s_multaPolkuReturn = false;
         static bool s_mpGathered = false;
 
-        static void MultaPolku(Character player)
+        static void MultaPolku(Character player, Quest quest)
         {
             bool enterKellari = false;
             bool returnToStart = false;
@@ -161,19 +180,25 @@ namespace QuestGame
                     string mpText2 = "Voin kerätä sienet ympäristöstä, tai koettaa avata kellariluukun. Polku on loppunut tähän, " +
                         "enkä uskalla vaeltaa metsän syvyyksiin suunnitelmatta, joten en voi liikkua muualle kuin takaisin alkuun.\n\n";
 
+                    quest.QuestUI();
+
                     Utilities.TextWriter(mpText1);
-                    Thread.Sleep(s_textChapterDelay);
+                    Thread.Sleep(Utilities.s_TextChapterDelay);
 
                     // Killquest specific text and battle trigger
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
                         Utilities.TextWriter(mpBattleText);
 
+                        // Combat, Returns enemies killed for use in QuestProgress() -method
                         Utilities.PressToContinue();
-                        Combat.Battle(player, s_enemyType, 3);
+                        int killedAmount = Combat.Battle(player, s_enemyType, 3);
+
+                        // Quest Progress
+                        quest.QuestProgress(killedAmount, s_enemyName);
 
                         // Return to start
-                        MultaPolku(player);
+                        MultaPolku(player, quest);
                     }
 
                     Utilities.TextWriter(mpText2);
@@ -183,6 +208,8 @@ namespace QuestGame
                 // Else returning short description depending on if mushrooms were gathered or not.
                 else
                 {
+                    quest.QuestUI();
+
                     string mpReturnText = "";
                     switch (s_mpGathered)
                     {
@@ -225,6 +252,11 @@ namespace QuestGame
 
                         // Gathering text.
                         string gatheringText = $"Kumarruin sieniä keräämään. Yksi toisen perään, tungin sieniä reipasta tahtia nahkalaukkuuni. Sain {gatherAmount} sientä.\n\n";
+
+                        // Quest Counting
+                        quest.QuestProgress(gatherAmount, s_gatherType);
+
+                        // Text Writing
                         Utilities.TextWriter(gatheringText);
 
                         // set mushrooms to gathered.
@@ -259,7 +291,7 @@ namespace QuestGame
                                 {
                                     case true:
                                         // text depending on quest type
-                                        if (s_killQuest)
+                                        if (quest.KillQuest)
                                         {
                                             openAttempt = "Kellariluukku ei avautunut tälläkään kertaa. Mörköjen melu ei ole lakannut.";
                                         }
@@ -273,7 +305,7 @@ namespace QuestGame
                                                 "Harkitsin yrittää murskata luukun, mutta lohkeilevan puun alla näkyy metallinen hohto. " +
                                                 "Parempi olla yrittämättä, ettei miekka tylsy.";
                                         // Added part depending on quest type
-                                        if (s_killQuest)
+                                        if (quest.KillQuest)
                                         {
                                             openAttempt += " Luukun toiselta puolelta kuuluu kaikenlaista meteliä. Sieltä varmaankin möröt sikiää.";
                                         }
@@ -301,15 +333,15 @@ namespace QuestGame
 
             if (prConnection)
             {
-                PuuRakennus(player);
+                PuuRakennus(player, quest);
             }
             else if (enterKellari)
             {
-                Kellari(player);
+                Kellari(player,quest);
             }
             else
             {
-                MMEntrance(player);
+                MMEntrance(player, quest);
             }
 
         }
@@ -318,9 +350,12 @@ namespace QuestGame
         #region Metsänsyvyydet
         // Field for entry check.
         static bool s_metsanSyvReturn = false;
-        static void Metsansyvyydet(Character player)
+        static void Metsansyvyydet(Character player,Quest quest)
         {
             Console.Clear();
+
+            quest.QuestUI();
+
             switch (s_metsanSyvReturn)
             {
                 // Trying to enter the second time.
@@ -342,7 +377,7 @@ namespace QuestGame
                     string metSyvText3 = "";
 
                     // Kill quest specific text.
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
                         metSyvText2 = "Yhtäkkiä huomasin jonkin välähtävän hämärässä. Hyppäsin taakse ja väistin mörköjen yllätyshyökkäyksen hiuksenleveydellä. “Sitten menoksi”, minä totesin, tarttuessani miekkaani.";
 
@@ -352,11 +387,14 @@ namespace QuestGame
                     else
                     {
                         // Randomizing Gathered amount
-                        int gatheredAmount = Gathering.Gather(player);
+                        int gatherAmount = Gathering.Gather(player);
 
                         metSyvText2 = "Lopulta pääsin vain parinkymmenen metrin matkan päähän alkupisteestäni. " +
-                            $"Keräsin satunnaiset sienet matkalla, ja lopulta sain {gatheredAmount} sientä tästä vaivasta. " +
+                            $"Keräsin satunnaiset sienet matkalla, ja lopulta sain {gatherAmount} sientä tästä vaivasta. " +
                             "Ei tarpeeksi, jos minulta kysytään.\n\n";
+
+                        // Quest Counting
+                        quest.QuestProgress(gatherAmount, s_gatherType);
 
                         metSyvText3 = "Palattuani alkuun, vannoin pysyvän kaukana noista syvyyksistä tästä edespäin. " +
                             "Mutta pitäisikö mennä kohti puu rakennusta, vaiko valita multapolun?\n";
@@ -367,17 +405,22 @@ namespace QuestGame
                     // Writing text.
                     Utilities.TextWriter(metSyvText1);
 
-                    Thread.Sleep(s_textChapterDelay);
+                    Thread.Sleep(Utilities.s_TextChapterDelay);
 
                     Utilities.TextWriter(metSyvText2);
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
+                        // Combat, returns enemies killed for use in QuestProgress() -method.
                         Utilities.PressToContinue();
-                        Combat.Battle(player, s_enemyType, 3);
+                        int killedAmount = Combat.Battle(player, s_enemyType, 3);
+
+                        // Quest Progress
+                        quest.QuestProgress(killedAmount, s_enemyName);
+
                     }
                     else
                     {
-                        Thread.Sleep(s_textChapterDelay);
+                        Thread.Sleep(Utilities.s_TextChapterDelay);
                     }
 
                     Utilities.TextWriter(metSyvText3);
@@ -389,7 +432,7 @@ namespace QuestGame
             Utilities.PressToContinue();
 
             // Return to forest entrance
-            MMEntrance(player);
+            MMEntrance(player, quest);
         }
         #endregion
 
@@ -398,7 +441,7 @@ namespace QuestGame
         static bool s_prGathered = false;
         static bool s_buildingAttempted = false;
         static bool s_ruinsChecked = false;
-        static void PuuRakennus(Character player)
+        static void PuuRakennus(Character player, Quest quest)
         {
             bool returnToStart = false;
             bool mpConnection = false;
@@ -414,7 +457,7 @@ namespace QuestGame
                     string puuRakennusIntroP2 = "";
                     string puuRakennusIntroP3 = "";
 
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
                         puuRakennusIntroP1 = "Kävelin läpi vyötärölle kurottavan ruohikon matkalla puurakennukselle. Yhtäkkiä, mustia muotoja hyppäsi ruohikon seasta. " +
                             "En ehtinyt edes rekisteröimään mitä tapahtui, ennen kuin möröt olivat piirittäneet minut.\n\n";
@@ -439,23 +482,30 @@ namespace QuestGame
                         puuRakennusIntroP3 = "Piha-alueella näkyi useita kiinnostuksen kohteita. Rakennuksen ympärillä kasvoi sieniä, jotka voisin kerätä. " +
                             "Pihan vasemmassa osassa näkyy olevan jonkinlainen varastorakennus. Voisin tietysti myös mennä penkomaan rakennuksen raunioita, jos sieltä vielä löytyisi jotain.\n\n";
                     }
+
+                    quest.QuestUI();
+
                     // Writing intro text.
                     Utilities.TextWriter(puuRakennusIntroP1);
 
                     // {taistelu mörköjä vastaan tähän}
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
+                        // Combat, returns enemies killed for use in QuestProgress() -method.
                         Utilities.PressToContinue();
-                        Combat.Battle(player, s_enemyType, 3);
+                        int killedAmount = Combat.Battle(player, s_enemyType, 3);
+
+                        // Quest progress
+                        quest.QuestProgress(killedAmount, s_enemyName);
                     }
                     else
                     {
-                        Thread.Sleep(s_textChapterDelay);
+                        Thread.Sleep(Utilities.s_TextChapterDelay);
                     }
 
                     Utilities.TextWriter(puuRakennusIntroP2);
 
-                    Thread.Sleep(s_textChapterDelay);
+                    Thread.Sleep(Utilities.s_TextChapterDelay);
 
                     Utilities.TextWriter(puuRakennusIntroP3);
 
@@ -463,8 +513,10 @@ namespace QuestGame
                 }
                 else
                 {
+                    quest.QuestUI();
+
                     string returnText = "";
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
                         returnText = "Pihalla jälleen. Voin mennä takaisin aloituspisteeseeni tai kellariin.";
                     }
@@ -496,7 +548,7 @@ namespace QuestGame
 
                 Thread.Sleep(Utilities.s_selectionDelay);
                 // Player choice
-                if (s_killQuest)
+                if (quest.KillQuest)
                 {
                     Console.Write
                         (
@@ -518,17 +570,17 @@ namespace QuestGame
 
                 // Player input
                 var pressedKey = Console.ReadKey(true);
-                if (s_killQuest && pressedKey.KeyChar == '1')
+                if (quest.KillQuest && pressedKey.KeyChar == '1')
                 {
 
                 }
 
-                if (s_killQuest)
+                if (quest.KillQuest)
                 {
                     switch (pressedKey.KeyChar)
                     {
                         case '1':
-                            Kellari(player);
+                            Kellari(player, quest);
                             break;
                         case '2':
                             returnToStart = true;
@@ -558,6 +610,10 @@ namespace QuestGame
                             // Gathering text and Writing it.
                             string gatheringText = $"Kiersin ympäri rakennuksen, keräten kaikki sienet, jotka huomasin. Sain {gatherAmount} sientä.\n";
                             Utilities.TextWriter(gatheringText);
+
+                            // Quest Counting
+                            quest.QuestProgress(gatherAmount, s_gatherType);
+
                             // setting mushrooms to gathered
                             s_prGathered = true;
 
@@ -617,7 +673,7 @@ namespace QuestGame
                             s_ruinsChecked = true;
 
                             Utilities.TextWriter(ruinsText);
-                            Thread.Sleep(s_textChapterDelay);
+                            Thread.Sleep(Utilities.s_TextChapterDelay);
                             Utilities.TextWriter(ruinsText2);
 
                             Utilities.PressToContinue();
@@ -636,12 +692,12 @@ namespace QuestGame
             // if Kellari has been opened and entering warehouse go through to Multapolku.
             if (mpConnection)
             {
-                MultaPolku(player);
+                MultaPolku(player, quest);
             }
             // if not entering kellari go back to start.
             else
             {
-                MMEntrance(player);
+                MMEntrance(player, quest);
             }
 
         }
@@ -653,7 +709,7 @@ namespace QuestGame
         // Kill quest specific check if kellari has been cleared
         static bool s_kellariCleared = false;
 
-        static void Kellari(Character player)
+        static void Kellari(Character player, Quest quest)
         {
             Console.Clear();
 
@@ -662,13 +718,13 @@ namespace QuestGame
             string kellariText2 = "";
             string kellariText3 = "";
 
-            if (s_killQuest && s_kellariCleared)
+            if (quest.KillQuest && s_kellariCleared)
             {
                 kellariText1 = "Saavuin kellarin syövereihin. Minulla ei ole mitään tekemistä täällä. Parempi kääntyä ympäri.";
                 Utilities.TextWriter(kellariText1);
             }
             // Kill quest text.
-            else if (s_killQuest)
+            else if (quest.KillQuest)
             {
                 s_kellariCleared = true;
 
@@ -687,7 +743,7 @@ namespace QuestGame
                 // setting kellari to opened.
                 s_kellariOpened = true;
                 // Randomized gathered amount.
-                int gatheredAmount = Gathering.Gather(player);
+                int gatherAmount = Gathering.Gather(player);
 
                 // Kellari Text
                 kellariOpening = "Laitoin rakennukselta löytämäni avaimen kellariluukun avaimenreikään ja käänsin sitä. " +
@@ -699,9 +755,12 @@ namespace QuestGame
                     "Mutta sieniä muuten riitti. Aloin keräämään niitä hirveää vauhtia. Sieni sienen jälkeen löysi tien nahkalaukkuuni. " +
                     "En edes huomannut käveleväni yhä syvemmälle kellariin sienihurmassa.\n\n";
 
-                kellariText2 = $"Lopulta päädyin kellarin loppuun, jolloin myös sienet loppuivat. Sain {gatheredAmount} sientä. " +
+                kellariText2 = $"Lopulta päädyin kellarin loppuun, jolloin myös sienet loppuivat. Sain {gatherAmount} sientä. " +
                     "Sienien loppu sai minut katsomaan ympärilleni ensimmäistä kertaa hetkeen. Kellari ei välttämättä ole edes oikea sana tälle paikalle. " +
                     "Se on vain tunneli. Edessäni olevat tikkaat johtavat ylöspäin, enkä näe aloituspistettäni enää taakse katsoessa. Päätän kiivetä tikkaat ylös.\n\n";
+
+                // Quest Counting
+                quest.QuestProgress(gatherAmount, s_gatherType);
 
                 kellariText3 = "Toinen kellariluukku löytyi tikkaiden päästä. Työnsin sen auki, ja huomasin olevani jonkinlaisen rakennuksen sisällä. " +
                     "Rakennus on pieni, eikä sieltä löydy paljoa. Kellariluukku maassa on varmaankin kaikista kiinnostavin asia siellä. Edessäni näen liukuvan " +
@@ -711,31 +770,37 @@ namespace QuestGame
 
             }
 
+            quest.QuestUI();
+
             // Writing text 
             // Opening only happens on Gathering quests.
             // Is only used if Kellari has not been cleared in Kill quest.
             if (!s_kellariCleared)
             {
-                if (!s_killQuest)
+                if (!quest.KillQuest)
                 {
                     Utilities.TextWriter(kellariOpening);
-                    Thread.Sleep(s_textChapterDelay);
+                    Thread.Sleep(Utilities.s_TextChapterDelay);
                 }
                 Utilities.TextWriter(kellariText1);
 
-                Thread.Sleep(s_textChapterDelay);
+                Thread.Sleep(Utilities.s_TextChapterDelay);
 
                 Utilities.TextWriter(kellariText2);
 
                 // {vaikeampi tappelu mörköjä vastaan tähän} 
-                if (s_killQuest)
+                if (quest.KillQuest)
                 {
+                    // Combat, returns enemies killed for use in QuestProgress() -method.
                     Utilities.PressToContinue();
-                    Combat.Battle(player, s_enemyType, 6);
+                    int killedAmount = Combat.Battle(player, s_enemyType, 6);
+
+                    // Quest progress.
+                    quest.QuestProgress(killedAmount, s_enemyName);
                 }
                 else
                 {
-                    Thread.Sleep(s_textChapterDelay);
+                    Thread.Sleep(Utilities.s_TextChapterDelay);
                 }
 
                 Utilities.TextWriter(kellariText3);
@@ -744,10 +809,9 @@ namespace QuestGame
             Utilities.PressToContinue();
 
             // Go to Puurakennus
-            PuuRakennus(player);
+            PuuRakennus(player, quest);
         }
         #endregion
-
 
         // Reset the area after leaving.
         static void ResetArea()
@@ -772,5 +836,7 @@ namespace QuestGame
             s_kellariOpened = false;
             s_kellariCleared = false;
         }
+
+
     }
 }
