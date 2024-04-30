@@ -16,6 +16,8 @@ namespace QuestGame
         static bool questKill;
         static int enemyType = 2;
         static int enemyAmount = rnd.Next(2, 6);
+        static string enemyName = "rottaa";
+        static string gatheringType = "höyhentä";
 
         public static void Start(Character player, Quest quest)
         {
@@ -140,7 +142,7 @@ namespace QuestGame
 
         static void MarkettiGather(Character player, Quest quest)
         {
-            int amount = Gathering.Gather(player);
+            int amount = Gathering.Gather(player); // Quest Tracking implemented under comment: // Quest Progress
             bool validInput = false;
             string answerKey;
             string marketIntro1 = "Kävelin läpi peikko ruuhkien marketille. Molemmat puolet tiestä oli täynnä kauppoja." +
@@ -252,7 +254,9 @@ namespace QuestGame
                         Continue();
                         TextWriter(marketAction20);
                         Continue();
-                        TextWriter(marketAction21);
+                        TextWriter(marketAction21); // You feathers here?
+                        // Quest Progress
+                        quest.QuestProgress(amount,gatheringType);
                         Continue();
                         marketActionComplete = true;
                         MarkettiGather(player, quest);
@@ -283,7 +287,7 @@ namespace QuestGame
 
         static void AsutusalueGather(Character player, Quest quest)
         {
-            int amount = Gathering.Gather(player);
+            int amount = Gathering.Gather(player); // Quest Tracking implemented under comment: // Quest Progress
             bool validInput = false;
             string answerKey;
             string asutusalueIntro1 = "Marketista eteen päin, löydän itseni asutusalueelta. Täältä ei paljoa ruuhkaa löydy," +
@@ -430,6 +434,8 @@ namespace QuestGame
                             TextWriter(asutusalueAction28);
                             Continue();
                             TextWriter(asutusalueAction29);
+                            // Quest Progress
+                            quest.QuestProgress(amount, gatheringType);
                             Continue();
                             asutusalueActionComplete = true;
                             AsutusalueGather(player, quest);
@@ -460,7 +466,7 @@ namespace QuestGame
         static bool asemaVisitedGather = false;
         static void AsemaGather(Character player, Quest quest)
         {
-            int amount = Gathering.Gather(player);
+            int amount = Gathering.Gather(player); // Quest Tracking implemented under comment: // Quest Progress
             bool validInput = false;
             string answerKey;
             string asemaIntro1 = "Saavuin Peikonkaupungin takaporteille. Niiden vieressä sijaitsee vartijoiden asema," +
@@ -510,6 +516,8 @@ namespace QuestGame
                             TextWriter(asemaAction1);
                             Continue();
                             TextWriter(asemaAction2);
+                            // Quest Progress
+                            quest.QuestProgress(amount, gatheringType);
                             Continue();
                             asemaActionComplete = true;
                             AsemaGather(player, quest);
@@ -540,7 +548,7 @@ namespace QuestGame
         static bool yoelamaAlueVisitedGather = false;
         static void YoelamaAlueGather(Character player, Quest quest)
         {
-            int amount = Gathering.Gather(player);
+            int amount = Gathering.Gather(player); // Quest Tracking implemented under comment: // Quest Progress
             bool validInput = false;
             string answerKey;
             string yoelamaAlueIntro1 = "Koko vasen puoli Peikonkaupungista vaikutti olevan yöelämää varten. Kasinoissa peikot joko voittivat kaiken tai menettivät sen." +
@@ -605,6 +613,8 @@ namespace QuestGame
                             TextWriter(yoelamaAlueAction6);
                             Continue();
                             TextWriter(yoelamaAlueAction7);
+                            // Quest Progress
+                            quest.QuestProgress(amount, gatheringType);
                             Continue();
                             yoelamaAlueActionComplete = true;
                             YoelamaAlueGather(player, quest);
@@ -658,7 +668,10 @@ namespace QuestGame
                 Continue();
                 TextWriter(markettiIntro4);
                 Continue();
-                Combat.Battle(player, enemyType, enemyAmount);
+                // Combat and Quest Progress
+                int killAmount = Combat.Battle(player, enemyType, enemyAmount);
+                quest.QuestProgress(killAmount, enemyName);
+                // Combat and Quest Progress end
                 TextWriter(markettiIntro5);
                 marketVisitedKill = true;
             }
@@ -724,7 +737,10 @@ namespace QuestGame
                 Continue();
                 TextWriter(asutusalueIntro5);
                 Continue();
-                Combat.Battle(player, enemyType, enemyAmount);
+                // Combat and Quest progress
+                int killAmount = Combat.Battle(player, enemyType, enemyAmount);
+                quest.QuestProgress(killAmount, enemyName);
+                // Combat and Quest Progress end
                 TextWriter(asutusalueIntro6 + "\n\n");
                 TextWriter(asutusalueIntro7 + "\n\n");
                 TextWriter(asutusalueIntro8);
@@ -778,7 +794,10 @@ namespace QuestGame
                 Continue();
                 TextWriter(asemaIntro2);
                 Continue();
-                Combat.Battle(player, enemyType, enemyAmount);
+                // Combat and Quest progress
+                int killAmount = Combat.Battle(player, enemyType, enemyAmount);
+                quest.QuestProgress(killAmount, enemyName);
+                // Combat and Quest Progress end
                 TextWriter(asemaIntro3);
                 asemaVisitedKill = true;
             }
@@ -829,7 +848,10 @@ namespace QuestGame
                 Continue();
                 TextWriter(yoelamaAlueIntro2);
                 Continue();
-                Combat.Battle(player, enemyType, enemyAmount);
+                // Combat and Quest Progress
+                int killAmount = Combat.Battle(player, enemyType, enemyAmount);
+                quest.QuestProgress(killAmount, enemyName);
+                // Combat and Quest Progress end
                 TextWriter(yoelamaAlueIntro3);
                 yoelamaAlueVisitedKill = true;
             }
