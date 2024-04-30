@@ -46,15 +46,7 @@ namespace QuestGame
             _target = target;
             _amountLeft = amount;
             _assignedAmount = amount;
-
-            if(_action == "tapa")
-            {
-                _killQuest = true;
-            }
-            else
-            {
-                _killQuest = false;
-            }
+            _killQuest = action == "tapa" ? true : false;
         }
 
         public void QuestDescription()

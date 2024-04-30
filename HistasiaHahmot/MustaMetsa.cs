@@ -21,7 +21,6 @@ namespace QuestGame
 
         // Add Quest quest Parameter for quest tracking I guess. Also for tracking kill/gather quest type.
         // For now Kill/Gather Field:
-        static bool s_killQuest = true;
 
         #region Mustametsä entrance
         // Field for returning check
@@ -56,7 +55,7 @@ namespace QuestGame
             else
             {
                 string mmReturnText = "";
-                if (s_mmFirstReturn && s_killQuest)
+                if (s_mmFirstReturn && quest.KillQuest)
                 {
                     mmReturnText = "Astuin jälleen mustametsän alkuun—ja tapasin pienen ongelman. Tai ehkä olisi parempi sanoa “pieniä ongelmia.” Parvi mörköjä oli jäänyt odottamaan minua.";
                 }
@@ -70,7 +69,7 @@ namespace QuestGame
                 // Writing text
                 Utilities.TextWriter(mmReturnText);
                 // Combat Trigger  {tappelu mörköjä vastaan tähän}
-                if (s_mmFirstReturn && s_killQuest)
+                if (s_mmFirstReturn && quest.KillQuest)
                 {
                     s_mmFirstReturn = false;
                     Utilities.PressToContinue();
@@ -164,7 +163,7 @@ namespace QuestGame
                     Thread.Sleep(Utilities.s_TextChapterDelay);
 
                     // Killquest specific text and battle trigger
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
                         Utilities.TextWriter(mpBattleText);
 
@@ -265,7 +264,7 @@ namespace QuestGame
                                 {
                                     case true:
                                         // text depending on quest type
-                                        if (s_killQuest)
+                                        if (quest.KillQuest)
                                         {
                                             openAttempt = "Kellariluukku ei avautunut tälläkään kertaa. Mörköjen melu ei ole lakannut.";
                                         }
@@ -279,7 +278,7 @@ namespace QuestGame
                                                 "Harkitsin yrittää murskata luukun, mutta lohkeilevan puun alla näkyy metallinen hohto. " +
                                                 "Parempi olla yrittämättä, ettei miekka tylsy.";
                                         // Added part depending on quest type
-                                        if (s_killQuest)
+                                        if (quest.KillQuest)
                                         {
                                             openAttempt += " Luukun toiselta puolelta kuuluu kaikenlaista meteliä. Sieltä varmaankin möröt sikiää.";
                                         }
@@ -348,7 +347,7 @@ namespace QuestGame
                     string metSyvText3 = "";
 
                     // Kill quest specific text.
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
                         metSyvText2 = "Yhtäkkiä huomasin jonkin välähtävän hämärässä. Hyppäsin taakse ja väistin mörköjen yllätyshyökkäyksen hiuksenleveydellä. “Sitten menoksi”, minä totesin, tarttuessani miekkaani.";
 
@@ -376,7 +375,7 @@ namespace QuestGame
                     Thread.Sleep(Utilities.s_TextChapterDelay);
 
                     Utilities.TextWriter(metSyvText2);
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
                         Utilities.PressToContinue();
                         Combat.Battle(player, s_enemyType, 3);
@@ -420,7 +419,7 @@ namespace QuestGame
                     string puuRakennusIntroP2 = "";
                     string puuRakennusIntroP3 = "";
 
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
                         puuRakennusIntroP1 = "Kävelin läpi vyötärölle kurottavan ruohikon matkalla puurakennukselle. Yhtäkkiä, mustia muotoja hyppäsi ruohikon seasta. " +
                             "En ehtinyt edes rekisteröimään mitä tapahtui, ennen kuin möröt olivat piirittäneet minut.\n\n";
@@ -449,7 +448,7 @@ namespace QuestGame
                     Utilities.TextWriter(puuRakennusIntroP1);
 
                     // {taistelu mörköjä vastaan tähän}
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
                         Utilities.PressToContinue();
                         Combat.Battle(player, s_enemyType, 3);
@@ -470,7 +469,7 @@ namespace QuestGame
                 else
                 {
                     string returnText = "";
-                    if (s_killQuest)
+                    if (quest.KillQuest)
                     {
                         returnText = "Pihalla jälleen. Voin mennä takaisin aloituspisteeseeni tai kellariin.";
                     }
@@ -502,7 +501,7 @@ namespace QuestGame
 
                 Thread.Sleep(Utilities.s_selectionDelay);
                 // Player choice
-                if (s_killQuest)
+                if (quest.KillQuest)
                 {
                     Console.Write
                         (
@@ -524,12 +523,12 @@ namespace QuestGame
 
                 // Player input
                 var pressedKey = Console.ReadKey(true);
-                if (s_killQuest && pressedKey.KeyChar == '1')
+                if (quest.KillQuest && pressedKey.KeyChar == '1')
                 {
 
                 }
 
-                if (s_killQuest)
+                if (quest.KillQuest)
                 {
                     switch (pressedKey.KeyChar)
                     {
@@ -668,13 +667,13 @@ namespace QuestGame
             string kellariText2 = "";
             string kellariText3 = "";
 
-            if (s_killQuest && s_kellariCleared)
+            if (quest.KillQuest && s_kellariCleared)
             {
                 kellariText1 = "Saavuin kellarin syövereihin. Minulla ei ole mitään tekemistä täällä. Parempi kääntyä ympäri.";
                 Utilities.TextWriter(kellariText1);
             }
             // Kill quest text.
-            else if (s_killQuest)
+            else if (quest.KillQuest)
             {
                 s_kellariCleared = true;
 
@@ -722,7 +721,7 @@ namespace QuestGame
             // Is only used if Kellari has not been cleared in Kill quest.
             if (!s_kellariCleared)
             {
-                if (!s_killQuest)
+                if (!quest.KillQuest)
                 {
                     Utilities.TextWriter(kellariOpening);
                     Thread.Sleep(Utilities.s_TextChapterDelay);
@@ -734,7 +733,7 @@ namespace QuestGame
                 Utilities.TextWriter(kellariText2);
 
                 // {vaikeampi tappelu mörköjä vastaan tähän} 
-                if (s_killQuest)
+                if (quest.KillQuest)
                 {
                     Utilities.PressToContinue();
                     Combat.Battle(player, s_enemyType, 6);
