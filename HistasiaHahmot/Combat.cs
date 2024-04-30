@@ -159,6 +159,7 @@ namespace QuestGame
 
         public static void PlayerDeath()
         {
+            Console.Clear();
             string plDeathText = $"\nSinä kuolit.\nPaina nappia jatkaaksesi.";
             Utilities.TextWriter(plDeathText);
             Console.ReadKey(true);

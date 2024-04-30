@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace QuestGame
 {
@@ -24,10 +25,6 @@ namespace QuestGame
             get
             {
                 return _amountLeft;
-            }
-            set
-            {
-                _amountLeft = value;
             }
         }
         public int AssignedAmount
@@ -94,15 +91,19 @@ namespace QuestGame
                     throw new Exception("Unknown action!");
             }
 
-            string questUI = $"Tehtävä: [{AssignedAmount - AmountLeft}/{AssignedAmount}] {_target} {actionFormatted}.";
+            string questUI = $"Tehtävä: [{_assignedAmount - _amountLeft}/{_assignedAmount}] {_target} {actionFormatted}.";
+            Console.Write(new string(' ', (Console.WindowWidth - questUI.Length) / 2));
             Console.WriteLine(questUI);
+            string divider = "***********************************\n\n";
+            Console.Write(new string(' ', (Console.WindowWidth - divider.Length) / 2));
+            Console.WriteLine(divider);
         }
 
         public void QuestProgress(int amount, string target)
         {
             if(target == _target)
             {
-                AmountLeft -= amount;
+                _amountLeft -= amount;
             }
         }
     }
@@ -119,7 +120,7 @@ namespace QuestGame
             int actionIndex = s_rnd.Next(action.Count);
 
             // Randomizing amount.
-            int amount = s_rnd.Next(5, 18);
+            int amount = s_rnd.Next(6, 18);
 
             // Gathering quest
             if (actionIndex == 0)

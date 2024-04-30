@@ -34,6 +34,8 @@ namespace QuestGame
             Console.Clear();
             if (!s_mmReturn)
             {
+                quest.QuestUI();
+
                 // Mustametsä text
                 string mmText1 = "Kun astuin mustametsään, tunsin kengänpohjani uppoavan sammaleen. Ilma oli kostea, eikä auringonvalo pilkistänyt tiheän neulaskaton läpi. " +
                     "En nähnyt muutamaa metriä pidemmälle metsän syvyyksiin. Olin valmistautunut tähän. Irrotin lyhtyni vyötäröltäni, ja avasin sen luukun. " +
@@ -56,6 +58,8 @@ namespace QuestGame
             }
             else
             {
+                quest.QuestUI();
+
                 string mmReturnText = "";
                 if (s_mmFirstReturn && quest.KillQuest)
                 {
@@ -168,6 +172,8 @@ namespace QuestGame
                     string mpText2 = "Voin kerätä sienet ympäristöstä, tai koettaa avata kellariluukun. Polku on loppunut tähän, " +
                         "enkä uskalla vaeltaa metsän syvyyksiin suunnitelmatta, joten en voi liikkua muualle kuin takaisin alkuun.\n\n";
 
+                    quest.QuestUI();
+
                     Utilities.TextWriter(mpText1);
                     Thread.Sleep(Utilities.s_TextChapterDelay);
 
@@ -194,6 +200,8 @@ namespace QuestGame
                 // Else returning short description depending on if mushrooms were gathered or not.
                 else
                 {
+                    quest.QuestUI();
+
                     string mpReturnText = "";
                     switch (s_mpGathered)
                     {
@@ -337,6 +345,9 @@ namespace QuestGame
         static void Metsansyvyydet(Character player,Quest quest)
         {
             Console.Clear();
+
+            quest.QuestUI();
+
             switch (s_metsanSyvReturn)
             {
                 // Trying to enter the second time.
@@ -463,6 +474,9 @@ namespace QuestGame
                         puuRakennusIntroP3 = "Piha-alueella näkyi useita kiinnostuksen kohteita. Rakennuksen ympärillä kasvoi sieniä, jotka voisin kerätä. " +
                             "Pihan vasemmassa osassa näkyy olevan jonkinlainen varastorakennus. Voisin tietysti myös mennä penkomaan rakennuksen raunioita, jos sieltä vielä löytyisi jotain.\n\n";
                     }
+
+                    quest.QuestUI();
+
                     // Writing intro text.
                     Utilities.TextWriter(puuRakennusIntroP1);
 
@@ -491,6 +505,8 @@ namespace QuestGame
                 }
                 else
                 {
+                    quest.QuestUI();
+
                     string returnText = "";
                     if (quest.KillQuest)
                     {
@@ -745,6 +761,8 @@ namespace QuestGame
                     "Olen löytänyt itseni puurakennuksen pihalta. No, tulipahan tutkittua varastorakennus samalla.\n\n";
 
             }
+
+            quest.QuestUI();
 
             // Writing text 
             // Opening only happens on Gathering quests.
