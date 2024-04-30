@@ -101,12 +101,6 @@ namespace QuestGame
 
             TheGame.StartAdventure(player);
 
-            player.GatheringSkill = 2;
-            player.AttackBonus = 5;
-
-            Console.ReadKey(true);
-            Gathering.Gather(player);
-
             Console.ReadKey(true);
         }
     }

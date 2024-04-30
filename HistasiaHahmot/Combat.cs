@@ -39,8 +39,8 @@ namespace QuestGame
             int enMinDmg = 2;
 
             // TEST: choose EnemyType
-            /*int enemyType = 1;
-            int enemyAmount = 3;*/
+            //int enemyType = 1;
+            //int enemyAmount = 1;
             int enemyCount = enemyAmount;
             // TEST END
 
