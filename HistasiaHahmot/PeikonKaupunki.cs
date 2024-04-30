@@ -10,7 +10,13 @@ namespace QuestGame
 {
     internal class PeikonKaupunki
     {
+        static Random rnd = new Random();
         static bool startVisited = false;
+        static bool answered = false;
+        static bool questKill;
+        static int enemyType = 2;
+        static int enemyAmount = rnd.Next(2, 6);
+
         public static void Start(Character player)
         {
             string answer;
@@ -30,11 +36,16 @@ namespace QuestGame
             string startReturn = "Peikonkaupungin porteilla jälleen. Poliittinen kampanjointi ei ole lakannut kaupungin keskustassa, joten en voi sinne vieläkään astua." +
                 " Voin mennä joko markettiin, tai yöelämä alueelle. Karkuun meno on epäsuositeltava vaihtoehto.\n";
 
-            //This is a temporary solution for introducing both types of quest.
-            Console.WriteLine("Is this a kill quest? (Y/N)");
-            answer = Console.ReadLine();
+            if (answered == false)
+            {
+                //This is a temporary solution for introducing both types of quest.
+                Console.WriteLine("Is this a kill quest? (Y/N)");
+                answer = Console.ReadLine().ToLower();
 
-            bool questKill = answer == "y" ? true : false;
+                questKill = answer == "y" ? true : false;
+
+                answered = true;
+            }
 
             Console.Clear();
 
@@ -84,25 +95,48 @@ namespace QuestGame
             {
                 if (startVisited == false)
                 {
-                    Console.WriteLine("\nKill Quest:");
-                    Console.WriteLine(start1 + "\n");
-                    Thread.Sleep(1000);
-                    Console.WriteLine(start2 + "\n");
-                    Thread.Sleep(1000);
-                    Console.WriteLine(start3);
+                    Console.WriteLine("Kill Quest:");
+                    TextWriter(start1);
+                    Continue();
+                    TextWriter(start2);
+                    Continue();
+                    TextWriter(start3);
                     startVisited = true;
                 }
                 else
                 {
-                    Console.WriteLine(startReturn);
+                    TextWriter(startReturn);
                 }
 
-                Console.WriteLine("\n1. Marketti\n2. Yöelämä alue\n3. Palaa aluevalintaan");
+                do
+                {
+                    Console.WriteLine("\n1. Marketti\n2. Yöelämä alue\n3. Palaa aluevalintaan");
+                    answerKey = Console.ReadLine();
+
+                    switch (answerKey)
+                    {
+                        case "1":
+                            validInput = true;
+                            MarkettiKill(player);
+                            break;
+                        case "2":
+                            validInput = true;
+                            YoelamaAlueKill(player);
+                            break;
+                        case "3":
+                            validInput = true;
+                            TheGame.ChooseArea(player);
+                            break;
+                        default:
+                            TextWriter("Sopimaton syöttö");
+                            break;
+                    }
+                } while (validInput == false);
             }
         }
 
         static bool marketActionComplete = false;
-        static bool marketVisited = false;
+        static bool marketVisitedGather = false;
 
         static void MarkettiGather(Character player)
         {
@@ -147,16 +181,16 @@ namespace QuestGame
 
             Console.Clear();
 
-            if (marketVisited == false)
+            if (marketVisitedGather == false)
             {
                 TextWriter(marketIntro1);
                 Continue();
                 TextWriter(marketIntro2);
                 Continue();
                 TextWriter(marketIntro3);
-                marketVisited = true;
+                marketVisitedGather = true;
             }
-            else if (marketVisited == true && marketActionComplete == true)
+            else if (marketVisitedGather == true && marketActionComplete == true)
             {
                 TextWriter(marketReturnActionComplete);
             }
@@ -245,7 +279,7 @@ namespace QuestGame
         }
 
         static bool asutusalueActionComplete = false;
-        static bool asutusalueVisited = false;
+        static bool asutusalueVisitedGather = false;
 
         static void AsutusalueGather(Character player)
         {
@@ -310,16 +344,16 @@ namespace QuestGame
 
             Console.Clear();
 
-            if (asutusalueVisited == false)
+            if (asutusalueVisitedGather == false)
             {
                 TextWriter(asutusalueIntro1);
                 Continue();
                 TextWriter(asutusalueIntro2);
                 Continue();
                 TextWriter(asutusalueIntro3);
-                asutusalueVisited = true;
+                asutusalueVisitedGather = true;
             }
-            else if (asutusalueVisited == true && asutusalueActionComplete == true)
+            else if (asutusalueVisitedGather == true && asutusalueActionComplete == true)
             {
                 TextWriter(asutusalueReturnActionComplete);
             }
@@ -402,7 +436,7 @@ namespace QuestGame
                         }
                         else
                         {
-                            TextWriter("Lapset ovat sisällä lepäämässä. Ei ole ketään jonka kanssa leikkiä enään.");
+                            TextWriter("Lapset ovat sisällä lepäämässä. Ei ole ketään jonka kanssa leikkiä.");
                             Continue();
                             AsutusalueGather(player);
                         }
@@ -423,7 +457,7 @@ namespace QuestGame
         }
 
         static bool asemaActionComplete = false;
-        static bool asemaVisited = false;
+        static bool asemaVisitedGather = false;
         static void AsemaGather(Character player)
         {
             int amount = Gathering.Gather(player);
@@ -444,16 +478,16 @@ namespace QuestGame
 
             Console.Clear();
 
-            if (asemaVisited == false)
+            if (asemaVisitedGather == false)
             {
                 TextWriter(asemaIntro1);
                 Continue();
                 TextWriter(asemaIntro2);
                 Continue();
                 TextWriter(asemaIntro3);
-                asemaVisited = true;
+                asemaVisitedGather = true;
             }
-            else if (asemaVisited == true && asemaActionComplete == true)
+            else if (asemaVisitedGather == true && asemaActionComplete == true)
             {
                 TextWriter(asemaReturnActionComplete);
             }
@@ -503,7 +537,7 @@ namespace QuestGame
         }
 
         static bool yoelamaAlueActionComplete = false;
-        static bool yoelamaAlueVisited = false;
+        static bool yoelamaAlueVisitedGather = false;
         static void YoelamaAlueGather(Character player)
         {
             int amount = Gathering.Gather(player);
@@ -529,16 +563,16 @@ namespace QuestGame
 
             Console.Clear();
 
-            if (yoelamaAlueVisited == false)
+            if (yoelamaAlueVisitedGather == false)
             {
                 TextWriter(yoelamaAlueIntro1);
                 Continue();
                 TextWriter(yoelamaAlueIntro2);
                 Continue();
                 TextWriter(yoelamaAlueIntro3);
-                yoelamaAlueVisited = true;
+                yoelamaAlueVisitedGather = true;
             }
-            else if (yoelamaAlueVisited == true && yoelamaAlueActionComplete == true)
+            else if (yoelamaAlueVisitedGather == true && yoelamaAlueActionComplete == true)
             {
                 TextWriter(yoelamaAlueReturnActionComplete);
             }
@@ -587,6 +621,235 @@ namespace QuestGame
                         AsemaGather(player);
                         break;
                     case "3":
+                        validInput = true;
+                        Start(player);
+                        break;
+                    default:
+                        TextWriter("Sopimaton syöttö");
+                        break;
+                }
+            } while (validInput == false);
+        }
+
+        static bool marketVisitedKill = false;
+        static void MarkettiKill(Character player)
+        {
+            bool validInput = false;
+            string answerKey;
+            string markettiIntro1 = "Kävelin läpi peikko ruuhkien marketille. Molemmat puolet tiestä oli täynnä kauppoja." +
+                " Kauppiaat huutelivat ohimeneville tarjouksista ja tuotteista, joita kaikki varmasti tarvitsevat.";
+            string markettiIntro2 = "Tehtävän antoni mukaisesti, kysyin ohi mennessäni kauppiailta, oliko heillä ongelmia rottien kanssa.";
+            string markettiIntro3 = "“No, kyllä,” vastaus kuului.";
+            string markettiIntro4 = "Kauppias vei minut kauppansa takahuoneeseen, jossa näin rottia juoksentelevan ympäriinsä." +
+                " Tartuin miekkaani ja valmistauduin hoitelemaan ne.";
+            string markettiIntro5 = "Tämän prosessin pääsin toistamaan vielä muutaman kerran muille kauppiaille, mutta loppujen lopuksi, marketti oli käyty läpi." +
+                " Voin edetä asutusalueelle, tai mennä takaisin portille.\n";
+            string markettiReturn = "Marketti on yhtä vilkas kuin ennenkin. Ei tule mitään mieleen, jota voisin tehdä täällä. Voin mennä asutusalueelle, tai porteille.\n";
+
+            Console.Clear();
+
+            if (marketVisitedKill == false)
+            {
+                TextWriter(markettiIntro1);
+                Continue();
+                TextWriter(markettiIntro2);
+                Continue();
+                TextWriter(markettiIntro3);
+                Continue();
+                TextWriter(markettiIntro4);
+                Continue();
+                Combat.Battle(player, enemyType, enemyAmount);
+                TextWriter(markettiIntro5);
+                marketVisitedKill = true;
+            }
+            else
+            {
+                TextWriter(markettiReturn);
+            }
+
+            do
+            {
+                Console.WriteLine("\n1. Asutusalue\n2. Aloitus");
+                answerKey = Console.ReadLine();
+
+                switch(answerKey)
+                {
+                    case "1":
+                        validInput = true;
+                        AsutusalueKill(player);
+                        break;
+                    case "2":
+                        validInput = true;
+                        Start(player);
+                        break;
+                    default:
+                        TextWriter("Sopimaton syöttö");
+                        break;
+                }
+            } while (validInput == false);
+        }
+
+        static bool asutusalueVisitedKill = false;
+        static void AsutusalueKill(Character player)
+        {
+            bool validInput = false;
+            string answerKey;
+            string asutusalueIntro1 = "Marketista eteen päin, löydän itseni asutusalueelta. Täältä ei paljoa ruuhkaa löydy," +
+                " sillä suurin osa peikoista on joko kaupungin keskustassa tai marketissa. Se ruuhka mitä löytyy, tosin, on lapsia. He leikkivät asutusalueen teillä," +
+                " piittaamatta muista ohikulkijoista. Ennen pitkään, yksi heistä tömähti minuun ja lensi maahan.";
+            string asutusalueIntro2 = "“Sori herra!”";
+            string asutusalueIntro3 = "Ennen kuin ehdin kysyä häneltä, että oliko hän kunnossa, hän juoksi jo pois. Kylläpä näillä tenavilla riittää energiaa." +
+                " Kunpa voisin sanoa samoin omalta osaltani. Aloin koputtamaan ovelle oven jälkeen," +
+                " kiertämässä suuria asutusalueella sijaitsevia kerrostaloja hitaasti mutta varmasti.";
+            string asutusalueIntro4 = "“Rottiako?” asukas kysyi. “No, kyllä niitä löytyy. Tule peremmälle vain.”";
+            string asutusalueIntro5 = "Astuin asunnon syövereihin, jossa jälleen kuulin pikkuruista taaperrusta. Rotat yrittävät paeta.";
+            string asutusalueIntro6 = "Asunto hoidettu, seuraava. Seuraava. Vielä seuraava.";
+            string asutusalueIntro7 = ". . .";
+            string asutusalueIntro8 = "Lopulta, pääsin käytyä kaikki asutusalueen asunnot läpi, mutta kyllä se kesti myöskin." +
+                " Voin edetä vartioiden asemalle tai palata markettiin.\n";
+            string asutusalueReturn = "Palasin asutusalueelle. Olen käynyt koko paikan läpi, joten minulla ei tule tekemistä täällä mieleen." +
+                " Voin mennä markettiin tai vartioiden asemalle.\n";
+
+            Console.Clear();
+
+            if (asutusalueVisitedKill == false)
+            {
+                TextWriter(asutusalueIntro1);
+                Continue();
+                TextWriter(asutusalueIntro2);
+                Continue();
+                TextWriter(asutusalueIntro3);
+                Continue();
+                TextWriter(asutusalueIntro4);
+                Continue();
+                TextWriter(asutusalueIntro5);
+                Continue();
+                Combat.Battle(player, enemyType, enemyAmount);
+                TextWriter(asutusalueIntro6 + "\n\n");
+                TextWriter(asutusalueIntro7 + "\n\n");
+                TextWriter(asutusalueIntro8);
+                asutusalueVisitedKill = true;
+            }
+            else
+            {
+                TextWriter(asutusalueReturn);
+            }
+
+            do
+            {
+                Console.WriteLine("\n1. Asema\n2. Marketti");
+                answerKey = Console.ReadLine();
+
+                switch (answerKey)
+                {
+                    case "1":
+                        validInput = true;
+                        AsemaKill(player);
+                        break;
+                    case "2":
+                        validInput = true;
+                        MarkettiKill(player);
+                        break;
+                    default:
+                        TextWriter("Sopimaton syöttö");
+                        break;
+                }
+            } while (validInput == false);
+        }
+
+        static bool asemaVisitedKill = false;
+        static void AsemaKill(Character player)
+        {
+            bool validInput = false;
+            string answerKey;
+            string asemaIntro1 = "Saavuin Peikonkaupungin takaporteille. Niiden vieressä sijaitsee vartijoiden asema," +
+                " jonka ympärillä on runsaasti haarniskoihin pukeutuneita peikkoja. Osa heistä vaikuttavat vain laiskottelevan, kun taas toiset vartioivat.";
+            string asemaIntro2 = "Menin yhdelle vartioista kysymään, että onko rotta ongelmia. Hän johdatti minut kellariin, jonka molemmat seinämät olivat tyrmillä täytetty." +
+                " Rottia näkyi enemmän kuin rikollisia tosin.";
+            string asemaIntro3 = "Rottien hoideltua, minut talutettiin suoraan kellarista ulos. Aika jatkaa matkaa yöelämä alueelle tai takaisin asutusalueelle.\n";
+            string asemaReturn = "Asemalla on yhä yhtä monipuolista tekemistä kuin ennen, mutta en näe mitään syytä liittyä mukaan." +
+                " Voin mennä asutusalueelle tai yöelämä alueelle.\n";
+
+            Console.Clear();
+
+            if (asemaVisitedKill == false)
+            {
+                TextWriter(asemaIntro1);
+                Continue();
+                TextWriter(asemaIntro2);
+                Continue();
+                Combat.Battle(player, enemyType, enemyAmount);
+                TextWriter(asemaIntro3);
+                asemaVisitedKill = true;
+            }
+            else
+            {
+                TextWriter(asemaReturn);
+            }
+
+            do
+            {
+                Console.WriteLine("\n1. Asutusalue\n2. Yöelämä alue");
+                answerKey = Console.ReadLine();
+
+                switch (answerKey)
+                {
+                    case "1":
+                        validInput = true;
+                        AsutusalueKill(player);
+                        break;
+                    case "2":
+                        validInput = true;
+                        YoelamaAlueKill(player);
+                        break;
+                    default:
+                        TextWriter("Sopimaton syöttö");
+                        break;
+                }
+            } while (validInput == false);
+        }
+
+        static bool yoelamaAlueVisitedKill = false;
+        static void YoelamaAlueKill(Character player)
+        {
+            bool validInput = false;
+            string answerKey;
+            string yoelamaAlueIntro1 = "Koko vasen puoli Peikonkaupungista vaikutti olevan yöelämää varten. Kasinoissa peikot joko voittivat kaiken tai menettivät sen." +
+                " Kapakoissa jotkin peikot ryyppäsivät jo nyt. Yökerhot olivat vielä kiinni.";
+            string yoelamaAlueIntro2 = "Kun kävelin läpi yöelämä alueen, kyselin jokaisesta laitoksesta, että onko rotta ongelmia. Ja lähes joka kerta," +
+                " minut päästettiin sisään tekemään työni. Saman voi kertoa tällä kertaa. Toivottavasti miekka ei tylsy tämän jatkuvan maan tökkimisen johdosta.";
+            string yoelamaAlueIntro3 = "Viimeisen laitoksen läpi käytyä, huokaisin helpotuksesta. Voin joko mennä vartioiden asemalle, tai palata porteille.\n";
+            string yoelamaAlueReturn = "Yöelämä alueella ei vieläkään ole paljoa ruuhkaa. Voin mennä vartioiden asemalle tai alkuun.\n";
+
+            Console.Clear();
+
+            if (yoelamaAlueVisitedKill == false)
+            {
+                TextWriter(yoelamaAlueIntro1);
+                Continue();
+                TextWriter(yoelamaAlueIntro2);
+                Continue();
+                Combat.Battle(player, enemyType, enemyAmount);
+                TextWriter(yoelamaAlueIntro3);
+                yoelamaAlueVisitedKill = true;
+            }
+            else
+            {
+                TextWriter(yoelamaAlueReturn);
+            }
+
+            do
+            {
+                Console.WriteLine("\n1. Asema\n2. Aloitus");
+                answerKey = Console.ReadLine();
+
+                switch (answerKey)
+                {
+                    case "1":
+                        validInput = true;
+                        AsemaKill(player);
+                        break;
+                    case "2":
                         validInput = true;
                         Start(player);
                         break;

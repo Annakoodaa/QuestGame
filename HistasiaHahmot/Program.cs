@@ -106,7 +106,6 @@ namespace QuestGame
 
             Console.ReadKey(true);
             Gathering.Gather(player);
-            Combat.Battle(player);
 
             Console.ReadKey(true);
         }

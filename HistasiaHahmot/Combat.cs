@@ -23,7 +23,7 @@ namespace QuestGame
         static int s_textSpeed = 30;
 
         // Needs player object from main.
-        internal static void Battle(Character player)
+        internal static void Battle(Character player, int enemyType, int enemyAmount)
         {
             Console.Clear();
 
@@ -39,8 +39,8 @@ namespace QuestGame
             int enMinDmg = 2;
 
             // TEST: choose EnemyType
-            int enemyType = 1;
-            int enemyAmount = 3;
+            /*int enemyType = 1;
+            int enemyAmount = 3;*/
             int enemyCount = enemyAmount;
             // TEST END
 
