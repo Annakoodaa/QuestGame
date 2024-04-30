@@ -16,6 +16,7 @@ namespace QuestGame
         string _target;
         protected int _assignedAmount;
         int _amountLeft;
+        bool _killQuest;
 
         // Properties
         public int AmountLeft
@@ -33,6 +34,10 @@ namespace QuestGame
         {
             get { return _assignedAmount; }
         }
+        public bool KillQuest
+        {
+            get { return _killQuest; }
+        }
 
         // Constructors
         public Quest(string action, string target, int amount)
@@ -41,6 +46,15 @@ namespace QuestGame
             _target = target;
             _amountLeft = amount;
             _assignedAmount = amount;
+
+            if(_action == "tapa")
+            {
+                _killQuest = true;
+            }
+            else
+            {
+                _killQuest = false;
+            }
         }
 
         public void QuestDescription()
@@ -87,11 +101,12 @@ namespace QuestGame
 
         public static Quest QuestGenerator()
         {
-            // Randomizing quest type
+            // Randomizing quest type.
             var action = new List<string> { "kerää", "tapa" };
             int actionIndex = s_rnd.Next(action.Count);
-            Random maara = new Random();
-            int amount = maara.Next(10, 50);
+
+            // Randomizing amount.
+            int amount = s_rnd.Next(5, 18);
 
             // Gathering quest
             if (actionIndex == 0)
