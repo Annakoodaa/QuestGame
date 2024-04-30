@@ -261,6 +261,9 @@ namespace QuestGame
 
                         // set mushrooms to gathered.
                         s_mpGathered = true;
+
+                        // Press to Continue.
+                        Utilities.PressToContinue();
                         break;
                     // Cellar interactions.
                     case '2':
@@ -314,6 +317,7 @@ namespace QuestGame
                                         break;
                                 }
                                 Utilities.TextWriter(openAttempt);
+                                Utilities.PressToContinue();
                                 break;
                         }
                         break;
@@ -325,10 +329,10 @@ namespace QuestGame
                         break;
                 }
 
-                if (!enterKellari)
-                {
-                    Utilities.PressToContinue();
-                }
+                //if (!enterKellari || !prConnection || !returnToStart)
+                //{
+                //    Utilities.PressToContinue();
+                //}
             }
 
             if (prConnection)
@@ -461,7 +465,7 @@ namespace QuestGame
                     {
                         puuRakennusIntroP1 = "Kävelin läpi vyötärölle kurottavan ruohikon matkalla puurakennukselle. Yhtäkkiä, mustia muotoja hyppäsi ruohikon seasta. " +
                             "En ehtinyt edes rekisteröimään mitä tapahtui, ennen kuin möröt olivat piirittäneet minut.\n\n";
-                        puuRakennusIntroP2 = "Kun päihitin möröt, saavuin rakennuksen edustalle ja huomasin että rakennuksen katto oli romahtanut. " +
+                        puuRakennusIntroP2 = "saavuin rakennuksen edustalle ja huomasin että rakennuksen katto oli romahtanut. " +
                             "Sen sisimmissä ei näkynyt mitään muuta kuin romua, ja sen romun syövereistä kasvoi valtava mänty. Piha-alueella ei ollut mitään muita puita, " +
                             "mutta neulaskatto oli silti ihan yhtä tiheä—täysin sen yhden männyn johdosta. Oliko katto romahtanut männyn kasvusta, vai kasvoiko mänty katon romahduksesta? " +
                             "Ei kai sillä mitään väliä ole.\n\n";
@@ -494,6 +498,16 @@ namespace QuestGame
                         // Combat, returns enemies killed for use in QuestProgress() -method.
                         Utilities.PressToContinue();
                         int killedAmount = Combat.Battle(player, s_enemyType, 3);
+
+                        if(killedAmount > 0)
+                        {
+                            puuRakennusIntroP2 = "Kun päihitin möröt, " + puuRakennusIntroP2;
+                        }
+                        else
+                        {
+                            puuRakennusIntroP2 = "Möröiltä paettuani, " + puuRakennusIntroP2;
+                        }
+
 
                         // Quest progress
                         quest.QuestProgress(killedAmount, s_enemyName);
@@ -570,10 +584,6 @@ namespace QuestGame
 
                 // Player input
                 var pressedKey = Console.ReadKey(true);
-                if (quest.KillQuest && pressedKey.KeyChar == '1')
-                {
-
-                }
 
                 if (quest.KillQuest)
                 {

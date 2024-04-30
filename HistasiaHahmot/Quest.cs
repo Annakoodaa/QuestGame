@@ -106,10 +106,14 @@ namespace QuestGame
 
         public void QuestProgress(int amount, string target)
         {
-            if(target == _target)
+
+            // if target is same as quest target
+            // and if amount is greater 0, reduce amount left
+            if (target == _target && amount > 0)
             {
                 _amountLeft -= amount;
             }
+            // if Amount left is 0 or less, mark quest as complete.
             if(AmountLeft <= 0)
             {
                 _questCompleted = true;
