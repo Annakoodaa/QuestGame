@@ -18,13 +18,20 @@ namespace QuestGame
             int maxAmount = 10;
             int minAmount = 1;
 
-            // Area modifier?
+            // Area modifier affecting max amount.
 
 
-            // Gathering skills effects
-            // Currently it only increase the minimun gathering
-            // amount by the value of gathering skill
+            // Minimum gathering effect.
+            // Increases minimum gathering amount up to max amount.
             minAmount += player.GatheringSkill;
+            if (minAmount > maxAmount)
+            {
+                minAmount = maxAmount;
+            }
+            else if (minAmount < 1)
+            { 
+                minAmount = 1;
+            }
 
             // Chance for enemy encounter.
             //int ambush = s_rnd.Next(1,101);
@@ -43,7 +50,6 @@ namespace QuestGame
             //    // Start Battle
             //    Combat.Battle(player);
             //}
-
 
             // Randomizing gathered amount.
             int gatheredAmount = s_rnd.Next(minAmount, maxAmount);

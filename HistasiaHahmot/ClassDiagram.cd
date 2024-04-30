@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="QuestGame.Combat">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AkAAAACAAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Combat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestGame.Enemy">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAKAABAAEAAAAAAAAACAQAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestGame.Gathering">
+    <Position X="9" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Gathering.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestGame.KylaPahanen">
+    <Position X="7" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>KylaPahanen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestGame.MustaMetsa">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAEgAgCBgAQAQAGCBQAAIAQAASAAAAAAEAAAAAEE=</HashCode>
+      <FileName>MustaMetsa.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestGame.PeikonKaupunki">
+    <Position X="7" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PeikonKaupunki.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestGame.Character">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAHhAJAEEAABAEBEAACCQAAEAEAAAAAACAAgAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestGame.Program">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAABAAAAAAAAAAAAAAAAAQABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestGame.Quest">
+    <Position X="2.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAACAQAAAAAAAAABAgAAAAAA=</HashCode>
+      <FileName>Quest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestGame.QuestFactory">
+    <Position X="4.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Quest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestGame.TheGame">
+    <Position X="2.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TheGame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestGame.Utilities">
+    <Position X="9.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAgAAAAAAAAAAgAAAAAIAAAACAAAAAAAAA=</HashCode>
+      <FileName>Utilities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="4.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
