@@ -10,8 +10,8 @@ namespace QuestGame
     public class Utilities
     {
         // Public utility fields.
-        public static int s_selectionDelay = 2000;
-        public static int s_TextChapterDelay = 1500;
+        public const int s_selectionDelay = 2000;
+        public const int s_TextChapterDelay = 1500;
 
         // Text speed.
         static int s_textSpeed = 30;

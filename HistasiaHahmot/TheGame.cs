@@ -17,6 +17,9 @@ namespace QuestGame
             // Printing Quest
             quest.QuestDescription();
 
+            // Quest UI Test 
+            quest.QuestUI();
+
             // Invoking ChooseArea() with the player object as parameter
             ChooseArea(player, quest);
         }

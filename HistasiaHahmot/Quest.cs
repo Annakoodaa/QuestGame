@@ -29,6 +29,10 @@ namespace QuestGame
                 _amountLeft = value;
             }
         }
+        public int AssignedAmount
+        {
+            get { return _assignedAmount; }
+        }
 
         // Constructors
         public Quest(string action, string target, int amount)
@@ -41,8 +45,21 @@ namespace QuestGame
 
         public void QuestDescription()
         {
+            string actionFormatted = "";
+            switch (_action)
+            {
+                case "tapa":
+                    actionFormatted = "tappaa";
+                    break;
+                case "kerää":
+                    actionFormatted = "kerätä";
+                    break;
+                default:
+                    break;
+            }
+
             // Quest text
-            string questDescriptionText = $"Minun tehtäväni on {_action} {_target} {_assignedAmount}.\n" +
+            string questDescriptionText = $"Minun tehtäväni on {actionFormatted} {_assignedAmount} {_target}.\n" +
                 "Voin mennä Mustametsään, Kyläpahaseen tai Peikonkaupunkiin.\n" +
                 "Mustametsä on tunnettu huonosta näkyvyydestään, joka jättää seikkailijat heikoiksi hirviöiden yllätyshyökkäyksille,\n" +
                 "mutta sen varjoisasta ja kosteasta ympäristöstä voi helposti löytyä kaikenlaisia sieniä.\n" +
@@ -55,6 +72,12 @@ namespace QuestGame
             // Text Writing
             Utilities.TextWriter(questDescriptionText);
         }
+
+        public void QuestUI()
+        {
+            string questUI = $"Tehtävä: {_action} {_target}[{AssignedAmount - AmountLeft}/{AssignedAmount}]";
+            Console.WriteLine(questUI);
+        }
     }
 
     public class QuestFactory
@@ -64,19 +87,17 @@ namespace QuestGame
 
         public static Quest QuestGenerator()
         {
-            //var paikka = new List<string> { "Mustametsä", "Kyläpahanen", "Peikonkaupunki" };
-            //Console.WriteLine("\nLuodaan sinulle tehtävä.");
-            var random = new Random();
+            // Randomizing quest type
             var action = new List<string> { "kerää", "tapa" };
-            int actionIndex = random.Next(action.Count);
+            int actionIndex = s_rnd.Next(action.Count);
             Random maara = new Random();
             int amount = maara.Next(10, 50);
 
             // Gathering quest
             if (actionIndex == 0)
             {
-                var targetObject = new List<string> { "sieniä", "höyheniä", "kolikoita" };
-
+                // Randomizing gather target.
+                var targetObject = new List<string> { "sientä", "höyhentä", "kolikkoa" };
                 int targetIndex = s_rnd.Next(targetObject.Count);
 
                 return new Quest(action[actionIndex], targetObject[targetIndex], amount);
@@ -84,8 +105,8 @@ namespace QuestGame
             // Kill quest
             else if (actionIndex == 1)
             {
-                var targetEnemy = new List<string> { "rottia", "mörköjä", "rosvoja" };
-              
+                // Randomizing kill target.
+                var targetEnemy = new List<string> { "rottaa", "mörköä", "rosvoa" };            
                 int targetIndex = s_rnd.Next(targetEnemy.Count);
 
                 return new Quest(action[actionIndex], targetEnemy[targetIndex], amount);

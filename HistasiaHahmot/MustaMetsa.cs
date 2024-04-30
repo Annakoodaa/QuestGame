@@ -12,7 +12,6 @@ namespace QuestGame
 {
     internal class MustaMetsa
     {
-        static int s_textChapterDelay = 1500;
 
         #region Mustametsä wide fields
         static bool s_hasKey = false;
@@ -48,7 +47,7 @@ namespace QuestGame
                 // Writing text
                 Utilities.TextWriter(mmText1);
 
-                Thread.Sleep(s_textChapterDelay);
+                Thread.Sleep(Utilities.s_TextChapterDelay);
 
                 Utilities.TextWriter(mmText2);
 
@@ -162,7 +161,7 @@ namespace QuestGame
                         "enkä uskalla vaeltaa metsän syvyyksiin suunnitelmatta, joten en voi liikkua muualle kuin takaisin alkuun.\n\n";
 
                     Utilities.TextWriter(mpText1);
-                    Thread.Sleep(s_textChapterDelay);
+                    Thread.Sleep(Utilities.s_TextChapterDelay);
 
                     // Killquest specific text and battle trigger
                     if (s_killQuest)
@@ -227,7 +226,9 @@ namespace QuestGame
                         string gatheringText = $"Kumarruin sieniä keräämään. Yksi toisen perään, tungin sieniä reipasta tahtia nahkalaukkuuni. Sain {gatherAmount} sientä.\n\n";
 
                         // Quest Counting
-
+                        quest.AmountLeft -= gatherAmount;
+                        // Temp Message
+                        string tempQuestTxt = $"{quest.AmountLeft} kerättävää vielä jäljellä.";
 
                         // Text Writing
                         Utilities.TextWriter(gatheringText);
@@ -372,7 +373,7 @@ namespace QuestGame
                     // Writing text.
                     Utilities.TextWriter(metSyvText1);
 
-                    Thread.Sleep(s_textChapterDelay);
+                    Thread.Sleep(Utilities.s_TextChapterDelay);
 
                     Utilities.TextWriter(metSyvText2);
                     if (s_killQuest)
@@ -382,7 +383,7 @@ namespace QuestGame
                     }
                     else
                     {
-                        Thread.Sleep(s_textChapterDelay);
+                        Thread.Sleep(Utilities.s_TextChapterDelay);
                     }
 
                     Utilities.TextWriter(metSyvText3);
@@ -455,12 +456,12 @@ namespace QuestGame
                     }
                     else
                     {
-                        Thread.Sleep(s_textChapterDelay);
+                        Thread.Sleep(Utilities.s_TextChapterDelay);
                     }
 
                     Utilities.TextWriter(puuRakennusIntroP2);
 
-                    Thread.Sleep(s_textChapterDelay);
+                    Thread.Sleep(Utilities.s_TextChapterDelay);
 
                     Utilities.TextWriter(puuRakennusIntroP3);
 
@@ -622,7 +623,7 @@ namespace QuestGame
                             s_ruinsChecked = true;
 
                             Utilities.TextWriter(ruinsText);
-                            Thread.Sleep(s_textChapterDelay);
+                            Thread.Sleep(Utilities.s_TextChapterDelay);
                             Utilities.TextWriter(ruinsText2);
 
                             Utilities.PressToContinue();
@@ -724,11 +725,11 @@ namespace QuestGame
                 if (!s_killQuest)
                 {
                     Utilities.TextWriter(kellariOpening);
-                    Thread.Sleep(s_textChapterDelay);
+                    Thread.Sleep(Utilities.s_TextChapterDelay);
                 }
                 Utilities.TextWriter(kellariText1);
 
-                Thread.Sleep(s_textChapterDelay);
+                Thread.Sleep(Utilities.s_TextChapterDelay);
 
                 Utilities.TextWriter(kellariText2);
 
@@ -740,7 +741,7 @@ namespace QuestGame
                 }
                 else
                 {
-                    Thread.Sleep(s_textChapterDelay);
+                    Thread.Sleep(Utilities.s_TextChapterDelay);
                 }
 
                 Utilities.TextWriter(kellariText3);
@@ -776,5 +777,7 @@ namespace QuestGame
             s_kellariOpened = false;
             s_kellariCleared = false;
         }
+
+
     }
 }
