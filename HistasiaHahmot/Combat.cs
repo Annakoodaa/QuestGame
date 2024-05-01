@@ -22,7 +22,7 @@ namespace QuestGame
         static Random s_rnd = new Random();
 
         // Needs player object from main.
-        internal static void Battle(Character player, int enemyType, int enemyAmount)
+        internal static int Battle(Character player, int enemyType, int enemyAmount)
         {
             Console.Clear();
 
@@ -37,11 +37,8 @@ namespace QuestGame
             int enMaxDmg = 12;
             int enMinDmg = 2;
 
-            // TEST: choose EnemyType
-            //int enemyType = 1;
-            //int enemyAmount = 1;
             int enemyCount = enemyAmount;
-            // TEST END
+            int killedAmount = 0;
 
             bool fleeing = false;
 
@@ -108,6 +105,7 @@ namespace QuestGame
                             string enemyDeathText = $"{enemy.Name} kuoli.\nSaat {HPrestore} hpta takaisin\n";
                             Utilities.TextWriter(enemyDeathText);
                             enemyCount -= 1;
+                            killedAmount += 1;
                             Thread.Sleep(50);
                             Console.WriteLine("Paina nappia jatkaaksesi");
                             Console.ReadKey(true);
@@ -154,20 +152,18 @@ namespace QuestGame
                     Console.Clear();
                 }
                 Console.Clear();
+                
             }
-        }
-
-        public static void EnemyDeath()
-        {
-
+            return killedAmount;
         }
 
         public static void PlayerDeath()
         {
+            Console.Clear();
             string plDeathText = $"\nSinä kuolit.\nPaina nappia jatkaaksesi.";
             Utilities.TextWriter(plDeathText);
-            //Console.WriteLine($"Sinä kuolit. Paina nappia jatkaaksesi.");
             Console.ReadKey(true);
+            Environment.Exit(0);
         }
     }
 }

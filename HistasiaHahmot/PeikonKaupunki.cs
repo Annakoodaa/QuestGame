@@ -17,7 +17,7 @@ namespace QuestGame
         static int enemyType = 2;
         static int enemyAmount = rnd.Next(2, 6);
 
-        public static void Start(Character player)
+        public static void Start(Character player, Quest quest)
         {
             string answer;
             string answerKey;
@@ -75,15 +75,15 @@ namespace QuestGame
                     {
                         case "1":
                             validInput = true;
-                            MarkettiGather(player);
+                            MarkettiGather(player, quest);
                             break;
                         case "2":
                             validInput = true;
-                            YoelamaAlueGather(player);
+                            YoelamaAlueGather(player, quest);
                             break;
                         case "3":
                             validInput = true;
-                            TheGame.ChooseArea(player);
+                            TheGame.ChooseArea(player,quest);
                             break;
                         default:
                             TextWriter("Sopimaton syöttö");
@@ -117,15 +117,15 @@ namespace QuestGame
                     {
                         case "1":
                             validInput = true;
-                            MarkettiKill(player);
+                            MarkettiKill(player, quest);
                             break;
                         case "2":
                             validInput = true;
-                            YoelamaAlueKill(player);
+                            YoelamaAlueKill(player, quest);
                             break;
                         case "3":
                             validInput = true;
-                            TheGame.ChooseArea(player);
+                            TheGame.ChooseArea(player, quest);
                             break;
                         default:
                             TextWriter("Sopimaton syöttö");
@@ -138,7 +138,7 @@ namespace QuestGame
         static bool marketActionComplete = false;
         static bool marketVisitedGather = false;
 
-        static void MarkettiGather(Character player)
+        static void MarkettiGather(Character player, Quest quest)
         {
             int amount = Gathering.Gather(player);
             bool validInput = false;
@@ -255,22 +255,22 @@ namespace QuestGame
                         TextWriter(marketAction21);
                         Continue();
                         marketActionComplete = true;
-                        MarkettiGather(player);
+                        MarkettiGather(player, quest);
                     }
                     else
                     {
                         TextWriter("Olen puhunut hänelle jo, enkä ole rupatterevalla mielellä.");
                         Continue();
-                        MarkettiGather(player);
+                        MarkettiGather(player, quest);
                     }
                     break;
                 case "2":
                     validInput = true;
-                    AsutusalueGather(player);
+                    AsutusalueGather(player, quest);
                     break;
                 case "3":
                     validInput = true;
-                    Start(player);
+                    Start(player, quest);
                     break;
                 default:
                     TextWriter("Sopimaton syöttö");
@@ -281,7 +281,7 @@ namespace QuestGame
         static bool asutusalueActionComplete = false;
         static bool asutusalueVisitedGather = false;
 
-        static void AsutusalueGather(Character player)
+        static void AsutusalueGather(Character player, Quest quest)
         {
             int amount = Gathering.Gather(player);
             bool validInput = false;
@@ -432,22 +432,22 @@ namespace QuestGame
                             TextWriter(asutusalueAction29);
                             Continue();
                             asutusalueActionComplete = true;
-                            AsutusalueGather(player);
+                            AsutusalueGather(player, quest);
                         }
                         else
                         {
                             TextWriter("Lapset ovat sisällä lepäämässä. Ei ole ketään jonka kanssa leikkiä.");
                             Continue();
-                            AsutusalueGather(player);
+                            AsutusalueGather(player, quest);
                         }
                         break;
                     case "2":
                         validInput = true;
-                        AsemaGather(player);
+                        AsemaGather(player, quest);
                         break;
                     case "3":
                         validInput = true;
-                        MarkettiGather(player);
+                        MarkettiGather(player, quest);
                         break;
                     default:
                         TextWriter("Sopimaton syöttö");
@@ -458,7 +458,7 @@ namespace QuestGame
 
         static bool asemaActionComplete = false;
         static bool asemaVisitedGather = false;
-        static void AsemaGather(Character player)
+        static void AsemaGather(Character player, Quest quest)
         {
             int amount = Gathering.Gather(player);
             bool validInput = false;
@@ -512,22 +512,22 @@ namespace QuestGame
                             TextWriter(asemaAction2);
                             Continue();
                             asemaActionComplete = true;
-                            AsemaGather(player);
+                            AsemaGather(player, quest);
                         }
                         else
                         {
                             TextWriter("En näe mitään syytä liittyä seuraan toista kertaa.");
                             Continue();
-                            AsemaGather(player);
+                            AsemaGather(player, quest);
                         }
                         break;
                     case "2":
                         validInput = true;
-                        AsutusalueGather(player);
+                        AsutusalueGather(player, quest);
                         break;
                     case "3":
                         validInput = true;
-                        YoelamaAlueGather(player);
+                        YoelamaAlueGather(player, quest);
                         break;
                     default:
                         TextWriter("Sopimaton syöttö");
@@ -538,7 +538,7 @@ namespace QuestGame
 
         static bool yoelamaAlueActionComplete = false;
         static bool yoelamaAlueVisitedGather = false;
-        static void YoelamaAlueGather(Character player)
+        static void YoelamaAlueGather(Character player, Quest quest)
         {
             int amount = Gathering.Gather(player);
             bool validInput = false;
@@ -607,22 +607,22 @@ namespace QuestGame
                             TextWriter(yoelamaAlueAction7);
                             Continue();
                             yoelamaAlueActionComplete = true;
-                            YoelamaAlueGather(player);
+                            YoelamaAlueGather(player, quest);
                         }
                         else
                         {
                             TextWriter("Minulla ei ole enään mitään asiaa siellä.");
                             Continue();
-                            YoelamaAlueGather(player);
+                            YoelamaAlueGather(player, quest);
                         }
                         break;
                     case "2":
                         validInput = true;
-                        AsemaGather(player);
+                        AsemaGather(player, quest);
                         break;
                     case "3":
                         validInput = true;
-                        Start(player);
+                        Start(player, quest);
                         break;
                     default:
                         TextWriter("Sopimaton syöttö");
@@ -632,7 +632,7 @@ namespace QuestGame
         }
 
         static bool marketVisitedKill = false;
-        static void MarkettiKill(Character player)
+        static void MarkettiKill(Character player, Quest quest)
         {
             bool validInput = false;
             string answerKey;
@@ -676,11 +676,11 @@ namespace QuestGame
                 {
                     case "1":
                         validInput = true;
-                        AsutusalueKill(player);
+                        AsutusalueKill(player, quest);
                         break;
                     case "2":
                         validInput = true;
-                        Start(player);
+                        Start(player, quest);
                         break;
                     default:
                         TextWriter("Sopimaton syöttö");
@@ -690,7 +690,7 @@ namespace QuestGame
         }
 
         static bool asutusalueVisitedKill = false;
-        static void AsutusalueKill(Character player)
+        static void AsutusalueKill(Character player, Quest quest)
         {
             bool validInput = false;
             string answerKey;
@@ -744,11 +744,11 @@ namespace QuestGame
                 {
                     case "1":
                         validInput = true;
-                        AsemaKill(player);
+                        AsemaKill(player, quest);
                         break;
                     case "2":
                         validInput = true;
-                        MarkettiKill(player);
+                        MarkettiKill(player, quest);
                         break;
                     default:
                         TextWriter("Sopimaton syöttö");
@@ -758,7 +758,7 @@ namespace QuestGame
         }
 
         static bool asemaVisitedKill = false;
-        static void AsemaKill(Character player)
+        static void AsemaKill(Character player, Quest quest)
         {
             bool validInput = false;
             string answerKey;
@@ -796,11 +796,11 @@ namespace QuestGame
                 {
                     case "1":
                         validInput = true;
-                        AsutusalueKill(player);
+                        AsutusalueKill(player, quest);
                         break;
                     case "2":
                         validInput = true;
-                        YoelamaAlueKill(player);
+                        YoelamaAlueKill(player, quest);
                         break;
                     default:
                         TextWriter("Sopimaton syöttö");
@@ -810,7 +810,7 @@ namespace QuestGame
         }
 
         static bool yoelamaAlueVisitedKill = false;
-        static void YoelamaAlueKill(Character player)
+        static void YoelamaAlueKill(Character player, Quest quest)
         {
             bool validInput = false;
             string answerKey;
@@ -847,11 +847,11 @@ namespace QuestGame
                 {
                     case "1":
                         validInput = true;
-                        AsemaKill(player);
+                        AsemaKill(player, quest);
                         break;
                     case "2":
                         validInput = true;
-                        Start(player);
+                        Start(player, quest);
                         break;
                     default:
                         TextWriter("Sopimaton syöttö");
