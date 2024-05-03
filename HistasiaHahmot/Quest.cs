@@ -68,7 +68,7 @@ namespace QuestGame
 
             // Quest text
             string questDescriptionText = $"Minun tehtäväni on {actionFormatted} {_assignedAmount} {_target}.\n" +
-                "Voin mennä Mustametsään, Kyläpahaseen tai Peikonkaupunkiin.\n" +
+                "Voin mennä Mustametsään tai Peikonkaupunkiin.\n" +
                 "Mustametsä on tunnettu huonosta näkyvyydestään, joka jättää seikkailijat heikoiksi hirviöiden yllätyshyökkäyksille,\n" +
                 "mutta sen varjoisasta ja kosteasta ympäristöstä voi helposti löytyä kaikenlaisia sieniä.\n" +
                 "Peikonkaupunki on melko ilmiselvä konsepti. Se on kaupunki täynnä peikkoja. Peikot useimmiten koristavat asusteitaan\n" +
