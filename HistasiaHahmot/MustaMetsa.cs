@@ -120,16 +120,16 @@ namespace QuestGame
 
             switch (pressedKey.KeyChar)
             {
-                case '1':
+                case '1': // multapolku chosen
                     MultaPolku(player, quest);
                     break;
-                case '2':
+                case '2': // metsansyvyydet chosen
                     Metsansyvyydet(player, quest);
                     break;
-                case '3':
+                case '3': // Puurakennus chosen
                     PuuRakennus(player, quest);
                     break;
-                case '4':
+                case '4': // palaa Alkuun Chosen
                     ResetArea();
                     if (quest.QuestCompleted)
                     {
