@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,8 +13,6 @@ namespace QuestGame
     {
         static Random rnd = new Random();
         static bool startVisited = false;
-        static bool answered = false;
-        static bool questKill;
         static int enemyType = 2;
         static int enemyAmount = rnd.Next(2, 6);
         static string enemyName = "rottaa";
@@ -61,38 +60,61 @@ namespace QuestGame
                     TextWriter(startReturn);
                 }
 
-                do
+                if (quest.QuestCompleted)
                 {
-                    Console.WriteLine("\n1. Marketti\n2. Yöelämä alue\n3. Palaa aluevalintaan");
-                    answerKey = Console.ReadLine();
-
-                    switch (answerKey)
+                    do
                     {
-                        case "1":
-                            validInput = true;
-                            MarkettiGather(player, quest);
-                            break;
-                        case "2":
-                            validInput = true;
-                            YoelamaAlueGather(player, quest);
-                            break;
-                        case "3":
-                            validInput = true;
-                            if (quest.QuestCompleted)
-                            {
+                        Console.WriteLine("\n1. Marketti\n2. Yöelämä alue\n3. Palaa kotiin");
+                        answerKey = Console.ReadLine();
+
+                        switch (answerKey)
+                        {
+                            case "1":
+                                validInput = true;
+                                MarkettiGather(player, quest);
+                                break;
+                            case "2":
+                                validInput = true;
+                                YoelamaAlueGather(player, quest);
+                                break;
+                            case "3":
+                                validInput = true;
                                 TextWriter(end);
                                 Continue();
-                            }
-                            else
-                            {
+                                break;
+                            default:
+                                TextWriter("Sopimaton syöttö");
+                                break;
+                        }
+                    } while (validInput == false);
+                }
+                else
+                {
+                    do
+                    {
+                        Console.WriteLine("\n1. Marketti\n2. Yöelämä alue\n3. Palaa aluevalintaan");
+                        answerKey = Console.ReadLine();
+
+                        switch (answerKey)
+                        {
+                            case "1":
+                                validInput = true;
+                                MarkettiGather(player, quest);
+                                break;
+                            case "2":
+                                validInput = true;
+                                YoelamaAlueGather(player, quest);
+                                break;
+                            case "3":
+                                validInput = true;
                                 TheGame.ChooseArea(player, quest);
-                            }
-                            break;
-                        default:
-                            TextWriter("Sopimaton syöttö");
-                            break;
-                    }
-                } while (validInput == false);
+                                break;
+                            default:
+                                TextWriter("Sopimaton syöttö");
+                                break;
+                        }
+                    } while (validInput == false);
+                }
             }
             else
             {
@@ -114,38 +136,61 @@ namespace QuestGame
                     TextWriter(startReturn);
                 }
 
-                do
+                if (quest.QuestCompleted)
                 {
-                    Console.WriteLine("\n1. Marketti\n2. Yöelämä alue\n3. Palaa aluevalintaan");
-                    answerKey = Console.ReadLine();
-
-                    switch (answerKey)
+                    do
                     {
-                        case "1":
-                            validInput = true;
-                            MarkettiKill(player, quest);
-                            break;
-                        case "2":
-                            validInput = true;
-                            YoelamaAlueKill(player, quest);
-                            break;
-                        case "3":
-                            validInput = true;
-                            if (quest.QuestCompleted)
-                            {
+                        Console.WriteLine("\n1. Marketti\n2. Yöelämä alue\n3. Palaa kotiin");
+                        answerKey = Console.ReadLine();
+
+                        switch (answerKey)
+                        {
+                            case "1":
+                                validInput = true;
+                                MarkettiGather(player, quest);
+                                break;
+                            case "2":
+                                validInput = true;
+                                YoelamaAlueGather(player, quest);
+                                break;
+                            case "3":
+                                validInput = true;
                                 TextWriter(end);
                                 Continue();
-                            }
-                            else
-                            {
+                                break;
+                            default:
+                                TextWriter("Sopimaton syöttö");
+                                break;
+                        }
+                    } while (validInput == false);
+                }
+                else
+                {
+                    do
+                    {
+                        Console.WriteLine("\n1. Marketti\n2. Yöelämä alue\n3. Palaa aluevalintaan");
+                        answerKey = Console.ReadLine();
+
+                        switch (answerKey)
+                        {
+                            case "1":
+                                validInput = true;
+                                MarkettiGather(player, quest);
+                                break;
+                            case "2":
+                                validInput = true;
+                                YoelamaAlueGather(player, quest);
+                                break;
+                            case "3":
+                                validInput = true;
                                 TheGame.ChooseArea(player, quest);
-                            }
-                            break;
-                        default:
-                            TextWriter("Sopimaton syöttö");
-                            break;
-                    }
-                } while (validInput == false);
+                                break;
+                            default:
+                                TextWriter("Sopimaton syöttö");
+                                break;
+                        }
+                    } while (validInput == false);
+                }
             }
         }
 
@@ -733,6 +778,7 @@ namespace QuestGame
                 // Combat and Quest Progress
                 int killAmount = Combat.Battle(player, enemyType, enemyAmount);
                 quest.QuestProgress(killAmount, enemyName);
+                quest.QuestUI();
                 // Combat and Quest Progress end
                 TextWriter(markettiIntro5);
                 marketVisitedKill = true;
@@ -806,6 +852,7 @@ namespace QuestGame
                 // Combat and Quest progress
                 int killAmount = Combat.Battle(player, enemyType, enemyAmount);
                 quest.QuestProgress(killAmount, enemyName);
+                quest.QuestUI();
                 // Combat and Quest Progress end
                 TextWriter(asutusalueIntro6 + "\n\n");
                 TextWriter(asutusalueIntro7 + "\n\n");
@@ -867,6 +914,7 @@ namespace QuestGame
                 // Combat and Quest progress
                 int killAmount = Combat.Battle(player, enemyType, enemyAmount);
                 quest.QuestProgress(killAmount, enemyName);
+                quest.QuestUI();
                 // Combat and Quest Progress end
                 TextWriter(asemaIntro3);
                 asemaVisitedKill = true;
@@ -925,6 +973,7 @@ namespace QuestGame
                 // Combat and Quest Progress
                 int killAmount = Combat.Battle(player, enemyType, enemyAmount);
                 quest.QuestProgress(killAmount, enemyName);
+                quest.QuestUI();
                 // Combat and Quest Progress end
                 TextWriter(yoelamaAlueIntro3);
                 yoelamaAlueVisitedKill = true;
