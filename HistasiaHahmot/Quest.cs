@@ -92,10 +92,18 @@ namespace QuestGame
                 default:
                     throw new Exception("Unknown action!");
             }
-
+            // Quest Amount Tracking
             string questUI = $"Tehtävä: [{_assignedAmount - _amountLeft}/{_assignedAmount}] {_target} {actionFormatted}.";
             Console.Write(new string(' ', (Console.WindowWidth - questUI.Length) / 2));
             Console.WriteLine(questUI);
+            if (QuestCompleted)
+            {
+                string QuestCompleted = "Onnistuit tehtävässäsi.";
+                Console.Write(new string(' ', (Console.WindowWidth - QuestCompleted.Length) / 2));
+                Console.WriteLine(QuestCompleted);
+            }
+
+            // Divider
             string divider = "***********************************\n\n";
             Console.Write(new string(' ', (Console.WindowWidth - divider.Length) / 2));
             Console.WriteLine(divider);

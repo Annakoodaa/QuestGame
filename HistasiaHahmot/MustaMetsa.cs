@@ -94,13 +94,22 @@ namespace QuestGame
             // Selection window delay
             Thread.Sleep(Utilities.s_selectionDelay);
             // 1 multapolku 2. Metsänsyvyydet 3. Rakennus
-            Console.Write
-                (
-                "1. Multapolku\n" +
+            string selection = "";
+            if (quest.QuestCompleted)
+            {
+                selection = "1. Multapolku\n" +
                 "2. Metsänsyvyys\n" +
                 "3. Puurakennus\n" +
-                "4. Palaa aluevalintaan.\n"
-                );
+                "4. Raportoi tehtävä valmiiksi ja palaa kotiin.\n";
+            }
+            else
+            {
+                selection = "1. Multapolku\n" +
+                "2. Metsänsyvyys\n" +
+                "3. Puurakennus\n" +
+                "4. Palaa aluevalintaan.\n";
+            }
+            Console.Write(selection);
 
             // Input
             bool validInput = false;
@@ -133,6 +142,7 @@ namespace QuestGame
                     ResetArea();
                     if (quest.QuestCompleted)
                     {
+                        Console.Clear();
                         string endText = "Palattuani alkupisteeseen, sammutin lyhtyni ja astuin pois märältä sammaleelta vankalle tielle. Aika mennä kotiin ja raportoida tehtävä valmiiksi.";
                         Utilities.TextWriter(endText);
                     }
