@@ -147,11 +147,11 @@ namespace QuestGame
                         {
                             case "1":
                                 validInput = true;
-                                MarkettiGather(player, quest);
+                                MarkettiKill(player, quest);
                                 break;
                             case "2":
                                 validInput = true;
-                                YoelamaAlueGather(player, quest);
+                                YoelamaAlueKill(player, quest);
                                 break;
                             case "3":
                                 validInput = true;
@@ -175,11 +175,11 @@ namespace QuestGame
                         {
                             case "1":
                                 validInput = true;
-                                MarkettiGather(player, quest);
+                                MarkettiKill(player, quest);
                                 break;
                             case "2":
                                 validInput = true;
-                                YoelamaAlueGather(player, quest);
+                                YoelamaAlueKill(player, quest);
                                 break;
                             case "3":
                                 validInput = true;
