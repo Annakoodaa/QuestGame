@@ -15,9 +15,9 @@ namespace QuestGame
         public string CharacterClass { get; set; }
         public string GameCharacter { get; set; }
 
-        readonly int maxHealth = 100;
+        readonly int maxHealth = 75;
 
-        int _health = 100;
+        int _health = 75;
         int _defense = 0;
         int _attackBonus = 0;
         int _gatheringSkill = 0;

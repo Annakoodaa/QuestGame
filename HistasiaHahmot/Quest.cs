@@ -130,7 +130,7 @@ namespace QuestGame
             int actionIndex = s_rnd.Next(action.Count);
 
             // Randomizing amount.
-            int amount = s_rnd.Next(6, 18);
+            int amount = s_rnd.Next(3, 10);
 
             // Gathering quest
             if (actionIndex == 0)

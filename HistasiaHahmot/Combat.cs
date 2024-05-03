@@ -14,7 +14,7 @@ namespace QuestGame
         // Enemy Types
         static List<Enemy> EnemyTypes = new List<Enemy>() {
                 new Enemy("zombie",25,2,-1),
-                new Enemy("mörkö",50,0,2),
+                new Enemy("mörkö",25,0,2),
                 new Enemy("rotta",10,-2,0),
                 new Enemy("rosvo",40,2,2) };
 
@@ -90,6 +90,10 @@ namespace QuestGame
                         int playerDamage = s_rnd.Next(plMinDmg, plMaxDmg + 1);
                         playerDamage += player.AttackBonus;
                         playerDamage -= enemy.Defense;
+                        if(playerDamage < 0)
+                        {
+                            playerDamage = 0;
+                        }
                         enemy.Health -= playerDamage;
                         // player attack damage text.
                         string plAtkText = $"Teit {playerDamage} vauriota.\n---------\n";
@@ -133,6 +137,10 @@ namespace QuestGame
                     int enemyDamage = s_rnd.Next(enMinDmg, enMaxDmg + 1);
                     enemyDamage += enemy.AttackBonus;
                     enemyDamage -= player.Defense;
+                    if (enemyDamage < 0)
+                    {
+                        enemyDamage = 0;
+                    }
                     player.Health -= enemyDamage;
 
                     // Text for enemy attacks

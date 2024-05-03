@@ -15,8 +15,8 @@ namespace QuestGame
         public static int Gather(Character player)
         {
             // Gathering Defaults
-            int maxAmount = 10;
-            int minAmount = 1;
+            int maxAmount = 6;
+            int minAmount = 3;
 
             // Area modifier affecting max amount.
 

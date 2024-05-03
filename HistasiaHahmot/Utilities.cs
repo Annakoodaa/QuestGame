@@ -14,7 +14,7 @@ namespace QuestGame
         public const int s_TextChapterDelay = 1500;
 
         // Text speed.
-        static int s_textSpeed = 30;
+        static int s_textSpeed = 20;
 
         // Method for text writing
         public static void TextWriter(string text)
