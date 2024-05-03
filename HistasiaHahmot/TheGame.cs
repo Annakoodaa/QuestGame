@@ -28,8 +28,7 @@ namespace QuestGame
             Console.Write
                 (
                 "1. Mustametsä\n" +
-                "2. Kyläpahanen\n" +
-                "3. Peikonkaupunki\n"                
+                "2. Peikonkaupunki\n"                
                 );
 
             // Input
@@ -55,9 +54,6 @@ namespace QuestGame
                     MustaMetsa.MMEntrance(player,quest);
                     break;
                 case '2':
-                    KylaPahanen.Start();
-                    break;
-                case '3':
                     PeikonKaupunki.Start(player, quest);
                     break;
             }

@@ -71,9 +71,6 @@ namespace QuestGame
                 "Voin mennä Mustametsään, Kyläpahaseen tai Peikonkaupunkiin.\n" +
                 "Mustametsä on tunnettu huonosta näkyvyydestään, joka jättää seikkailijat heikoiksi hirviöiden yllätyshyökkäyksille,\n" +
                 "mutta sen varjoisasta ja kosteasta ympäristöstä voi helposti löytyä kaikenlaisia sieniä.\n" +
-                "Kyläpahanen on pieni kylä keskellä suurin piirtein turvallista maakuntaa. Siellä voi rosvojen uhriksi joutua,\n" +
-                "tai jyrsijät saattavat alkaa maistella kantapäitä, mutta ei mitään sen vaarallisempaa—sitä paitsi, rosvojen\n" +
-                "kätköistä voi helposti löytyä kolikoita oman taskun painottamiseksi.\n" +
                 "Peikonkaupunki on melko ilmiselvä konsepti. Se on kaupunki täynnä peikkoja. Peikot useimmiten koristavat asusteitaan\n" +
                 "höyhenillä.\n";
 
@@ -139,7 +136,7 @@ namespace QuestGame
             if (actionIndex == 0)
             {
                 // Randomizing gather target.
-                var targetObject = new List<string> { "sientä", "höyhentä", "kolikkoa" };
+                var targetObject = new List<string> { "sientä", "höyhentä" /*"kolikkoa"*/ };
                 int targetIndex = s_rnd.Next(targetObject.Count);
 
                 return new Quest(action[actionIndex], targetObject[targetIndex], amount);
@@ -148,7 +145,7 @@ namespace QuestGame
             else if (actionIndex == 1)
             {
                 // Randomizing kill target.
-                var targetEnemy = new List<string> { "rottaa", "mörköä", "rosvoa" };            
+                var targetEnemy = new List<string> { "rottaa", "mörköä" /*"rosvoa"*/ };            
                 int targetIndex = s_rnd.Next(targetEnemy.Count);
 
                 return new Quest(action[actionIndex], targetEnemy[targetIndex], amount);
