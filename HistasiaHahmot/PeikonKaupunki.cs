@@ -37,25 +37,16 @@ namespace QuestGame
                 " Karkaaminen on vaihtoehto myös, mutta siitä ei hyvä seuraa.\n";
             string startReturn = "Peikonkaupungin porteilla jälleen. Poliittinen kampanjointi ei ole lakannut kaupungin keskustassa, joten en voi sinne vieläkään astua." +
                 " Voin mennä joko markettiin, tai yöelämä alueelle. Karkuun meno on epäsuositeltava vaihtoehto.\n";
-
-            if (answered == false)
-            {
-                //This is a temporary solution for introducing both types of quest.
-                Console.WriteLine("Is this a kill quest? (Y/N)");
-                answer = Console.ReadLine().ToLower();
-
-                questKill = answer == "y" ? true : false;
-
-                answered = true;
-            }
+            string end = "Astuin Peikonkaupungin porteista ulos ja jäin odottamaan seuraavaa kärryä. Kohta pääsen raportoimaan tehtävän suoritetuksi ja saan päivän palkkani.";
 
             Console.Clear();
 
-            if (!questKill)
+            if (!quest.KillQuest)
             {
                 if (startVisited == false)
                 {
-                    Console.WriteLine("Gather Quest:");
+                    quest.QuestUI();
+
                     TextWriter(start1);
                     Continue();
                     TextWriter(start2);
@@ -65,6 +56,8 @@ namespace QuestGame
                 }
                 else
                 {
+                    quest.QuestUI();
+
                     TextWriter(startReturn);
                 }
 
@@ -85,7 +78,16 @@ namespace QuestGame
                             break;
                         case "3":
                             validInput = true;
-                            TheGame.ChooseArea(player,quest);
+                            if (quest.QuestCompleted)
+                            {
+                                TextWriter(end);
+                                Continue();
+                                TheGame.ChooseArea(player, quest);
+                            }
+                            else
+                            {
+                                TheGame.ChooseArea(player, quest);
+                            }
                             break;
                         default:
                             TextWriter("Sopimaton syöttö");
@@ -97,7 +99,8 @@ namespace QuestGame
             {
                 if (startVisited == false)
                 {
-                    Console.WriteLine("Kill Quest:");
+                    quest.QuestUI();
+
                     TextWriter(start1);
                     Continue();
                     TextWriter(start2);
@@ -107,6 +110,8 @@ namespace QuestGame
                 }
                 else
                 {
+                    quest.QuestUI();
+
                     TextWriter(startReturn);
                 }
 
@@ -127,7 +132,16 @@ namespace QuestGame
                             break;
                         case "3":
                             validInput = true;
-                            TheGame.ChooseArea(player, quest);
+                            if (quest.QuestCompleted)
+                            {
+                                TextWriter(end);
+                                Continue();
+                                TheGame.ChooseArea(player, quest);
+                            }
+                            else
+                            {
+                                TheGame.ChooseArea(player, quest);
+                            }
                             break;
                         default:
                             TextWriter("Sopimaton syöttö");
@@ -185,6 +199,8 @@ namespace QuestGame
 
             if (marketVisitedGather == false)
             {
+                quest.QuestUI();
+
                 TextWriter(marketIntro1);
                 Continue();
                 TextWriter(marketIntro2);
@@ -194,10 +210,14 @@ namespace QuestGame
             }
             else if (marketVisitedGather == true && marketActionComplete == true)
             {
+                quest.QuestUI();
+
                 TextWriter(marketReturnActionComplete);
             }
             else
             {
+                quest.QuestUI();
+
                 TextWriter(marketReturnActionIncomplete1);
                 Continue();
                 TextWriter(marketReturnActionIncomplete2);
@@ -214,6 +234,10 @@ namespace QuestGame
                     validInput = true;
                     if (marketActionComplete == false)
                     {
+                        Console.Clear();
+
+                        quest.QuestUI();
+
                         TextWriter(marketAction1);
                         Continue();
                         TextWriter(marketAction2);
@@ -263,6 +287,8 @@ namespace QuestGame
                     }
                     else
                     {
+                        quest.QuestUI();
+
                         TextWriter("Olen puhunut hänelle jo, enkä ole rupatterevalla mielellä.");
                         Continue();
                         MarkettiGather(player, quest);
@@ -350,6 +376,8 @@ namespace QuestGame
 
             if (asutusalueVisitedGather == false)
             {
+                quest.QuestUI();
+
                 TextWriter(asutusalueIntro1);
                 Continue();
                 TextWriter(asutusalueIntro2);
@@ -359,10 +387,14 @@ namespace QuestGame
             }
             else if (asutusalueVisitedGather == true && asutusalueActionComplete == true)
             {
+                quest.QuestUI();
+
                 TextWriter(asutusalueReturnActionComplete);
             }
             else
             {
+                quest.QuestUI();
+
                 TextWriter(asutusalueReturnActionIncomplete);
             }
 
@@ -377,6 +409,10 @@ namespace QuestGame
                         validInput = true;
                         if (asutusalueActionComplete == false)
                         {
+                            Console.Clear();
+
+                            quest.QuestUI();
+
                             TextWriter(asutusalueAction1);
                             Continue();
                             TextWriter(asutusalueAction2);
@@ -442,6 +478,8 @@ namespace QuestGame
                         }
                         else
                         {
+                            quest.QuestUI();
+
                             TextWriter("Lapset ovat sisällä lepäämässä. Ei ole ketään jonka kanssa leikkiä.");
                             Continue();
                             AsutusalueGather(player, quest);
@@ -486,6 +524,8 @@ namespace QuestGame
 
             if (asemaVisitedGather == false)
             {
+                quest.QuestUI();
+
                 TextWriter(asemaIntro1);
                 Continue();
                 TextWriter(asemaIntro2);
@@ -495,10 +535,14 @@ namespace QuestGame
             }
             else if (asemaVisitedGather == true && asemaActionComplete == true)
             {
+                quest.QuestUI();
+
                 TextWriter(asemaReturnActionComplete);
             }
             else
             {
+                quest.QuestUI();
+
                 TextWriter(asemaReturnActionIncomplete);
             }
 
@@ -513,6 +557,10 @@ namespace QuestGame
                         validInput = true;
                         if (asemaActionComplete == false)
                         {
+                            Console.Clear();
+
+                            quest.QuestUI();
+
                             TextWriter(asemaAction1);
                             Continue();
                             TextWriter(asemaAction2);
@@ -524,6 +572,8 @@ namespace QuestGame
                         }
                         else
                         {
+                            quest.QuestUI();
+
                             TextWriter("En näe mitään syytä liittyä seuraan toista kertaa.");
                             Continue();
                             AsemaGather(player, quest);
@@ -573,6 +623,8 @@ namespace QuestGame
 
             if (yoelamaAlueVisitedGather == false)
             {
+                quest.QuestUI();
+
                 TextWriter(yoelamaAlueIntro1);
                 Continue();
                 TextWriter(yoelamaAlueIntro2);
@@ -582,10 +634,14 @@ namespace QuestGame
             }
             else if (yoelamaAlueVisitedGather == true && yoelamaAlueActionComplete == true)
             {
+                quest.QuestUI();
+
                 TextWriter(yoelamaAlueReturnActionComplete);
             }
             else
             {
+                quest.QuestUI();
+
                 TextWriter(yoelamaAlueReturnActionIncomplete);
             }
 
@@ -600,6 +656,10 @@ namespace QuestGame
                         validInput = true;
                         if (yoelamaAlueActionComplete == false)
                         {
+                            Console.Clear();
+
+                            quest.QuestUI();
+
                             TextWriter(yoelamaAlueAction1);
                             Continue();
                             TextWriter(yoelamaAlueAction2);
@@ -621,6 +681,8 @@ namespace QuestGame
                         }
                         else
                         {
+                            quest.QuestUI();
+
                             TextWriter("Minulla ei ole enään mitään asiaa siellä.");
                             Continue();
                             YoelamaAlueGather(player, quest);
@@ -660,6 +722,8 @@ namespace QuestGame
 
             if (marketVisitedKill == false)
             {
+                quest.QuestUI();
+
                 TextWriter(markettiIntro1);
                 Continue();
                 TextWriter(markettiIntro2);
@@ -677,6 +741,8 @@ namespace QuestGame
             }
             else
             {
+                quest.QuestUI();
+
                 TextWriter(markettiReturn);
             }
 
@@ -727,6 +793,8 @@ namespace QuestGame
 
             if (asutusalueVisitedKill == false)
             {
+                quest.QuestUI();
+
                 TextWriter(asutusalueIntro1);
                 Continue();
                 TextWriter(asutusalueIntro2);
@@ -748,6 +816,8 @@ namespace QuestGame
             }
             else
             {
+                quest.QuestUI();
+
                 TextWriter(asutusalueReturn);
             }
 
@@ -790,6 +860,8 @@ namespace QuestGame
 
             if (asemaVisitedKill == false)
             {
+                quest.QuestUI();
+
                 TextWriter(asemaIntro1);
                 Continue();
                 TextWriter(asemaIntro2);
@@ -803,6 +875,8 @@ namespace QuestGame
             }
             else
             {
+                quest.QuestUI();
+
                 TextWriter(asemaReturn);
             }
 
@@ -844,6 +918,8 @@ namespace QuestGame
 
             if (yoelamaAlueVisitedKill == false)
             {
+                quest.QuestUI();
+
                 TextWriter(yoelamaAlueIntro1);
                 Continue();
                 TextWriter(yoelamaAlueIntro2);
@@ -857,6 +933,8 @@ namespace QuestGame
             }
             else
             {
+                quest.QuestUI();
+
                 TextWriter(yoelamaAlueReturn);
             }
 
