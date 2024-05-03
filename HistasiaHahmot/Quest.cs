@@ -54,7 +54,7 @@ namespace QuestGame
             Utilities.TextWriter(questDescriptionText);
         }
     }
-
+    //
     public class QuestFactory
     {
         // Random
