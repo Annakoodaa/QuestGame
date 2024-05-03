@@ -328,11 +328,6 @@ namespace QuestGame
                     default:
                         break;
                 }
-
-                //if (!enterKellari || !prConnection || !returnToStart)
-                //{
-                //    Utilities.PressToContinue();
-                //}
             }
 
             if (prConnection)
