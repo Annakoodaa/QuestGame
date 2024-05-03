@@ -82,7 +82,6 @@ namespace QuestGame
                             {
                                 TextWriter(end);
                                 Continue();
-                                TheGame.ChooseArea(player, quest);
                             }
                             else
                             {
@@ -136,7 +135,6 @@ namespace QuestGame
                             {
                                 TextWriter(end);
                                 Continue();
-                                TheGame.ChooseArea(player, quest);
                             }
                             else
                             {
